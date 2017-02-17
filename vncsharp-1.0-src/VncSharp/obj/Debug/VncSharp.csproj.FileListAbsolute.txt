@@ -1,8 +1,0 @@
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\bin\Debug\VncSharp.dll
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\bin\Debug\VncSharp.pdb
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\obj\Debug\VncSharp.csprojResolveAssemblyReference.cache
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\obj\Debug\VncSharp.PasswordDialog.resources
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\obj\Debug\VncSharp.RemoteDesktop.resources
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\obj\Debug\VncSharp.csproj.GenerateResource.Cache
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\obj\Debug\VncSharp.dll
-C:\_dev\VNC System\vncsharp-1.0-src\VncSharp\obj\Debug\VncSharp.pdb
