@@ -21,6 +21,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityVncSharp.Drawing;
 using UnityVncSharp.Drawing.Imaging;
+using System.Collections.Generic;
 
 namespace UnityVncSharp
 {
@@ -92,6 +93,9 @@ namespace UnityVncSharp
             Connected,
             Connecting
         }
+
+
+
 
         public RemoteDesktop()
         {
@@ -187,6 +191,17 @@ namespace UnityVncSharp
             }
         }
 
+        public Texture2D texture
+        {
+            get
+            {
+                if (desktop == null)
+                    return null;
+
+                return desktop.Texture;
+            }
+        }
+
 
         /// <summary>
         /// The image of the remote desktop.
@@ -243,14 +258,20 @@ namespace UnityVncSharp
             }
         }
 
-        // This event handler deals with Frambebuffer Updates coming from the host. An
-        // EncodedRectangle object is passed via the VncEventArgs (actually an IDesktopUpdater
-        // object so that *only* Draw() can be called here--Decode() is done elsewhere).
-        // The VncClient object handles thread marshalling onto the UI thread.
-        protected void VncUpdate(object sender, VncEventArgs e)
+        List<IDesktopUpdater> updates = new List<IDesktopUpdater>();
+
+        public void popUpdates()
         {
-            e.DesktopUpdater.Draw(desktop);
-            //    Invalidate(desktopPolicy.AdjustUpdateRectangle(e.DesktopUpdater.UpdateRectangle));
+            if (updates.Count == 0)
+                return;
+
+            for (int i = 0; i < updates.Count; i++)
+            {
+                IDesktopUpdater u = updates[i];
+                u.Draw(desktop);
+            }
+
+            updates.Clear();
 
             if (state == RuntimeState.Connected)
             {
@@ -259,6 +280,17 @@ namespace UnityVncSharp
                 // Make sure the next screen update is incremental
                 fullScreenRefresh = false;
             }
+        }
+
+
+        /// <summary>
+        /// deals with frame updates coming from the vnc client.
+        /// just add it to the fifo list
+        /// </summary>
+        /// <param name="e"></param>
+        protected void VncUpdate(IDesktopUpdater e)
+        {
+            updates.Add(e);
         }
 
         /// <summary>
@@ -418,11 +450,11 @@ namespace UnityVncSharp
         /// <param name="scaled">Determines whether to use desktop scaling or leave it normal and clip.</param>
         public void SetScalingMode(bool scaled)
         {
-      /*      if (scaled)
-            {
-                desktopPolicy = new VncScaledDesktopPolicy(vnc, this);
-            }
-            else*/
+            /*      if (scaled)
+                  {
+                      desktopPolicy = new VncScaledDesktopPolicy(vnc, this);
+                  }
+                  else*/
             {
                 desktopPolicy = new VncClippedDesktopPolicy(vnc, this);
             }
@@ -457,7 +489,7 @@ namespace UnityVncSharp
             //AutoScrollMinSize = desktopPolicy.AutoScrollMinSize;
 
             // Start getting updates from the remote host (vnc.StartUpdates will begin a worker thread).
-            vnc.VncUpdate += new VncUpdateHandler(VncUpdate);
+            vnc.VncUpdate += VncUpdate;
             vnc.StartUpdates();
         }
 
@@ -491,7 +523,7 @@ namespace UnityVncSharp
             // Create a new bitmap to cache locally the remote desktop image.  Use the geometry of the
             // remote framebuffer, and 32bpp pixel format (doesn't matter what the server is sending--8,16,
             // or 32--we always draw 32bpp here for efficiency).
-            desktop = new Bitmap(vnc.Framebuffer.Width, vnc.Framebuffer.Height, PixelFormat.Format32bppPArgb);
+            desktop = new Bitmap(vnc.Framebuffer.Width, vnc.Framebuffer.Height);
 
             // Draw a "please wait..." message on the local desktop until the first
             // rectangle(s) arrive and overwrite with the desktop image.
@@ -507,7 +539,7 @@ namespace UnityVncSharp
             Debug.LogWarning("DrawDesktopMessage NotImplementedException");
             Debug.Log(message);
 
-       //     throw new NotImplementedException();
+            //     throw new NotImplementedException();
             /*		System.Diagnostics.Debug.Assert(desktop != null, "Can't draw on desktop when null.");
                     // Draw the given message on the local desktop
                     using (Graphics g = Graphics.FromImage(desktop)) {
@@ -536,11 +568,13 @@ namespace UnityVncSharp
             vnc.ServerCutText -= new EventHandler(VncServerCutText);
             vnc.Disconnect();
             SetState(RuntimeState.Disconnected);
-            OnConnectionLost("Disconnect");
-         
+            OnConnectionLost("Disconnected");
+
+            updates.Clear();
+
         }
 
-      
+
 
 
 
@@ -671,7 +705,7 @@ namespace UnityVncSharp
             if (ConnectionLost != null)
             {
                 ConnectionLost(this, new ErrorEventArg(reason));
-            }     
+            }
         }
 
         /// <summary>

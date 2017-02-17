@@ -15,3 +15,6 @@ VNC System.Plugins.csproj
 vncsharp-1.0-src.zip
 vncsharpexample-csharp-1.0-src.zip
 Library/
+Temp/
+.vs/
+Unity-VNC-Client.csproj

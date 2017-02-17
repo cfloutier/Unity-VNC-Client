@@ -22,23 +22,37 @@ namespace UnityVncSharp.Unity
             {
                 connect();
             }
+
+
+            // Create a texture
+            Texture2D tex = new Texture2D(256, 256, TextureFormat.ARGB32, false);
+            // Set point filtering just so we can see the pixels clearly
+            tex.filterMode = FilterMode.Point;
+            // Call Apply() so it's actually uploaded to the GPU
+            tex.Apply();
+
+            // Set texture onto our material
+            GetComponent<Renderer>().material.mainTexture = tex;
         }
 
         RemoteDesktop vncDesktop;
 
+    
+
+
+
+
         public void connect()
         {
-       /*     try
-            {
-                TcpClient client = new TcpClient();
-                client.Connect(host, port);
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }*/
-        
-
+            /*     try
+                 {
+                     TcpClient client = new TcpClient();
+                     client.Connect(host, port);
+                 }
+                 catch (Exception e)
+                 {
+                     Debug.LogException(e);
+                 }*/
 
             if (vncDesktop == null)
                 vncDesktop = new RemoteDesktop();
@@ -49,26 +63,55 @@ namespace UnityVncSharp.Unity
             }
 
             vncDesktop.ConnectionLost += VncDesktop_ConnectionLost;
+            vncDesktop.ConnectComplete += VncDesktop_ConnectComplete;
+
             vncDesktop.GetPassword = GetPassword;
             vncDesktop.port = port;
             vncDesktop.Connect(host, 0);
         }
 
+        private void VncDesktop_ConnectComplete(object sender, ConnectEventArgs e)
+        {
+            if (vncDesktop == null)
+            {
+                Debug.LogError("Should not happen");
+                return;
+            }
+
+
+
+            // Create a texture
+            Texture2D tex = vncDesktop.texture;
+            // Set point filtering just so we can see the pixels clearly
+            tex.filterMode = FilterMode.Point;
+            // Call Apply() so it's actually uploaded to the GPU
+            tex.Apply();
+
+            // Set texture onto our material
+            GetComponent<Renderer>().material.mainTexture = tex;
+
+        }
+
         private void VncDesktop_ConnectionLost(object sender, EventArgs e)
         {
-            Debug.Log("Disconnection");
+            
             if (e is ErrorEventArg)
             {
                 var error = e as ErrorEventArg;
-
-                if (!string.IsNullOrEmpty(error.Reason))
-                {
-                    Debug.Log(error.Reason);
-                }
+                 
                 if (error.Exception != null)
                 {
                     Debug.LogException(error.Exception);
                 }
+                else if (!string.IsNullOrEmpty(error.Reason))
+                {
+                    Debug.Log(error.Reason);
+                }
+                
+            }
+            else
+            {
+                Debug.Log("VncDesktop_ConnectionLost");
             }
         }
 
@@ -98,6 +141,8 @@ namespace UnityVncSharp.Unity
         // Update is called once per frame
         void Update()
         {
+            if (vncDesktop.IsConnected)
+                vncDesktop.popUpdates();
 
 
 

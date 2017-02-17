@@ -53,27 +53,6 @@ namespace UnityVncSharp
             throw new NotImplementedException();			
         }
 
-        public override Rectangle RepositionImage(Image desktopImage)
-        {
-            // See if the image needs to be clipped (i.e., it is too big for the 
- 			// available space) or centered (i.e., it is too small)
-		//	int x, y;
-			
-	/*		if (remoteDesktop.ClientSize.Width > desktopImage.Width) {
-				x = (remoteDesktop.ClientRectangle.Width - desktopImage.Width) / 2;
-			} else {
-				x = remoteDesktop.DisplayRectangle.X;
-			}
-
-			if (remoteDesktop.ClientSize.Height > desktopImage.Height ) {
-				y = (remoteDesktop.ClientRectangle.Height - desktopImage.Height) / 2;
-			} else {
-				y = remoteDesktop.DisplayRectangle.Y;
-			}*/
-
-            return new Rectangle(0, 0, desktopImage.Width, desktopImage.Height);
-        }
-
         public override Rectangle GetMouseMoveRectangle()
         {
             throw new NotImplementedException();

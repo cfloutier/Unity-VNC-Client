@@ -62,11 +62,7 @@ namespace UnityVncSharp
             return updateRectangle;
         }
 
-        public override Rectangle RepositionImage(Image desktopImage)
-        {
-            
-            return new Rectangle(0, 0, desktopImage.Width, desktopImage.Height);
-        }
+      
 
         public override Rectangle GetMouseMoveRectangle()
         {

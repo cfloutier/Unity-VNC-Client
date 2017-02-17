@@ -47,66 +47,8 @@ namespace UnityVncSharp.Encodings
 
 		public override void Draw(Bitmap desktop)
 		{
-			// Given a source area, copy this region to the point specified by destination
-			BitmapData bmpd = desktop.LockBits(new Rectangle(new Point(0,0), desktop.Size),
-											   ImageLockMode.ReadWrite, desktop.PixelFormat);
+            desktop.moveRect(source, rectangle, framebuffer);
 
-			
-			// Avoid exception if window is dragged bottom of screen
-			if (rectangle.Top + rectangle.Height >= framebuffer.Height)
-			{
-				rectangle.Height = framebuffer.Height - rectangle.Top - 1;
-			}
-
-			try {
-				int[] pSrc  = bmpd.Scan0;
-				int[] pDest = bmpd.Scan0;
-
-                // Calculate the difference between the stride of the desktop, and the pixels we really copied. 
-                int nonCopiedPixelStride = desktop.Width - rectangle.Width;
-
-                // Move source and destination pointers
-                int posSrc = source.Y * desktop.Width + source.X;
-                int posDest = rectangle.Y * desktop.Width + rectangle.X;
-
-
-                // BUG FIX (Peter Wentworth) EPW:  we need to guard against overwriting old pixels before
-                // they've been moved, so we need to work out whether this slides pixels upwards in memeory,
-                // or downwards, and run the loop backwards if necessary. 
-                if (posDest < posSrc) {   // we can copy with pointers that increment
-                    for (int y = 0; y < rectangle.Height; ++y) {
-                        for (int x = 0; x < rectangle.Width; ++x)
-                        {
-                            pDest[posDest++] = pSrc[posSrc++];
-                        }
-
-                        // Move pointers to beginning of next row in rectangle
-                        posSrc += nonCopiedPixelStride;
-                        posDest += nonCopiedPixelStride;
-                    }
-                } else {
-                    // Move source and destination pointers to just beyond the furthest-from-origin 
-                    // pixel to be copied.
-                    posSrc += (rectangle.Height * desktop.Width) + rectangle.Width;
-                    posDest += (rectangle.Height * desktop.Width) + rectangle.Width;
-
-                    for (int y = 0; y < rectangle.Height; ++y) {
-                        for (int x = 0; x < rectangle.Width; ++x)
-                        {
-                            pDest[posDest--] = pSrc[posSrc--];
-
-                           
-                        }
-
-                        // Move pointers to end of previous row in rectangle
-                        posSrc -= nonCopiedPixelStride;
-                        posDest -= nonCopiedPixelStride;
-                    }
-                }
-			} finally {
-				desktop.UnlockBits(bmpd);
-				bmpd = null;
-			}
-		}
+        }
 	}
 }

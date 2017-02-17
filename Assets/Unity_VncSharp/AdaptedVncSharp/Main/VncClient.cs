@@ -29,7 +29,7 @@ namespace UnityVncSharp
 	/// <summary>
 	/// Delegate definition of an Event Handler used to indicate a Framebuffer Update has been received.
 	/// </summary>
-	public delegate void VncUpdateHandler(object sender, VncEventArgs e);
+	public delegate void VncUpdateHandler(IDesktopUpdater update);
 	
 	public class VncClient
 	{
@@ -340,6 +340,8 @@ namespace UnityVncSharp
 			rfb = null;
 		}
 
+
+
 		/// <summary>
 		/// An event that occurs whenever the server sends a Framebuffer Update.
 		/// </summary>
@@ -385,19 +387,10 @@ namespace UnityVncSharp
 
                                 // Let the UI know that an updated rectangle is available, but check
                                 // to see if the user closed things down first.
-                                if (!CheckIfThreadDone() && VncUpdate != null) {
-                                    VncEventArgs e = new VncEventArgs(er);
-
-                                    // In order to play nicely with WinForms controls, we do a check here to 
-                                    // see if it is necessary to synchronize this event with the UI thread.
-                    /*                if (VncUpdate.Target is System.Windows.Forms.Control) {
-                                        Control target = VncUpdate.Target as Control;
-                                        if (target != null)
-                                            target.Invoke(VncUpdate, new object[] { this, e });
-                                    } else {*/
-                                        // Target is not a WinForms control, so do it on this thread...
-                                        VncUpdate(this, new VncEventArgs(er));
-                                 //   }
+                                if (!CheckIfThreadDone() && VncUpdate != null)
+                                {
+                                   
+                                        VncUpdate(er);
                                 }
                             }
                             break;

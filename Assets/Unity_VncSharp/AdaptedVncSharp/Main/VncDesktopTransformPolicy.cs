@@ -49,8 +49,7 @@ namespace UnityVncSharp
 
         public abstract Rectangle AdjustUpdateRectangle(Rectangle updateRectangle);
 
-        public abstract Rectangle RepositionImage(Image desktopImage);
-
+      
         public abstract Rectangle GetMouseMoveRectangle();
 
         public abstract Point GetMouseMovePoint(Point current);

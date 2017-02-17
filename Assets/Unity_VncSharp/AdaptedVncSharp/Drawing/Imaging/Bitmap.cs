@@ -1,29 +1,37 @@
 ﻿
 using System;
+using UnityEngine;
 
 namespace UnityVncSharp.Drawing.Imaging
 {
     public enum ImageLockMode
     {
         ReadWrite
-        
-    }
-
-    public enum PixelFormat
-    {
-        Format32bppPArgb
     }
 
 
     public class Bitmap
     {
-        public Bitmap(int w, int h, PixelFormat format)
+        Texture2D texture;
+
+        public Texture2D Texture
         {
-            Size = new Size(w, h);
-            PixelFormat = format;
+            get
+            {
+                return texture;
+            }
         }
 
-        public Size Size { get; internal set; }
+
+
+        public Bitmap(int w, int h)
+        {
+            size = new Size(w, h);
+            texture = new Texture2D(w, h, TextureFormat.ARGB32, true);
+        }
+
+        Size size;
+        public Size Size { get { return size; } }
         public int Width
         {
             get
@@ -32,24 +40,135 @@ namespace UnityVncSharp.Drawing.Imaging
             }
         }
 
-        internal BitmapData LockBits(Rectangle rectangle, ImageLockMode readWrite, PixelFormat pixelFormat)
+
+
+
+        Color buildColorFrameARGB(int c)
         {
-            throw new NotImplementedException();
+            float a = (float)(c & 0xF000) / 256f;
+            float r = (float)((c & 0x0F00) << 8) / 256f;
+            float g = (float)((c & 0x00F0) << 16) / 256f;
+            float b = (float)((c & 0x000F) << 24) / 256f;
+
+            return new Color(r, g, b, a);
         }
 
-        internal void UnlockBits(BitmapData bmpd)
+        public virtual void drawRectangle(Rectangle rectangle, Framebuffer framebuffer)
         {
-            throw new NotImplementedException();
+            // Lock the bitmap's scan-lines in RAM so we can iterate over them using pointers and update the area
+            // defined in rectangle.
+            Color[] colors = texture.GetPixels();
+
+            try
+            {
+
+                // Move pointer to position in desktop bitmap where rectangle begins
+                int pos = rectangle.Y * Width + rectangle.X;
+
+                int offset = Width - rectangle.Width;
+                int row = 0;
+
+                for (int y = 0; y < rectangle.Height; ++y)
+                {
+                    row = y * rectangle.Width;
+
+                    for (int x = 0; x < rectangle.Width; ++x)
+                    {
+                        colors[pos++] = buildColorFrameARGB(framebuffer[row + x]);
+                    }
+
+                    // Move pointer to beginning of next row in rectangle
+                    pos += offset;
+                }
+            }
+            finally
+            {
+                texture.Apply();
+
+            }
         }
-        public PixelFormat PixelFormat
+
+        public void moveRect(Point source, Rectangle rectangle, Framebuffer framebuffer)
         {
-            get; set;
+
+            // Given a source area, copy this region to the point specified by destination
+            Color[] pSrc = texture.GetPixels();
+
+
+            // Avoid exception if window is dragged bottom of screen
+            if (rectangle.Top + rectangle.Height >= framebuffer.Height)
+            {
+                rectangle.Height = framebuffer.Height - rectangle.Top - 1;
+            }
+
+            try
+            {
+
+                
+
+                // Calculate the difference between the stride of the desktop, and the pixels we really copied. 
+                int nonCopiedPixelStride = Width - rectangle.Width;
+
+                // Move source and destination pointers
+                int posSrc = source.Y * Width + source.X;
+                int posDest = rectangle.Y * Width + rectangle.X;
+
+
+                // BUG FIX (Peter Wentworth) EPW:  we need to guard against overwriting old pixels before
+                // they've been moved, so we need to work out whether this slides pixels upwards in memeory,
+                // or downwards, and run the loop backwards if necessary. 
+                if (posDest < posSrc)
+                {   // we can copy with pointers that increment
+                    for (int y = 0; y < rectangle.Height; ++y)
+                    {
+                        for (int x = 0; x < rectangle.Width; ++x)
+                        {
+                            pSrc[posDest++] = pSrc[posSrc++];
+                        }
+
+                        // Move pointers to beginning of next row in rectangle
+                        posSrc += nonCopiedPixelStride;
+                        posDest += nonCopiedPixelStride;
+                    }
+                }
+                else
+                {
+                    // Move source and destination pointers to just beyond the furthest-from-origin 
+                    // pixel to be copied.
+                    posSrc += (rectangle.Height * Width) + rectangle.Width;
+                    posDest += (rectangle.Height * Width) + rectangle.Width;
+
+                    for (int y = 0; y < rectangle.Height; ++y)
+                    {
+                        for (int x = 0; x < rectangle.Width; ++x)
+                        {
+                            pSrc[posDest--] = pSrc[posSrc--];
+
+
+                        }
+
+                        // Move pointers to end of previous row in rectangle
+                        posSrc -= nonCopiedPixelStride;
+                        posDest -= nonCopiedPixelStride;
+                    }
+                }
+            }
+            finally
+            {
+                texture.Apply();
+
+            }
+
+
         }
+
+
+
 
         internal void Dispose()
         {
             throw new NotImplementedException();
         }
     }
-    
+
 }

@@ -86,38 +86,7 @@ namespace UnityVncSharp.Encodings
 		/// <param name="desktop">The image the represents the remote desktop. NOTE: this image will be altered.</param>
 		public virtual void Draw(Bitmap desktop)
 		{
-			// Lock the bitmap's scan-lines in RAM so we can iterate over them using pointers and update the area
-			// defined in rectangle.
-			BitmapData bmpd = desktop.LockBits(new Rectangle(new Point(0,0), desktop.Size), ImageLockMode.ReadWrite, desktop.PixelFormat);
-
-			try {
-				// For speed I'm using pointers to manipulate the desktop bitmap, which is unsafe.
-				// Get a pointer to the start of the bitmap in memory (IntPtr) and cast to a 
-				// Byte pointer (need void* first) so desktop can be traversed as GDI+ 
-				// colour values form.
-				int[] pInt = bmpd.Scan0; 
-
-				// Move pointer to position in desktop bitmap where rectangle begins
-                int pos = rectangle.Y * desktop.Width + rectangle.X;
-               		
-				int offset = desktop.Width - rectangle.Width;
-				int row = 0;
-				
-				for (int y = 0; y < rectangle.Height; ++y) {
-					row = y * rectangle.Width;
-
-					for (int x = 0; x < rectangle.Width; ++x)
-                    {
-                        pInt[pos++] = framebuffer[row + x];
-					}
-
-                    // Move pointer to beginning of next row in rectangle
-                    pos += offset;
-				}
-			} finally {
-				desktop.UnlockBits(bmpd);
-				bmpd = null;
-			}		
+            desktop.drawRectangle(rectangle, framebuffer);
 		}
 
 		/// <summary>
