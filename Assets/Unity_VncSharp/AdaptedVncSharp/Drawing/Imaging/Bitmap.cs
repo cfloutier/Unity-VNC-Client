@@ -45,10 +45,10 @@ namespace UnityVncSharp.Drawing.Imaging
         {
 
            
-            float a = (float)(c & 0xF000) / 256f;
-            float r = (float)((c & 0x0F00) << 8) / 256f;
-            float g = (float)((c & 0x00F0) << 16) / 256f;
-            float b = (float)((c & 0x000F) << 24) / 256f;
+            float a = (float)((c & 0xFF000000) >> 24)/ 255f;
+            float r = (float)((c & 0x00FF0000) >> 16) / 255f;
+            float g = (float)((c & 0x0000FF00) >> 8) / 255f;
+            float b = (float)((c & 0x000000FF) ) / 255f;
 
             //  a = b = c = 
             if (c != 0)
