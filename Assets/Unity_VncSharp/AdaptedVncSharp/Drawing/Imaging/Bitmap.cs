@@ -22,10 +22,11 @@ namespace UnityVncSharp.Drawing.Imaging
             }
         }
 
-
-
         public Bitmap(int w, int h)
         {
+            Debug.Log("Build bitmap");
+
+
             size = new Size(w, h);
             texture = new Texture2D(w, h, TextureFormat.ARGB32, true);
         }
@@ -40,60 +41,56 @@ namespace UnityVncSharp.Drawing.Imaging
             }
         }
 
-
-
-
         Color buildColorFrameARGB(int c)
         {
+
+           
             float a = (float)(c & 0xF000) / 256f;
             float r = (float)((c & 0x0F00) << 8) / 256f;
             float g = (float)((c & 0x00F0) << 16) / 256f;
             float b = (float)((c & 0x000F) << 24) / 256f;
 
+            //  a = b = c = 
+            if (c != 0)
+            {
+                a = 1;
+            }
+
             return new Color(r, g, b, a);
+
+       //     return UnityEngine.Random.ColorHSV();
         }
 
         public virtual void drawRectangle(Rectangle rectangle, Framebuffer framebuffer)
         {
             // Lock the bitmap's scan-lines in RAM so we can iterate over them using pointers and update the area
             // defined in rectangle.
-            Color[] colors = texture.GetPixels();
+            Color[] colors = new Color[rectangle.Width * rectangle.Height];
 
-            try
+            // Move pointer to position in desktop bitmap where rectangle begins
+            int pos = 0;// rectangle.Y * Width + rectangle.X;
+
+            int offset = Width - rectangle.Width;
+            int row = 0;
+
+            for (int y = 0; y < rectangle.Height; ++y)
             {
+                row = y * rectangle.Width;
 
-                // Move pointer to position in desktop bitmap where rectangle begins
-                int pos = rectangle.Y * Width + rectangle.X;
-
-                int offset = Width - rectangle.Width;
-                int row = 0;
-
-                for (int y = 0; y < rectangle.Height; ++y)
+                for (int x = 0; x < rectangle.Width; ++x)
                 {
-                    row = y * rectangle.Width;
-
-                    for (int x = 0; x < rectangle.Width; ++x)
-                    {
-                        colors[pos++] = buildColorFrameARGB(framebuffer[row + x]);
-                    }
-
-                    // Move pointer to beginning of next row in rectangle
-                    pos += offset;
+                    colors[pos++] = buildColorFrameARGB(framebuffer[row + x]);
                 }
-            }
-            finally
-            {
-                texture.Apply();
-
-            }
+            }   
+        //    texture.GetPixels(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+            texture.SetPixels(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, colors);
+            texture.Apply();
         }
 
         public void moveRect(Point source, Rectangle rectangle, Framebuffer framebuffer)
         {
-
             // Given a source area, copy this region to the point specified by destination
             Color[] pSrc = texture.GetPixels();
-
 
             // Avoid exception if window is dragged bottom of screen
             if (rectangle.Top + rectangle.Height >= framebuffer.Height)
@@ -104,7 +101,7 @@ namespace UnityVncSharp.Drawing.Imaging
             try
             {
 
-                
+
 
                 // Calculate the difference between the stride of the desktop, and the pixels we really copied. 
                 int nonCopiedPixelStride = Width - rectangle.Width;

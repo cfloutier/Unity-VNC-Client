@@ -9,8 +9,8 @@
 
         public Size(int X, int Y)
         {
-            this.X = 0;
-            this.Y = 0;
+            this.X = X;
+            this.Y = Y;
         }
 
         int y;

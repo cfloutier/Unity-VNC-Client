@@ -78,14 +78,13 @@ namespace UnityVncSharp.Unity
                 return;
             }
 
-
-
             // Create a texture
             Texture2D tex = vncDesktop.texture;
+
             // Set point filtering just so we can see the pixels clearly
-            tex.filterMode = FilterMode.Point;
+           /* tex.filterMode = FilterMode.Point;
             // Call Apply() so it's actually uploaded to the GPU
-            tex.Apply();
+            tex.Apply();*/
 
             // Set texture onto our material
             GetComponent<Renderer>().material.mainTexture = tex;
@@ -141,12 +140,19 @@ namespace UnityVncSharp.Unity
         // Update is called once per frame
         void Update()
         {
-            if (vncDesktop.IsConnected)
+            if (vncDesktop != null && vncDesktop.IsConnected)
                 vncDesktop.popUpdates();
 
-
+            GetComponent<Renderer>().sharedMaterial.mainTexture = vncDesktop.texture;
 
         }
+
+        void OnApplicationQuit()
+        {
+            if (vncDesktop != null && vncDesktop.IsConnected)
+                vncDesktop.Disconnect();
+        }
+
     }
 
 
