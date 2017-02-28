@@ -31,8 +31,8 @@ namespace UnityVncSharp.Encodings
 		private const int ANY_SUBRECTS			= 0x08;
 		private const int SUBRECTS_COLOURED		= 0x10;
 
-		public HextileRectangle(RfbProtocol rfb, Framebuffer framebuffer, Rectangle rectangle)
-			: base(rfb, framebuffer, rectangle, RfbProtocol.HEXTILE_ENCODING) 
+		public HextileRectangle(RfbProtocol rfb, int BitsPerPixel, Rectangle rectangle)
+			: base(rfb, BitsPerPixel, rectangle, RfbProtocol.HEXTILE_ENCODING) 
 		{
 		}
 

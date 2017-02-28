@@ -39,10 +39,12 @@ namespace UnityVncSharp.Encodings
                                 ((uint)b[2]) << 16  | 
                                 ((uint)b[3]) << 24);
 
+            FrameBufferInfos i = framebuffer.infos;
+
 			// Extract RGB intensities from pixel
-			byte red   = (byte) ((pixel >> framebuffer.RedShift)   & framebuffer.RedMax);
-			byte green = (byte) ((pixel >> framebuffer.GreenShift) & framebuffer.GreenMax);
-			byte blue  = (byte) ((pixel >> framebuffer.BlueShift)  & framebuffer.BlueMax);
+			byte red   = (byte) ((pixel >> i.RedShift)   & i.RedMax);
+			byte green = (byte) ((pixel >> i.GreenShift) & i.GreenMax);
+			byte blue  = (byte) ((pixel >> i.BlueShift)  & i.BlueMax);
 
 			return ToGdiPlusOrder(red, green, blue);			
 		}

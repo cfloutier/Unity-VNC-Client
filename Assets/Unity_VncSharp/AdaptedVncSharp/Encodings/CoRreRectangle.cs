@@ -29,7 +29,8 @@ namespace UnityVncSharp.Encodings
 	/// </summary>
 	public sealed class CoRreRectangle : EncodedRectangle 
 	{
-		public CoRreRectangle(RfbProtocol rfb, Framebuffer framebuffer, Rectangle rectangle) : base(rfb, framebuffer, rectangle, RfbProtocol.CORRE_ENCODING)
+		public CoRreRectangle(RfbProtocol rfb, int BitsPerPixel, Rectangle rectangle) 
+            : base(rfb, BitsPerPixel, rectangle, RfbProtocol.CORRE_ENCODING)
 		{
 		}
 

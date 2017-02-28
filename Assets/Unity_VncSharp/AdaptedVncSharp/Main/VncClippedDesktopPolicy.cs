@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
+#if NONE
 using System;
 using UnityVncSharp.Drawing;
 using UnityVncSharp.Drawing.Imaging;
@@ -32,38 +32,19 @@ namespace UnityVncSharp
         {
         }
 
-        public override bool AutoScroll {
-            get {
-                return true;
-            }
-        }
-
-        public override Size AutoScrollMinSize {
-            get {
-                if (vnc != null && vnc.Framebuffer != null) {
-                    return new Size(vnc.Framebuffer.Width, vnc.Framebuffer.Height);
-                } else {
-                    return new Size(100, 100);
-                }
-            }
-        }
 
         public override Point UpdateRemotePointer(Point current)
         {
             Point adjusted = new Point();
-		
-
 			return adjusted;
         }
 
         public override Rectangle AdjustUpdateRectangle(Rectangle updateRectangle)
-        {
-			
+        {	
             return updateRectangle;
         }
 
       
-
         public override Rectangle GetMouseMoveRectangle()
         {
 			Rectangle desktopRect = vnc.Framebuffer.Rectangle;
@@ -77,3 +58,5 @@ namespace UnityVncSharp
         }
     }
 }
+
+#endif

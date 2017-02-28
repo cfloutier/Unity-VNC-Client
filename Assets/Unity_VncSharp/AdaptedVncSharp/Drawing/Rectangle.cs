@@ -2,19 +2,16 @@
 {
     public class Rectangle 
     {
-
         public Rectangle(Point pos, Size size)
         {
             this.pos = pos;
             this.size = size;
-
         }
 
         public Rectangle(int x, int y, int w, int h)
         {
             pos = new Point(x,y);
             size = new Size(w,h);
-
         }
 
         public Rectangle()
@@ -25,6 +22,11 @@
 
         Point pos;
         Size size;
+
+        public override string ToString()
+        {
+            return pos.X + "-" + pos.Y + " | " + size.X + "x" + size.Y;
+        }
 
         public int Top
         {

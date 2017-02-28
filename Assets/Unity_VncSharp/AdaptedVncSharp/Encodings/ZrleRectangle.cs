@@ -33,8 +33,8 @@ namespace UnityVncSharp.Encodings
 		static int[] palette = new int[128];
 		static int[] tileBuffer = new int[TILE_WIDTH * TILE_HEIGHT];
 
-		public ZrleRectangle(RfbProtocol rfb, Framebuffer framebuffer, Rectangle rectangle)
-			: base(rfb, framebuffer, rectangle, RfbProtocol.ZRLE_ENCODING)
+		public ZrleRectangle(RfbProtocol rfb, int BitsPerPixel, Rectangle rectangle)
+			: base(rfb, BitsPerPixel, rectangle, RfbProtocol.ZRLE_ENCODING)
 		{
 		}
 

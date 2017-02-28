@@ -38,10 +38,11 @@ namespace UnityVncSharp.Encodings
 			byte[] b = reader.ReadBytes(2);
 
             ushort pixel = (ushort)(((uint)b[0]) & 0xFF | ((uint)b[1]) << 8);
+            FrameBufferInfos i = framebuffer.infos;
 
-			byte red   = (byte) (((pixel >> framebuffer.RedShift)   & framebuffer.RedMax)   << 3);  // 5 bits to 8
-			byte green = (byte) (((pixel >> framebuffer.GreenShift) & framebuffer.GreenMax) << 2);  // 6 bits to 8
-			byte blue  = (byte) (((pixel >> framebuffer.BlueShift)  & framebuffer.BlueMax)  << 3);  // 5 bits to 8
+			byte red   = (byte) (((pixel >> i.RedShift)   & i.RedMax)   << 3);  // 5 bits to 8
+			byte green = (byte) (((pixel >> i.GreenShift) & i.GreenMax) << 2);  // 6 bits to 8
+			byte blue  = (byte) (((pixel >> i.BlueShift)  & i.BlueMax)  << 3);  // 5 bits to 8
 
 			return ToGdiPlusOrder(red, green, blue);			
 		}

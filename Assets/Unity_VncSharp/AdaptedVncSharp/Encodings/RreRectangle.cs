@@ -25,8 +25,8 @@ namespace UnityVncSharp.Encodings
 	/// </summary>
 	public sealed class RreRectangle : EncodedRectangle 
 	{
-		public RreRectangle(RfbProtocol rfb, Framebuffer framebuffer, Rectangle rectangle)
-			: base(rfb, framebuffer, rectangle, RfbProtocol.RRE_ENCODING) 
+		public RreRectangle(RfbProtocol rfb, int BitsPerPixel, Rectangle rectangle)
+			: base(rfb, BitsPerPixel, rectangle, RfbProtocol.RRE_ENCODING) 
 		{
 		}
 

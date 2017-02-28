@@ -13,11 +13,8 @@
             this.Y = Y;
         }
 
-
-
         public int X;
         public int Y;
-
     }
 
 }

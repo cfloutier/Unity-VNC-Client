@@ -33,17 +33,17 @@ namespace UnityVncSharp.Encodings
 		protected Framebuffer	framebuffer;
 		protected PixelReader	preader;
 
-		public EncodedRectangle(RfbProtocol rfb, Framebuffer framebuffer, Rectangle rectangle, int encoding)
+		public EncodedRectangle(RfbProtocol rfb, int BitsPerPixel, Rectangle rectangle, int encoding)
 		{
 			this.rfb = rfb;
-			this.framebuffer = framebuffer;
 			this.rectangle = rectangle;
-
-			//Select appropriate reader
-			BinaryReader reader = (encoding == RfbProtocol.ZRLE_ENCODING) ? rfb.ZrleReader : rfb.Reader;
+            this.framebuffer = new Framebuffer(rectangle.Width, rectangle.Height);
+            this.framebuffer.infos.BitsPerPixel = BitsPerPixel;
+            //Select appropriate reader
+            BinaryReader reader = (encoding == RfbProtocol.ZRLE_ENCODING) ? rfb.ZrleReader : rfb.Reader;
 
 			// Create the appropriate PixelReader depending on screen size and encoding
-			switch (framebuffer.BitsPerPixel)
+			switch (BitsPerPixel)
 			{
 				case 32:
 					if (encoding == RfbProtocol.ZRLE_ENCODING)
@@ -62,7 +62,7 @@ namespace UnityVncSharp.Encodings
 					preader = new PixelReader8(reader, framebuffer, rfb);
 					break;
 				default:
-					throw new ArgumentOutOfRangeException("BitsPerPixel", framebuffer.BitsPerPixel, "Valid VNC Pixel Widths are 8, 16 or 32 bits.");
+					throw new ArgumentOutOfRangeException("BitsPerPixel", BitsPerPixel, "Valid VNC Pixel Widths are 8, 16 or 32 bits.");
 			}
 		}
 

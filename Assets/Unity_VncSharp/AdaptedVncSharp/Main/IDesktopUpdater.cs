@@ -26,6 +26,10 @@ namespace UnityVncSharp
 	/// </summary>
 	public interface IDesktopUpdater
 	{
+        void Decode();
+
+
+
 		/// <summary>
 		/// Given a desktop Bitmap that is a local representation of the remote desktop, updates sent by the server are drawn into the area specifed by UpdateRectangle.
 		/// </summary>

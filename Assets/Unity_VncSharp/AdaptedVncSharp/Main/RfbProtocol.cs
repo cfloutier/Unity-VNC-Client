@@ -298,11 +298,11 @@ namespace UnityVncSharp
 		/// Reads the server's Initialization message, specifically the remote Framebuffer's properties. See RFB Doc v. 3.8 section 6.1.5.
 		/// </summary>
 		/// <returns>Returns a Framebuffer object representing the geometry and properties of the remote host.</returns>
-		public Framebuffer ReadServerInit()
+		public FrameBufferInfos ReadServerInit()
 		{
 			int w = (int) reader.ReadUInt16();
 			int h = (int) reader.ReadUInt16();
-			Framebuffer buffer = Framebuffer.FromPixelFormat(reader.ReadBytes(16), w, h);
+            FrameBufferInfos buffer = FrameBufferInfos.FromPixelFormat(reader.ReadBytes(16), w, h);
 			int length = (int) reader.ReadUInt32();
 
 			buffer.DesktopName = GetString(reader.ReadBytes(length));
@@ -314,11 +314,11 @@ namespace UnityVncSharp
 		/// Sends the format to be used by the server when sending Framebuffer Updates. See RFB Doc v. 3.8 section 6.3.1.
 		/// </summary>
 		/// <param name="buffer">A Framebuffer telling the server how to encode pixel data. Typically this will be the same one sent by the server during initialization.</param>
-		public void WriteSetPixelFormat(Framebuffer buffer)
+		public void WriteSetPixelFormat(FrameBufferInfos infos)
 		{
 			writer.Write(SET_PIXEL_FORMAT);
 			WritePadding(3);
-			writer.Write(buffer.ToPixelFormat());		// 16-byte Pixel Format
+			writer.Write(infos.ToPixelFormat());		// 16-byte Pixel Format
 			writer.Flush();
 		}
 

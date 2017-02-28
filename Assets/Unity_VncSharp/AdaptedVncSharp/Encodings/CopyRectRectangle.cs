@@ -26,8 +26,8 @@ namespace UnityVncSharp.Encodings
 	/// </summary>
 	public sealed class CopyRectRectangle : EncodedRectangle 
 	{
-		public CopyRectRectangle(RfbProtocol rfb, Framebuffer framebuffer, Rectangle rectangle)
-			: base(rfb, framebuffer, rectangle, RfbProtocol.COPYRECT_ENCODING) 
+		public CopyRectRectangle(RfbProtocol rfb, int BitsPerPixel, Rectangle rectangle)
+			: base(rfb, BitsPerPixel, rectangle, RfbProtocol.COPYRECT_ENCODING) 
 		{
 		}
 
