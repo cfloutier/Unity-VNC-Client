@@ -343,13 +343,11 @@ namespace Valve.VR.InteractionSystem
 			return Vector3.zero;
 		}
 
-
 		//-------------------------------------------------
 		private void CleanUpAttachedObjectStack()
 		{
 			attachedObjects.RemoveAll( l => l.attachedObject == null );
 		}
-
 
 		//-------------------------------------------------
 		void Awake()
@@ -885,7 +883,7 @@ namespace Valve.VR.InteractionSystem
 		{
 			DrawDefaultInspector();
 
-			Hand hand = (Hand)target;
+            Hand hand = (Hand)target;
 
 			if ( hand.otherHand )
 			{
