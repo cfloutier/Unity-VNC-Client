@@ -67,7 +67,7 @@ namespace UnityVncSharp.Unity
 
         void OnGUI()
         {
-            if (!manageKeys)
+            if (!manageKeys || vnc == null)
             {
                 return;
             }
@@ -78,16 +78,20 @@ namespace UnityVncSharp.Unity
                 if (theEvent.type == EventType.keyDown)
                 {
                     if (theEvent.keyCode != KeyCode.None)
-                        Debug.Log("Down : " + theEvent.keyCode);
+
+                        vnc.OnKey(theEvent.keyCode, true);
+                    //   Debug.Log("Down : " + theEvent.keyCode);
+
                 }
                 else if (theEvent.type == EventType.keyUp)
                 {
                     if (theEvent.keyCode != KeyCode.None)
-                        Debug.Log("Up : " + theEvent.keyCode);
+                        vnc.OnKey(theEvent.keyCode, false);
+                    // Debug.Log("Up : " + theEvent.keyCode);
                 }
             }
         }
 
- 
+
     }
 }
