@@ -1,9 +1,37 @@
-﻿using System.Collections;
+﻿// Unity 3D Vnc Client - Unity 3D VNC Client Library
+// Copyright (C) 2017 Christophe Floutier
+//
+// Based on VncSharp - .NET VNC Client Library
+// Copyright (C) 2008 David Humphrey
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityVncSharp.Unity
 {
+
+    /// <summary>
+    /// This componetn must be put on a little sphere (for instance) 
+    /// and is used as a mouse cursor and keyboard event sender to the VncScreen
+    /// 
+    /// </summary>
     public class VNCMouseRaycaster : MonoBehaviour
     {
         private Ray ray;
@@ -32,6 +60,11 @@ namespace UnityVncSharp.Unity
                 r.enabled = !visible;
         }
 
+
+        /// <summary>
+        /// Get the mosue position, send a raycast and identify the vnc screen uder mouse cursor
+        /// Then, if any, send mouse event to it
+        /// </summary>
         void Update()
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -64,7 +97,13 @@ namespace UnityVncSharp.Unity
                 showCursor(true);
         }
 
-
+        /// <summary>
+        /// Send key event to the active VncClient 
+        /// 
+        /// I use OnGUI because it is the simpliest way to get key event
+        /// there are still many troubles, the shifts keys are not getted and many keys onb my keyboard are mishandled.
+        /// 
+        /// </summary>
         void OnGUI()
         {
             if (!manageKeys || vnc == null)

@@ -1,4 +1,7 @@
-// VncSharp - .NET VNC Client Library
+// Unity 3D Vnc Client - Unity 3D VNC Client Library
+// Copyright (C) 2017 Christophe Floutier
+//
+// Based on VncSharp - .NET VNC Client Library
 // Copyright (C) 2008 David Humphrey
 //
 // This program is free software; you can redistribute it and/or modify
