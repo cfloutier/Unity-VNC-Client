@@ -133,7 +133,7 @@ namespace UnityVncSharp.Unity
             }
         }
 
-        public void Connect()
+        public bool Connect()
         {
             // Ignore attempts to use invalid port numbers
             if (port < 1 | port > 65535) port = 5900;
@@ -151,7 +151,17 @@ namespace UnityVncSharp.Unity
             vnc = new VncClient();
             vnc.ConnectionLost += new EventHandler(OnConnectionLost);
 
-            passwordPending = vnc.Connect(host, display, port, viewOnly);
+            try
+            {
+                passwordPending = vnc.Connect(host, display, port, viewOnly);
+            } 
+            catch (Exception e)
+            {
+                OnConnectionLost(this, new ErrorEventArg(e));
+                return false;
+            }
+
+            
 
             if (passwordPending)
             {
@@ -161,17 +171,17 @@ namespace UnityVncSharp.Unity
                 if (string.IsNullOrEmpty(password))
                 {
                     // No password could be obtained (e.g., user clicked Cancel), so stop connecting
-                    return;
+                    return false;
                 }
                 else
                 {
-                    Authenticate(password);
+                    return Authenticate(password);
                 }
             }
             else
             {
                 // No password needed, so go ahead and Initialize here
-                Initialize();
+                return Initialize();
             }
         }
 
@@ -181,7 +191,7 @@ namespace UnityVncSharp.Unity
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is already Connected.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>
         /// <exception cref="System.NullReferenceException">Thrown if the password is null.</exception>
         /// <param name="password">The user's password.</param>
-        public void Authenticate(string password)
+        public bool Authenticate(string password)
         {
             InsureConnection(false);
             if (!passwordPending) throw new InvalidOperationException("Authentication is only required when Connect() returns True and the VNC Host requires a password.");
@@ -190,11 +200,12 @@ namespace UnityVncSharp.Unity
             passwordPending = false;  // repeated calls to Authenticate should fail.
             if (vnc.Authenticate(password))
             {
-                Initialize();
+                return Initialize();
             }
             else
             {
                 OnConnectionLost("Wrong Password");
+                return false;
             }
         }
 
@@ -295,7 +306,7 @@ namespace UnityVncSharp.Unity
         /// After protocol-level initialization and connecting is complete, the local GUI objects have to be set-up, and requests for updates to the remote host begun.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is already in the Connected state.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>		
-        protected void Initialize()
+        protected bool Initialize()
         {
             // Finish protocol handshake with host now that authentication is done.
             InsureConnection(false);
@@ -322,6 +333,8 @@ namespace UnityVncSharp.Unity
             // Start getting updates from the remote host (vnc.StartUpdates will begin a worker thread).
             vnc.VncUpdate += VncUpdate;
             vnc.StartUpdates();
+
+            return true;
         }
 
         public void Disconnect()
@@ -345,8 +358,11 @@ namespace UnityVncSharp.Unity
         // Update is called once per frame
         void Update()
         {
-            popUpdates();
-            m.mainTexture = theBitmap.Texture;
+            if (IsConnected)
+            {
+                popUpdates();
+                m.mainTexture = theBitmap.Texture;
+            }
         }
 
         void OnApplicationQuit()
