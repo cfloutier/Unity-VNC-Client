@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityVncSharp.Unity
 {
-    public class MouseRaycaster : MonoBehaviour
+    public class VNCMouseRaycaster : MonoBehaviour
     {
         private Ray ray;
         private RaycastHit hit;
@@ -62,10 +62,32 @@ namespace UnityVncSharp.Unity
             }
             else
                 showCursor(true);
-
-
-
-
         }
+
+
+        void OnGUI()
+        {
+            if (!manageKeys)
+            {
+                return;
+            }
+            Event theEvent = Event.current;
+
+            if (theEvent.isKey)
+            {
+                if (theEvent.type == EventType.keyDown)
+                {
+                    if (theEvent.keyCode != KeyCode.None)
+                        Debug.Log("Down : " + theEvent.keyCode);
+                }
+                else if (theEvent.type == EventType.keyUp)
+                {
+                    if (theEvent.keyCode != KeyCode.None)
+                        Debug.Log("Up : " + theEvent.keyCode);
+                }
+            }
+        }
+
+ 
     }
 }

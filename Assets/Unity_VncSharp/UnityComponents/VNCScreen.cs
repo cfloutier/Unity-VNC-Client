@@ -350,6 +350,157 @@ namespace UnityVncSharp.Unity
 
             vnc.WritePointerEvent(mask, pos);
         }
+
+
+
+        int convertToVKCode(KeyCode key)
+        {
+            switch (key)
+            {
+                case KeyCode.None: return 0;
+                case KeyCode.Backspace: return 0x08;
+                case KeyCode.Delete: return 0x2E;
+                case KeyCode.Tab: return 0x09;
+                case KeyCode.Clear: return 0x0C;
+                case KeyCode.Return: return 0x0D;
+                case KeyCode.Pause: return 0x13;
+                case KeyCode.Escape: return 0x1B;
+                case KeyCode.Space: return 0x20;
+                case KeyCode.Keypad0: return 0x60;
+                case KeyCode.Keypad1: return 0x61;
+                case KeyCode.Keypad2: return 0x62;
+                case KeyCode.Keypad3: return 0x63;
+                case KeyCode.Keypad4: return 0x64;
+                case KeyCode.Keypad5: return 0x65;
+                case KeyCode.Keypad6: return 0x66;
+                case KeyCode.Keypad7: return 0x67;
+                case KeyCode.Keypad8: return 0x68;
+                case KeyCode.Keypad9: return 0x69;
+                case KeyCode.KeypadPeriod: return 0x6E;
+                case KeyCode.KeypadDivide: return 0x6F;
+                case KeyCode.KeypadMultiply: return 0x6A;
+                case KeyCode.KeypadMinus: return 0x6D;
+                case KeyCode.KeypadPlus: return 0x6B;
+                case KeyCode.KeypadEnter: return 0xD; // same as return
+                                                      //     case KeyCode.KeypadEquals: return -1; // unkown
+                case KeyCode.UpArrow: return 0x26;
+                case KeyCode.DownArrow: return 0x28;
+                case KeyCode.RightArrow: return 0x27;
+                case KeyCode.LeftArrow: return 0x25;
+                case KeyCode.Insert: return 0x2D;
+                case KeyCode.Home: return 0x24;
+                case KeyCode.End: return 0x23;
+                case KeyCode.PageUp: return 0x21;
+                case KeyCode.PageDown: return 0x22;
+                case KeyCode.F1: return 0x70;
+                case KeyCode.F2: return 0x72;
+                case KeyCode.F3: return 0x73;
+                case KeyCode.F4: return 0x74;
+                case KeyCode.F5: return 0x75;
+                case KeyCode.F6: return 0x76;
+                case KeyCode.F7: return 0x77;
+                case KeyCode.F8: return 0x78;
+                case KeyCode.F9: return 0x79;
+                case KeyCode.F10: return 0x7A;
+                case KeyCode.F11: return 0x7B;
+                case KeyCode.F12: return 0x7C;
+                case KeyCode.F13: return 0x7D;
+                case KeyCode.F14: return 0x7E;
+                case KeyCode.F15: return 0x7F;
+                case KeyCode.Alpha0: return 0x30;
+                case KeyCode.Alpha1: return 0x31;
+                case KeyCode.Alpha2: return 0x32;
+                case KeyCode.Alpha3: return 0x33;
+                case KeyCode.Alpha4: return 0x34;
+                case KeyCode.Alpha5: return 0x35;
+                case KeyCode.Alpha6: return 0x36;
+                case KeyCode.Alpha7: return 0x37;
+                case KeyCode.Alpha8: return 0x38;
+                case KeyCode.Alpha9: return 0x39;
+                case KeyCode.Exclaim: return 0xDF;  // OEM 8 : !
+                                                    //    case KeyCode.DoubleQuote: return;
+                                                    //    case KeyCode.Hash: return;
+                                                    //    case KeyCode.Dollar: return;
+                                                    //    case KeyCode.Ampersand: return;
+                                                    //    case KeyCode.Quote: return 0Xde;
+                                                    //    case KeyCode.LeftParen: return;
+                                                    //    case KeyCode.RightParen: return;
+                                                    //    case KeyCode.Asterisk: return;
+                                                    //    case KeyCode.Plus: return;
+                case KeyCode.Comma: return 0xBC;
+                case KeyCode.Minus: return 0xBD;
+                case KeyCode.Period: return 0xBE;
+                case KeyCode.Slash: return 0xBF;
+                case KeyCode.Colon: return 0xBF;
+                case KeyCode.Semicolon: return 0xBA;
+                //              case KeyCode.Less: return;
+                //              case KeyCode.Equals: return 0xBB;
+                //              case KeyCode.Greater: return;
+                //              case KeyCode.Question: return;
+                case KeyCode.At: return 0xA5; // alt left
+                case KeyCode.LeftBracket: return 0xDB;
+                case KeyCode.Backslash: return 0xE2;
+                case KeyCode.RightBracket: return 0xDD;
+                //               case KeyCode.Caret: return;
+                //   case KeyCode.Underscore: return;
+                case KeyCode.BackQuote: return 0xC0; // or 0xDF should be exclain : unity error
+                case KeyCode.A: return 0x41;
+                case KeyCode.B: return 0x42;
+                case KeyCode.C: return 0x43;
+                case KeyCode.D: return 0x44;
+                case KeyCode.E: return 0x45;
+                case KeyCode.F: return 0x46;
+                case KeyCode.G: return 0x47;
+                case KeyCode.H: return 0x48;
+                case KeyCode.I: return 0x48;
+                case KeyCode.J: return 0x48;
+                case KeyCode.K: return 0x48;
+                case KeyCode.L: return 0x48;
+                case KeyCode.M: return 0x48;
+                case KeyCode.N: return 0x48;
+                case KeyCode.O: return 0x48;
+                case KeyCode.P: return 0x48;
+                case KeyCode.Q: return 0x48;
+                case KeyCode.R: return 0x48;
+                case KeyCode.S: return 0x48;
+                case KeyCode.T: return 0x48;
+                case KeyCode.U: return 0x48;
+                case KeyCode.V: return 0x48;
+                case KeyCode.W: return 0x48;
+                case KeyCode.X: return 0x48;
+                case KeyCode.Y: return 0x48;
+                case KeyCode.Z: return 0x48;
+
+                case KeyCode.Numlock: return 0X90;
+                case KeyCode.CapsLock: return 0X14;
+                case KeyCode.ScrollLock: return 0X90;
+                case KeyCode.RightShift: return 0xA0;   //Not good because not taken at all by the OnGUI process
+                case KeyCode.LeftShift: return 0xA1;
+                case KeyCode.RightControl: return 0xA2;
+                case KeyCode.LeftControl: return 0xA3;
+                case KeyCode.RightAlt: return 0xA4;
+                case KeyCode.LeftAlt: return 0xA5;
+                case KeyCode.LeftCommand: return 0xA3; // same as LeftApple, LeftControl
+                                                       //*    case KeyCode.LeftApple: return;
+                case KeyCode.LeftWindows: return 0x5B;
+                case KeyCode.RightCommand: return 0xA2; // right control, right apple
+                //case KeyCode.RightApple:  return;
+                case KeyCode.RightWindows: return 0x5C;
+                case KeyCode.AltGr: return 0xA5;
+                // case KeyCode.Help: return;
+                case KeyCode.Print: return 44;
+                case KeyCode.SysReq: return 44;
+                //     case KeyCode.Break: return;
+                case KeyCode.Menu: return 0xA4; // alt
+                default:
+                    Debug.LogError("Invalid Key");
+                    return -1;
+            }
+
+        }
+
+
+
     }
 
 
