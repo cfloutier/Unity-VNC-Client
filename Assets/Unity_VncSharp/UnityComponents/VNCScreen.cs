@@ -108,7 +108,7 @@ namespace UnityVncSharp.Unity
             Error
         }
 
-        RuntimeState state = RuntimeState.Disconnected;
+        public RuntimeState state = RuntimeState.Disconnected;
         public delegate void OnStateChanged(RuntimeState state);
         public event OnStateChanged onStateChanged_event;
 
@@ -542,10 +542,18 @@ namespace UnityVncSharp.Unity
         }
 
 
+
+
     }
 
 
 
+#if UNITY_EDITOR
 
+
+
+
+
+#endif
 
 }
