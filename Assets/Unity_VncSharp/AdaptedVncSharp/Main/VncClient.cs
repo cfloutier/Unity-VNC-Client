@@ -41,7 +41,10 @@ namespace UnityVncSharp
         FrameBufferInfos bufferInfos;         // The geometry and properties of the remote framebuffer
         byte securityType;          // The type of Security agreed upon by client/server
         EncodedRectangleFactory factory;
-        Thread worker;              // To request and read in-coming updates from server
+
+        Thread connectingThread;            // To get the connecting state
+        Thread worker;                      // To request and read in-coming updates from server
+
         ManualResetEvent done;      // Used to tell the worker thread to die cleanly
         IVncInputPolicy inputPolicy;// A mouse/keyboard input strategy
 
@@ -49,6 +52,15 @@ namespace UnityVncSharp
         /// Raised when the connection to the remote host is lost.
         /// </summary>
         public event EventHandler ConnectionLost;
+
+
+        public delegate  void OnConnection(Exception error, bool needPassword);
+
+        /// <summary>
+        /// Raised when the connection to the remote host is set or not
+        /// </summary>
+        public event OnConnection onConnection;
+
 
         /// <summary>
         /// Raised when the server caused the local clipboard to be filled.
@@ -92,11 +104,10 @@ namespace UnityVncSharp
             }
         }
 
-        // Just for API compat, since I've added viewOnly
-        public bool Connect(string host, int display, int port)
-        {
-            return Connect(host, display, port, false);
-        }
+   
+
+        string host;
+        int port;
 
         /// <summary>
         /// Connect to a VNC Host and determine which type of Authentication it uses. If the host uses Password Authentication, a call to Authenticate() will be required.
@@ -106,7 +117,7 @@ namespace UnityVncSharp
         /// <param name="port">The Port number used by the Host, usually 5900.</param>
         /// <param name="viewOnly">True if mouse/keyboard events are to be ignored.</param>
         /// <returns>Returns True if the VNC Host requires a Password to be sent after Connect() is called, otherwise False.</returns>
-        public bool Connect(string host, int display, int port, bool viewOnly)
+        public void Connect(string host, int display, int port, bool viewOnly)
         {
             if (host == null) throw new ArgumentNullException("host");
 
@@ -127,58 +138,14 @@ namespace UnityVncSharp
                 inputPolicy = new VncDefaultInputPolicy(rfb);
             }
 
-            // Connect and determine version of server, and set client protocol version to match			
-            try
-            {
-                rfb.Connect(host, port);
-                rfb.ReadProtocolVersion();
-                rfb.WriteProtocolVersion();
-
-                // Figure out which type of authentication the server uses
-                byte[] types = rfb.ReadSecurityTypes();
-
-                // Based on what the server sends back in the way of supported Security Types, one of
-                // two things will need to be done: either the server will reject the connection (i.e., type = 0),
-                // or a list of supported types will be sent, of which we need to choose and use one.
-                if (types.Length > 0)
-                {
-                    if (types[0] == 0)
-                    {
-                        // The server is not able (or willing) to accept the connection.
-                        // A message follows indicating why the connection was dropped.
-                        throw new VncProtocolException("Connection Failed. The server rejected the connection for the following reason: " + rfb.ReadSecurityFailureReason());
-                    }
-                    else
-                    {
-                        securityType = GetSupportedSecurityType(types);
-                        Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
-
-                        rfb.WriteSecurityType(securityType);
-
-                        // Protocol 3.8 states that a SecurityResult is still sent when using NONE (see 6.2.1)
-                        if (rfb.ServerVersion == 3.8f && securityType == 1)
-                        {
-                            if (rfb.ReadSecurityResult() > 0)
-                            {
-                                // For some reason, the server is not accepting the connection.  Get the
-                                // reason and throw an exception
-                                throw new VncProtocolException("Unable to Connecto to the Server. The Server rejected the connection for the following reason: " + rfb.ReadSecurityFailureReason());
-                            }
-                        }
-
-                        return (securityType > 1) ? true : false;
-                    }
-                }
-                else
-                {
-                    // Something is wrong, since we should have gotten at least 1 Security Type
-                    throw new VncProtocolException("Protocol Error Connecting to Server. The Server didn't send any Security Types during the initial handshake.");
-                }
-            }
-            catch (Exception e)
-            {
-                throw new VncProtocolException("Unable to connect to the server. Error was: " + e.Message, e);
-            }
+            this.host = host;
+            this.port = port;
+         
+            // Lauch connecting thread
+            connectingThread = new Thread(new ThreadStart(this.Connection));
+            connectingThread.SetApartmentState(ApartmentState.STA);
+            connectingThread.IsBackground = true;
+            connectingThread.Start();
         }
 
         /// <summary>
@@ -186,9 +153,9 @@ namespace UnityVncSharp
         /// </summary>
         /// <param name="host">The IP Address or Host Name of the VNC Host.</param>
         /// <returns>Returns True if the VNC Host requires a Password to be sent after Connect() is called, otherwise False.</returns>
-        public bool Connect(string host)
+        public void Connect(string host)
         {
-            return Connect(host, 0, 5900);
+            Connect(host, 0, 5900);
         }
 
         /// <summary>
@@ -197,9 +164,14 @@ namespace UnityVncSharp
         /// <param name="host">The IP Address or Host Name of the VNC Host.</param>
         /// <param name="display">The Display number (used on Unix hosts).</param>
         /// <returns>Returns True if the VNC Host requires a Password to be sent after Connect() is called, otherwise False.</returns>
-        public bool Connect(string host, int display)
+        public void Connect(string host, int display)
         {
-            return Connect(host, display, 5900);
+            Connect(host, display, 5900);
+        }
+       
+        public void Connect(string host, int display, int port)
+        {
+            Connect(host, display, port, false);
         }
 
         /// <summary>
@@ -377,8 +349,6 @@ namespace UnityVncSharp
             rfb = null;
         }
 
-
-
         /// <summary>
         /// An event that occurs whenever the server sends a Framebuffer Update.
         /// </summary>
@@ -387,6 +357,64 @@ namespace UnityVncSharp
         private bool CheckIfThreadDone()
         {
             return done.WaitOne(0, false);
+        }
+
+
+
+        private void Connection()
+        {
+            // Connect and determine version of server, and set client protocol version to match			
+            try
+            {
+                rfb.Connect(host, port);
+                rfb.ReadProtocolVersion();
+                rfb.WriteProtocolVersion();
+
+                // Figure out which type of authentication the server uses
+                byte[] types = rfb.ReadSecurityTypes();
+
+                // Based on what the server sends back in the way of supported Security Types, one of
+                // two things will need to be done: either the server will reject the connection (i.e., type = 0),
+                // or a list of supported types will be sent, of which we need to choose and use one.
+                if (types.Length > 0)
+                {
+                    if (types[0] == 0)
+                    {
+                        // The server is not able (or willing) to accept the connection.
+                        // A message follows indicating why the connection was dropped.
+                        throw new VncProtocolException("Connection Failed. The server rejected the connection for the following reason: " + rfb.ReadSecurityFailureReason());
+                    }
+                    else
+                    {
+                        securityType = GetSupportedSecurityType(types);
+                        Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
+
+                        rfb.WriteSecurityType(securityType);
+
+                        // Protocol 3.8 states that a SecurityResult is still sent when using NONE (see 6.2.1)
+                        if (rfb.ServerVersion == 3.8f && securityType == 1)
+                        {
+                            if (rfb.ReadSecurityResult() > 0)
+                            {
+                                // For some reason, the server is not accepting the connection.  Get the
+                                // reason and throw an exception
+                                throw new VncProtocolException("Unable to Connecto to the Server. The Server rejected the connection for the following reason: " + rfb.ReadSecurityFailureReason());
+                            }
+                        }
+
+                        onConnection(null, (securityType > 1) ? true : false);
+                    }
+                }
+                else
+                {
+                    onConnection(new VncProtocolException("Protocol Error Connecting to Server. The Server didn't send any Security Types during the initial handshake."), false);
+
+                }
+            }
+            catch (Exception e)
+            {
+                onConnection(new VncProtocolException("Unable to connect to the server. Error was: " + e.Message, e), false);
+            }
         }
 
         /// <summary>

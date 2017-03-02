@@ -18,12 +18,11 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Threading;
 using UnityEngine;
 using UnityVncSharp.Drawing;
 using UnityVncSharp.Drawing.Imaging;
@@ -61,7 +60,11 @@ namespace UnityVncSharp.Unity
         public int display = 0;
         public string password;
 
+        public Material disconnectedScreen;
+        public Material connectedMaterial;
+
         private Size screenSize;
+        public Size ScreenSize { get { return screenSize; } }
 
         public bool connectOnStartUp;
         bool passwordPending = false;            // After Connect() is called, a password might be required.
@@ -69,27 +72,45 @@ namespace UnityVncSharp.Unity
 
         private Material m;
 
+        Thread mainThread;
+
         // Use this for initialization
         void Start()
         {
+            mainThread = System.Threading.Thread.CurrentThread;
+
+            setDisconnectedMaterial();
             if (connectOnStartUp)
             {
                 Connect();
             }
         }
 
+
+        void setDisconnectedMaterial()
+        {
+            if (disconnectedScreen != null)
+            {
+                GetComponent<Renderer>().sharedMaterial = disconnectedScreen;
+            }
+        }
+
         Bitmap theBitmap;                          // Internal representation of remote image.
         VncClient vnc;                           // The Client object handling all protocol-level interaction
 
-        private enum RuntimeState
+        public enum RuntimeState
         {
             Disconnected,
             Disconnecting,
             Connected,
-            Connecting
+            Connecting,
+
+            Error
         }
 
-        RuntimeState state = RuntimeState.Disconnected;
+        public RuntimeState state = RuntimeState.Disconnected;
+        public delegate void OnStateChanged(RuntimeState state);
+        public event OnStateChanged onStateChanged_event;
 
         /// <summary>
         /// True if the RemoteDesktop is connected and authenticated (if necessary) with a remote VNC Host; otherwise False.
@@ -102,88 +123,82 @@ namespace UnityVncSharp.Unity
             }
         }
 
-        /// <summary>
-        /// Insures the state of the connection to the server, either Connected or Not Connected depending on the value of the connected argument.
-        /// </summary>
-        /// <param name="connected">True if the connection must be established, otherwise False.</param>
-        /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is in the wrong state.</exception>
-        private void InsureConnection(bool connected)
-        {
-            // Grab the name of the calling routine:
-            string methodName = new System.Diagnostics.StackTrace().GetFrame(1).GetMethod().Name;
+      
 
-            if (connected)
-            {
-                Debug.Assert(state == RuntimeState.Connected ||
-                                                state == RuntimeState.Disconnecting, // special case for Disconnect()
-                                                string.Format("RemoteDesktop must be in RuntimeState.Connected before calling {0}.", methodName));
-                if (state != RuntimeState.Connected && state != RuntimeState.Disconnecting)
-                {
-                    throw new InvalidOperationException("RemoteDesktop must be in Connected state before calling methods that require an established connection.");
-                }
-            }
-            else
-            { // disconnected
-                Debug.Assert(state == RuntimeState.Disconnected,
-                                                string.Format("RemoteDesktop must be in RuntimeState.Disconnected before calling {0}.", methodName));
-                if (state != RuntimeState.Disconnected && state != RuntimeState.Disconnecting)
-                {
-                    throw new InvalidOperationException("RemoteDesktop cannot be in Connected state when calling methods that establish a connection.");
-                }
-            }
-        }
-
-        public bool Connect()
+        public void Connect()
         {
             // Ignore attempts to use invalid port numbers
             if (port < 1 | port > 65535) port = 5900;
             if (display < 0) display = 0;
             if (host == null) throw new ArgumentNullException("host");
 
+            StartCoroutine(Connection());
+        }
+
+        IEnumerator Connection()
+        {
             if (IsConnected)
             {
                 Disconnect();
             }
 
-            InsureConnection(false);
+            while (state != RuntimeState.Disconnected)
+            {
+                yield return new WaitForEndOfFrame();
+            }
 
             // Start protocol-level handling and determine whether a password is needed
             vnc = new VncClient();
             vnc.ConnectionLost += new EventHandler(OnConnectionLost);
+            vnc.onConnection += Vnc_onConnection;
+            connectionReceived = false;
+            SetState(RuntimeState.Connecting);
 
-            try
-            {
-                passwordPending = vnc.Connect(host, display, port, viewOnly);
-            } 
-            catch (Exception e)
-            {
-                OnConnectionLost(this, new ErrorEventArg(e));
-                return false;
-            }
+            vnc.Connect(host, display, port);
 
-            
+            Debug.Log("Connection In progress " + host + ":" + port);
 
-            if (passwordPending)
+            while (!connectionReceived)
+                yield return new WaitForFixedUpdate();
+
+            if (needPassword)
             {
                 // Server needs a password, so call which ever method is refered to by the GetPassword delegate.
-
-
                 if (string.IsNullOrEmpty(password))
                 {
                     // No password could be obtained (e.g., user clicked Cancel), so stop connecting
-                    return false;
+                    SetState(RuntimeState.Error);
                 }
                 else
                 {
-                    return Authenticate(password);
+                    Authenticate(password);
                 }
             }
             else
             {
                 // No password needed, so go ahead and Initialize here
-                return Initialize();
+                Initialize();
             }
         }
+
+        bool connectionReceived;
+        bool needPassword;
+
+        private void Vnc_onConnection(Exception errorConnection, bool needPassword)
+        {
+            if (errorConnection != null)
+            {
+                OnConnectionLost(this, new ErrorEventArg(errorConnection));
+                return;
+            }
+            this.connectionReceived = true;
+            this.needPassword = needPassword;
+
+        }
+
+
+
+
 
         /// <summary>
         /// Authenticate with the VNC Host using a user supplied password.
@@ -193,7 +208,7 @@ namespace UnityVncSharp.Unity
         /// <param name="password">The user's password.</param>
         public bool Authenticate(string password)
         {
-            InsureConnection(false);
+            
             if (!passwordPending) throw new InvalidOperationException("Authentication is only required when Connect() returns True and the VNC Host requires a password.");
             if (password == null) throw new NullReferenceException("password");
 
@@ -238,6 +253,7 @@ namespace UnityVncSharp.Unity
 
                 if (error.Exception != null)
                 {
+                    SetState(RuntimeState.Error);
                     Debug.LogException(error.Exception);
                 }
                 else if (!string.IsNullOrEmpty(error.Reason))
@@ -272,9 +288,43 @@ namespace UnityVncSharp.Unity
                 fullScreenRefresh = false;
             }
         }
+
+        List<RuntimeState> stateChanges = new List<RuntimeState>();
+
+
         private void SetState(RuntimeState newState)
         {
+            var isMainThread = mainThread.Equals(Thread.CurrentThread);
+            if (!isMainThread)
+            {
+                stateChanges.Add(newState);
+                return;
+            }
+
+
+            switch (newState)
+            {
+                case RuntimeState.Disconnected:
+                    setDisconnectedMaterial();
+                    break;
+                case RuntimeState.Disconnecting:
+                    setDisconnectedMaterial();
+                    break;
+                case RuntimeState.Connected:
+                    break;
+                case RuntimeState.Connecting:
+                    setDisconnectedMaterial();
+                    break;
+                case RuntimeState.Error:
+                    setDisconnectedMaterial();
+                    break;
+                default:
+                    break;
+            }
             state = newState;
+
+            if (onStateChanged_event != null)
+                onStateChanged_event(state);
         }
 
         /// <summary>
@@ -288,7 +338,8 @@ namespace UnityVncSharp.Unity
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is not in the Connected state.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>
         public void FullScreenUpdate()
         {
-            InsureConnection(true);
+            if (state != RuntimeState.Connected) return;
+
             fullScreenRefresh = true;
         }
 
@@ -309,11 +360,11 @@ namespace UnityVncSharp.Unity
         protected bool Initialize()
         {
             // Finish protocol handshake with host now that authentication is done.
-            InsureConnection(false);
+          
             vnc.Initialize();
             SetState(RuntimeState.Connected);
 
-            InsureConnection(true);
+            
 
             screenSize = new Size(vnc.BufferInfos.Width, vnc.BufferInfos.Height);
             theBitmap = new Bitmap(screenSize.Width, screenSize.Height);
@@ -322,8 +373,11 @@ namespace UnityVncSharp.Unity
             // Create a texture
             Texture2D tex = theBitmap.Texture;
 
+            if (connectedMaterial == null)
+                connectedMaterial = GetComponent<Renderer>().sharedMaterial;
+
             // Set texture onto our material
-            m = Instantiate(GetComponent<Renderer>().sharedMaterial) as Material;
+            m = Instantiate(connectedMaterial) as Material;
             m.mainTexture = tex;
             GetComponent<Renderer>().sharedMaterial = m;
 
@@ -339,7 +393,7 @@ namespace UnityVncSharp.Unity
 
         public void Disconnect()
         {
-            InsureConnection(true);
+            
             vnc.ConnectionLost -= new EventHandler(OnConnectionLost);
 
             vnc.Disconnect();
@@ -362,6 +416,11 @@ namespace UnityVncSharp.Unity
             {
                 popUpdates();
                 m.mainTexture = theBitmap.Texture;
+            }
+
+            foreach(var state  in stateChanges)
+            {
+                SetState(state);
             }
         }
 
@@ -417,7 +476,8 @@ namespace UnityVncSharp.Unity
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is not in the Connected state.</exception>
         public void SendSpecialKeys(SpecialKeys keys, bool release)
         {
-            InsureConnection(true);
+            if (state != RuntimeState.Connected) return;
+           
             // For all of these I am sending the key presses manually instead of calling
             // the keyboard event handlers, as I don't want to propegate the calls up to the 
             // base control class and form.
@@ -463,7 +523,7 @@ namespace UnityVncSharp.Unity
         {
             if (IsConnected)
             {
-            //    Debug.Log("Press Key " + key + " - " + pressed + " - " + released);
+                //    Debug.Log("Press Key " + key + " - " + pressed + " - " + released);
 
                 if (pressed)
                     vnc.WriteKeyboardEvent(key, true);
@@ -471,7 +531,7 @@ namespace UnityVncSharp.Unity
                     vnc.WriteKeyboardEvent(key, false);
             }
 
-        
+
         }
 
 
@@ -482,10 +542,18 @@ namespace UnityVncSharp.Unity
         }
 
 
+
+
     }
 
 
 
+#if UNITY_EDITOR
 
+
+
+
+
+#endif
 
 }
