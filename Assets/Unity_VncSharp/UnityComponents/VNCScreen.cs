@@ -388,6 +388,7 @@ namespace UnityVncSharp.Unity
             vnc.VncUpdate += VncUpdate;
             vnc.StartUpdates();
 
+            Debug.Log("Connection done ");
             return true;
         }
 

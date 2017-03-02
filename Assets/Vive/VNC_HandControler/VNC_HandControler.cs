@@ -4,7 +4,7 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 using Valve.VR;
 using UnityVncSharp.Unity;
-
+using UnityEngine.UI;
 
 [ExecuteInEditMode]
 public class VNC_HandControler : MonoBehaviour
@@ -12,6 +12,11 @@ public class VNC_HandControler : MonoBehaviour
     EVRButtonId mainButton = EVRButtonId.k_EButton_SteamVR_Trigger;
     EVRButtonId rightButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     EVRButtonId midButton = EVRButtonId.k_EButton_Grip;
+
+    public Color colorHover = Color.cyan;
+    public Color colorNormal = Color.yellow;
+    public Color colorDown = Color.red;
+
 
 
     // Use this for initialization
@@ -28,15 +33,19 @@ public class VNC_HandControler : MonoBehaviour
     {
         line = GetComponentInChildren<StraightLine>();
 
-        endLine = line.to;
+        
         startLine = line.from;
+        endLine = line.to;
+
 
         StartCoroutine(StartUp());
     }
     StraightLine line;
     SteamVR_Controller.Device controller;
+
     Transform endLine;
     Transform startLine;
+
     Hand hand;
     IEnumerator StartUp()
     {
@@ -58,6 +67,19 @@ public class VNC_HandControler : MonoBehaviour
 
     Vector3 direction = Vector3.forward;
 
+    bool handContainObject()
+    {
+        if (hand == null) return false;
+
+        if (hand.AttachedObjects.Count > 1)
+            return true;
+
+        if (hand.hoveringInteractable != null)
+            return true;
+
+        return false;
+    }
+
     VNCScreen vnc = null;
     RaycastHit hit = new RaycastHit();
     public float maxDistance = 2;
@@ -68,7 +90,7 @@ public class VNC_HandControler : MonoBehaviour
         if (controller == null)
             return;
 
-        if (hand.currentAttachedObject != null)
+        if (handContainObject())
         {
             line.gameObject.SetActive(false);
             return;
@@ -85,21 +107,15 @@ public class VNC_HandControler : MonoBehaviour
             Collider c = hit.collider;
             if (touchedCollider != c)
             {
-                line.color = Color.yellow;
-
                 touchedCollider = c;
                 vnc = c.GetComponent<VNCScreen>();
             }
-            else
-            {
-                line.color = Color.cyan;
-            }
+          
         }
         else
         {
             touchedCollider = null;
             vnc = null;
-            line.color = Color.cyan;
             endLine.position = startLine.position + startLine.forward * maxDistance;
         }
 
@@ -132,13 +148,34 @@ public class VNC_HandControler : MonoBehaviour
         {
             Vector3 hit_pos = hit.point;
 
-            transform.position = hit_pos;
-            Vector2 uvPos = hit.textureCoord2;
-
-            vnc.UpdateMouse(uvPos, down, controller.GetPress(rightButton), controller.GetPress(midButton));
+            //   transform.position = hit_pos;
             
+            Vector2 pos = hit.collider.transform.InverseTransformPoint(hit.point);
+            pos += new Vector2(0.5f, 0.5f);
+            if (debugText != null)
+            {
+
+
+              //  debugText.text = "pos " + pos;
+               
+          
+           
+
+
+            }
+            if (down)
+                line.color = colorDown;
+            else
+                line.color = colorHover;
+
+            vnc.UpdateMouse(pos, down, controller.GetPress(rightButton), controller.GetPress(midButton));
         }
-        
+        else
+            line.color = colorNormal;  
+
+
 
     }
+
+    public Text debugText;
 }
