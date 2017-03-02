@@ -18,3 +18,4 @@ Library/
 Temp/
 .vs/
 Unity-VNC-Client.csproj
+*.csproj
