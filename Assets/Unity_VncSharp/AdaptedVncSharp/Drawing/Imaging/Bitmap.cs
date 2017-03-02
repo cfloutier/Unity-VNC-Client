@@ -42,7 +42,7 @@ namespace UnityVncSharp.Drawing.Imaging
 
         public Bitmap(int w, int h)
         {
-            Debug.Log("Build bitmap");
+       
 
             size = new Size(w, h);
             texture = new Texture2D(w, h, TextureFormat.ARGB32, true);
