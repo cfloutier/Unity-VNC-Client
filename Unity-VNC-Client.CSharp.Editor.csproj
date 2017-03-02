@@ -160,7 +160,7 @@
     <None Include="Assets\Vive\SteamVR\Resources\SteamVR_Fade.shader" />
     <None Include="Assets\Vive\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
     <None Include="Assets\Vive\SteamVR\readme.txt" />
-    <None Include="Assets\Vive\VRInputModule\Resources\LaserPointer.shader" />
+    <None Include="Assets\Vive\VNC_HandControler\Resources\LaserPointer.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

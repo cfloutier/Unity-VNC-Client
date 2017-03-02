@@ -217,10 +217,10 @@
     <Compile Include="Assets\Vive\SteamVR\Scripts\SteamVR_TrackedObject.cs" />
     <Compile Include="Assets\Vive\SteamVR\Scripts\SteamVR_UpdatePoses.cs" />
     <Compile Include="Assets\Vive\SteamVR\Scripts\SteamVR_Utils.cs" />
-    <Compile Include="Assets\Vive\VNCHandControler.cs" />
+    <Compile Include="Assets\Vive\VNC_HandControler\StraightLine.cs" />
+    <Compile Include="Assets\Vive\VNC_HandControler\VNC_HandControler.cs" />
     <Compile Include="Assets\Vive\VRInputModule\Scripts\IUILaserPointer.cs" />
     <Compile Include="Assets\Vive\VRInputModule\Scripts\LaserPointerInputModule.cs" />
-    <Compile Include="Assets\Vive\VRInputModule\Scripts\StraightLine.cs" />
     <Compile Include="Assets\Vive\VRInputModule\Scripts\UIIgnoreRaycast.cs" />
     <Compile Include="Assets\Vive\VRInputModule\Scripts\ViveUILaserPointer.cs" />
     <Compile Include="Assets\Vive\VRInputModule\_demo\Scripts\DemoLaserPointerTest.cs" />
@@ -241,7 +241,7 @@
     <None Include="Assets\Vive\SteamVR\Resources\SteamVR_Fade.shader" />
     <None Include="Assets\Vive\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
     <None Include="Assets\Vive\SteamVR\readme.txt" />
-    <None Include="Assets\Vive\VRInputModule\Resources\LaserPointer.shader" />
+    <None Include="Assets\Vive\VNC_HandControler\Resources\LaserPointer.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

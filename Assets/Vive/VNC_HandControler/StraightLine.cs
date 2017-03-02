@@ -12,7 +12,6 @@ public class StraightLine : MonoBehaviour
     public float sizeDot = 0.05f;
     public float sizeLine = 0.01f;
 
-   
 
     private GameObject line;
     private GameObject dot1;

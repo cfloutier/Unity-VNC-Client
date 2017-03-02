@@ -5,25 +5,28 @@ using Valve.VR.InteractionSystem;
 using Valve.VR;
 using UnityVncSharp.Unity;
 
+
+[ExecuteInEditMode]
 public class VNC_HandControler : MonoBehaviour
 {
     EVRButtonId mainButton = EVRButtonId.k_EButton_SteamVR_Trigger;
 
-
-
-
     // Use this for initialization
     void Start ()
     {
-		
+        Transform[] tr = GetComponentsInChildren<Transform>();
+        foreach(var t in tr)
+        {
+            t.gameObject.hideFlags = 0;
+        }
 	}
 
     void Awake()
     {
-        line = GetComponent<StraightLine>();
+        line = GetComponentInChildren<StraightLine>();
 
-        endLine = transform.Find("EndLine");
-        startLine = transform.Find("StartLine");
+        endLine = line.to;
+        startLine = line.from;
 
         StartCoroutine(StartUp());
     }
@@ -72,21 +75,21 @@ public class VNC_HandControler : MonoBehaviour
             Collider c = hit.collider;
             if (touchedCollider != c)
             {
-                line.color = Color.yellow;
+          //      line.color = Color.yellow;
 
                 touchedCollider = c;
                 vnc = c.GetComponent<VNCScreen>();
             }
             else
             {
-                line.color = Color.cyan;
+            //    line.color = Color.cyan;
             }
         }
         else
         {
             touchedCollider = null;
             vnc = null;
-            line.color = Color.cyan;
+      //      line.color = Color.cyan;
             endLine.position = startLine.position + startLine.forward * maxDistance;
         }
 
@@ -94,18 +97,19 @@ public class VNC_HandControler : MonoBehaviour
 
         if (down)
         {
-            if (!controller.GetHairTrigger())
+            if (!controller.GetPress(mainButton))
             {
                 down = false;
+                line.color = Color.red;
                 line.sizeDot = minMaxSizeDot.x;
             }
         }
         else
         {
-            if (controller.GetHairTrigger())
+            if (controller.GetPress(mainButton))
             {
                 down = true;
-
+                line.color = Color.yellow;
                 line.sizeDot = minMaxSizeDot.x;
             }
         }
