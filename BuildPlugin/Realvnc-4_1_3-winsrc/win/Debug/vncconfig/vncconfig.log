@@ -1,0 +1,75 @@
+﻿  Legacy.cxx
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\common\rdr\exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\common\rdr\exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(52): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(54): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(55): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(62): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(93): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(97): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(105): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(106): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(112): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(113): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(118): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(120): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\legacy.cxx(121): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  PasswordDialog.cxx
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\common\rdr\exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\common\rdr\exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(52): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(54): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(55): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  vncconfig.cxx
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\common\rdr\exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\common\rdr\exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(52): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(54): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\rfb_win32\msgbox.h(55): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\connections.h(74): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\connections.h(124): warning C4018: '<': signed/unsigned mismatch
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\desktop.h(36): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(568): note: see declaration of 'stricmp'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\desktop.h(37): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(568): note: see declaration of 'stricmp'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\desktop.h(63): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(568): note: see declaration of 'stricmp'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\desktop.h(64): warning C4996: 'stricmp': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _stricmp. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(568): note: see declaration of 'stricmp'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\vncconfig.cxx(87): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(240): note: see declaration of 'freopen'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\vncconfig.cxx(88): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(240): note: see declaration of 'freopen'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\vncconfig.cxx(89): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(240): note: see declaration of 'freopen'
+c:\_dev\unity-vnc-client\vnc-4_1_3-winsrc\win\vncconfig\vncconfig.cxx(90): warning C4996: 'setbuf': This function or variable may be unsafe. Consider using setvbuf instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(396): note: see declaration of 'setbuf'
+  Generating Code...
+Legacy.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+  vncconfig.vcxproj -> C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\win\vncconfig\.\..\Debug\vncconfig.exe

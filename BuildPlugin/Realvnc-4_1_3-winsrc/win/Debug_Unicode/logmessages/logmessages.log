@@ -1,0 +1,10 @@
+﻿  MC: Compiling messages.mc
+  Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.17336
+  
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  
+  Microsoft (R) Incremental Linker Version 14.00.23918.0
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86

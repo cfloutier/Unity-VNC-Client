@@ -1,3 +1,7 @@
+Library/
+Temp/
+.vs/
+
 Assembly-CSharp-Editor-vs.csproj
 Assembly-CSharp-Editor.csproj
 VNC System.sln
@@ -12,10 +16,8 @@ Unity-VNC-Client.sln
 Unity-VNC-Client.userprefs
 VNC System.Editor.csproj
 VNC System.Plugins.csproj
-vncsharp-1.0-src.zip
-vncsharpexample-csharp-1.0-src.zip
-Library/
-Temp/
-.vs/
+
+BuildPlugin/Realvnc-4_1_3-winsrc/common/Debug/
+BuildPlugin/Realvnc-4_1_3-winsrc/common/Debug_Unicode/
+Unity-VNC-Client.Editor.csproj
 Unity-VNC-Client.csproj
-*.csproj
