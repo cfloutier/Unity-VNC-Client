@@ -27,7 +27,7 @@ public class ScreenStates : MonoBehaviour
         Debug.Assert(screen != null);
 
         screen.onStateChanged_event += onStateChanged;
-        onStateChanged(VNCScreen.RuntimeState.Disconnected);
+        onStateChanged(screen.state);
     }
 
     void ShowScreen(bool show)

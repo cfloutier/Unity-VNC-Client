@@ -415,7 +415,7 @@ namespace UnityVncSharp.Unity
             if (IsConnected)
             {
                 popUpdates();
-                m.mainTexture = theBitmap.Texture;
+              
             }
 
             foreach(var state  in stateChanges)
