@@ -20,7 +20,9 @@
 
 using System;
 using System.Threading;
-using UnityVncSharp.Drawing;
+
+using VNCScreen.Drawing;
+
 using System.Diagnostics;
 using System.Security.Cryptography;
 

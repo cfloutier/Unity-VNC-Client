@@ -18,9 +18,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-using System;
-using UnityVncSharp.Drawing;
-using UnityVncSharp.Drawing.Imaging;
+using VNCScreen.Drawing;
 
 // FIXME: I can't understand why yet, but under the Xvnc server in Unix (v. 3.3.7), this doesn't work.  
 // Everything is fine using the Windows server!?

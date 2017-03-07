@@ -20,7 +20,7 @@
 
 
 
-namespace UnityVncSharp.Drawing
+namespace VNCScreen.Drawing
 {
 
     /// <summary>

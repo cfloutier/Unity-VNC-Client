@@ -107,7 +107,6 @@
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncClippedDesktopPolicy.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncDefaultInputPolicy.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncProtocolException.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncScaledDesktopPolicy.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncViewInputPolicy.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\zlib.NET\Adler32.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\zlib.NET\Deflate.cs" />

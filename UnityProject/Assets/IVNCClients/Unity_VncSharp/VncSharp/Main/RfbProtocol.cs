@@ -20,7 +20,8 @@
 
 using System;
 using System.IO;
-using UnityVncSharp.Drawing;
+using VNCScreen.Drawing;
+
 using System.Net.Sockets;
 using UnityEngine;
 

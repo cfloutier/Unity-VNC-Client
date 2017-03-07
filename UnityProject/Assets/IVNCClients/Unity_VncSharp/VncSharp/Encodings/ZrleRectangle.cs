@@ -20,7 +20,10 @@
 
 
 using System;
-using UnityVncSharp.Drawing;
+
+using VNCScreen.Drawing;
+
+
 //using UnityVncSharp.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;

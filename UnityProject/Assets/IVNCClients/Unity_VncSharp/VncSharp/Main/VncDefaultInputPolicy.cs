@@ -20,7 +20,8 @@
 
 using System;
 using System.Diagnostics;
-using UnityVncSharp.Drawing;
+using VNCScreen.Drawing;
+
 
 namespace UnityVncSharp
 {

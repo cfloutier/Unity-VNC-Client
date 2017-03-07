@@ -24,10 +24,8 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
-using UnityVncSharp.Drawing;
-using UnityVncSharp.Drawing.Imaging;
+using VNCScreen.Drawing;
 using UnityVncSharp;
-
 
 namespace VNCScreen
 {

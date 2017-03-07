@@ -21,8 +21,9 @@
 
 using System;
 using UnityEngine;
+using VNCScreen.Drawing;
 
-namespace UnityVncSharp.Drawing.Imaging
+namespace UnityVncSharp
 {
 
     /// <summary>

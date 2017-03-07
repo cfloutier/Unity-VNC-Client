@@ -19,9 +19,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-using System;
-using UnityVncSharp.Drawing;
-using UnityVncSharp.Drawing.Imaging;
+
+using VNCScreen.Drawing;
+
+
 
 namespace UnityVncSharp.Encodings
 {
