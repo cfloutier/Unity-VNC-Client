@@ -1,0 +1,280 @@
+﻿  Blacklist.cxx
+  CConnection.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+CConnection.cxx(110): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  CMsgHandler.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  CMsgReader.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  CMsgReaderV3.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  CMsgWriter.cxx
+  CMsgWriterV3.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  ComparingUpdateTracker.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  Configuration.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+Configuration.cxx(346): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+Configuration.cxx(352): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  ConnParams.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+ConnParams.cxx(56): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+ConnParams.cxx(62): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  CSecurityVncAuth.cxx
+  Cursor.cxx
+  Decoder.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  Encoder.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  encodings.cxx
+  HextileDecoder.cxx
+  HextileEncoder.cxx
+  HTTPServer.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+HTTPServer.cxx(150): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+HTTPServer.cxx(155): warning C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\time.h(495): note: see declaration of 'gmtime'
+HTTPServer.cxx(160): warning C4996: 'gmtime': This function or variable may be unsafe. Consider using gmtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\time.h(495): note: see declaration of 'gmtime'
+HTTPServer.cxx(164): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+HTTPServer.cxx(181): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+HTTPServer.cxx(229): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+HTTPServer.cxx(298): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+  KeyRemapper.cxx
+KeyRemapper.cxx(45): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+  Logger.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+Logger.cxx(85): warning C4996: '_vsnprintf': This function or variable may be unsafe. Consider using _vsnprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1396): note: see declaration of '_vsnprintf'
+  Generating Code...
+  Compiling...
+  Logger_file.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+Logger_file.cxx(57): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+Logger_file.cxx(60): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+Logger_file.cxx(68): warning C4996: 'ctime': This function or variable may be unsafe. Consider using ctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\time.h(475): note: see declaration of 'ctime'
+  Logger_stdio.cxx
+  LogWriter.cxx
+  Password.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  PixelBuffer.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  PixelFormat.cxx
+PixelFormat.cxx(142): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(143): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(144): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(145): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(146): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(147): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(148): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(151): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(153): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(157): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(166): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(167): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(168): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(169): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(170): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(171): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(172): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(181): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(182): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(183): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(184): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(185): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(186): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(187): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(191): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(192): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(193): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(194): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(195): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(196): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(197): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(198): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(199): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(200): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(201): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(202): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(203): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+PixelFormat.cxx(204): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+PixelFormat.cxx(212): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(2254): note: see declaration of 'sscanf'
+  RawDecoder.cxx
+  RawEncoder.cxx
+  Region.cxx
+  RREDecoder.cxx
+  RREEncoder.cxx
+  SConnection.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+SConnection.cxx(169): warning C4267: 'argument': conversion from 'size_t' to 'rdr::U8', possible loss of data
+SConnection.cxx(117): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+SConnection.cxx(151): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  secTypes.cxx
+  ServerCore.cxx
+  SMsgHandler.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  SMsgReader.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  SMsgReaderV3.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  SMsgWriter.cxx
+  SMsgWriterV3.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  SSecurityFactoryStandard.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+SSecurityFactoryStandard.cxx(105): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+  Generating Code...
+  Compiling...
+  SSecurityVncAuth.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  TransImageGetter.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  UpdateTracker.cxx
+  util.cxx
+util.cxx(74): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(346): note: see declaration of 'strncpy'
+  VNCSConnectionST.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+VNCSConnectionST.cxx(230): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+  VNCServerST.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  ZRLEDecoder.cxx
+  ZRLEEncoder.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  Generating Code...
+  d3des.c
+  rfb.vcxproj -> C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rfb\.\..\Debug_Unicode\rfb.lib

@@ -1,0 +1,40 @@
+﻿  TcpSocket.cxx
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
+C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+TcpSocket.cxx(104): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(109): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(2238): note: see declaration of 'gethostbyname'
+TcpSocket.cxx(148): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(166): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+TcpSocket.cxx(178): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(200): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+TcpSocket.cxx(343): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(2238): note: see declaration of 'gethostbyname'
+TcpSocket.cxx(349): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(351): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
+TcpSocket.cxx(378): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(419): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(436): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(453): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(455): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(463): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+TcpSocket.cxx(464): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+TcpSocket.cxx(465): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
+  network.vcxproj -> C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\network\.\..\Debug_Unicode\network.lib

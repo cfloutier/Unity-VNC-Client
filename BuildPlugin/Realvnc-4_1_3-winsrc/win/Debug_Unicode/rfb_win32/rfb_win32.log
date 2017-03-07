@@ -1,6 +1,0 @@
-﻿  SocketManager.cxx
-C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(33): warning C4996: 'strncat': This function or variable may be unsafe. Consider using strncat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(255): note: see declaration of 'strncat'
-C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\common\rdr/Exception.h(35): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h(90): note: see declaration of 'strcat'
-  rfb_win32.vcxproj -> C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\win\rfb_win32\.\..\Debug_Unicode\rfb_win32.lib

@@ -1,3 +1,0 @@
-﻿.\wm_hooks.def(2): warning LNK4017: DESCRIPTION statement not supported for the target platform; ignored
-     Creating library .\..\Debug_Unicode/wm_hooks.lib and object .\..\Debug_Unicode/wm_hooks.exp
-  wm_hooks.vcxproj -> C:\_dev\Unity-VNC-Client\vnc-4_1_3-winsrc\win\wm_hooks\.\..\Debug_Unicode\wm_hooks.dll
