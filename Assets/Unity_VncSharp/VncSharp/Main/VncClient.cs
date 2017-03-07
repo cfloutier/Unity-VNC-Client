@@ -35,7 +35,7 @@ namespace UnityVncSharp
     public delegate void VncUpdateHandler(IDesktopUpdater update);
 
 
-    public class VncClient
+    public class VncClient : IVncClient
     {
         RfbProtocol rfb;            // The protocol object handling all communication with server.
         FrameBufferInfos bufferInfos;         // The geometry and properties of the remote framebuffer
@@ -54,7 +54,6 @@ namespace UnityVncSharp
         public event EventHandler ConnectionLost;
 
 
-        public delegate  void OnConnection(Exception error, bool needPassword);
 
         /// <summary>
         /// Raised when the connection to the remote host is set or not
@@ -81,6 +80,12 @@ namespace UnityVncSharp
                 return bufferInfos;
             }
         }
+
+        public Size BufferSize
+        {
+            get { return new Size(bufferInfos.Width, bufferInfos.Height); }
+        }
+
 
         /// <summary>
         /// Gets the hostname of the remote desktop
@@ -496,8 +501,6 @@ namespace UnityVncSharp
 
         protected void OnServerCutText()
         {
-
-
             ServerCutText(this, EventArgs.Empty);
         }
 
@@ -551,8 +554,20 @@ namespace UnityVncSharp
             }
         }
 
-        // TODO: This needs to be pushed into the protocol rather than expecting the caller to create the mask.
-        public virtual void WritePointerEvent(byte buttonMask, Point point)
+
+        public void UpdateMouse(Point pos, bool button0, bool button1, bool button2)
+        {
+            byte mask = 0;
+
+            if (button0) mask += 1;
+            if (button1) mask += 2;
+            if (button2) mask += 4;
+
+            WritePointerEvent(mask, pos);
+        }
+
+      
+        void WritePointerEvent(byte buttonMask, Point point)
         {
             try
             {

@@ -96,7 +96,7 @@ namespace UnityVncSharp.Unity
         }
 
         Bitmap theBitmap;                          // Internal representation of remote image.
-        VncClient vnc;                           // The Client object handling all protocol-level interaction
+        IVncClient vnc;                           // The Client object handling all protocol-level interaction
 
         public enum RuntimeState
         {
@@ -106,6 +106,11 @@ namespace UnityVncSharp.Unity
             Connecting,
 
             Error
+        }
+
+        IVncClient buildVNC()
+        {
+            return new VncClient();
         }
 
         public RuntimeState state = RuntimeState.Disconnected;
@@ -122,8 +127,6 @@ namespace UnityVncSharp.Unity
                 return state == RuntimeState.Connected;
             }
         }
-
-      
 
         public void Connect()
         {
@@ -148,13 +151,13 @@ namespace UnityVncSharp.Unity
             }
 
             // Start protocol-level handling and determine whether a password is needed
-            vnc = new VncClient();
+            vnc = buildVNC();
             vnc.ConnectionLost += new EventHandler(OnConnectionLost);
             vnc.onConnection += Vnc_onConnection;
             connectionReceived = false;
             SetState(RuntimeState.Connecting);
 
-            vnc.Connect(host, display, port);
+            vnc.Connect(host, display, port, false);
 
             Debug.Log("Connection In progress " + host + ":" + port);
 
@@ -195,10 +198,6 @@ namespace UnityVncSharp.Unity
             this.needPassword = needPassword;
 
         }
-
-
-
-
 
         /// <summary>
         /// Authenticate with the VNC Host using a user supplied password.
@@ -243,7 +242,8 @@ namespace UnityVncSharp.Unity
             // Guard against this and invoke Disconnect once.
             if (state == RuntimeState.Connected)
             {
-                SetState(RuntimeState.Disconnecting);
+                state = RuntimeState.Disconnecting;
+              
                 Disconnect();
             }
 
@@ -345,15 +345,6 @@ namespace UnityVncSharp.Unity
 
 
         /// <summary>
-        /// Changes the input mode to view-only or interactive.
-        /// </summary>
-        /// <param name="viewOnly">True if view-only mode is desired (no mouse/keyboard events will be sent).</param>
-        public void SetInputMode(bool viewOnly)
-        {
-            vnc.SetInputMode(viewOnly);
-        }
-
-        /// <summary>
         /// After protocol-level initialization and connecting is complete, the local GUI objects have to be set-up, and requests for updates to the remote host begun.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is already in the Connected state.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>		
@@ -364,9 +355,8 @@ namespace UnityVncSharp.Unity
             vnc.Initialize();
             SetState(RuntimeState.Connected);
 
-            
 
-            screenSize = new Size(vnc.BufferInfos.Width, vnc.BufferInfos.Height);
+            screenSize = vnc.BufferSize;
             theBitmap = new Bitmap(screenSize.Width, screenSize.Height);
 
             // Tell the user of this control the necessary info about the desktop in order to setup the display
@@ -393,7 +383,6 @@ namespace UnityVncSharp.Unity
 
         public void Disconnect()
         {
-            
             vnc.ConnectionLost -= new EventHandler(OnConnectionLost);
 
             vnc.Disconnect();
@@ -448,13 +437,7 @@ namespace UnityVncSharp.Unity
 
         public void UpdateMouse(Point pos, bool button0, bool button1, bool button2)
         {
-            byte mask = 0;
-
-            if (button0) mask += 1;
-            if (button1) mask += 2;
-            if (button2) mask += 4;
-
-            vnc.WritePointerEvent(mask, pos);
+            vnc.UpdateMouse(pos, button0, button1, button2);
         }
 
         /// <summary>
@@ -530,10 +513,7 @@ namespace UnityVncSharp.Unity
                 if (released)
                     vnc.WriteKeyboardEvent(key, false);
             }
-
-
         }
-
 
         public void OnKey(KeyCode key, bool pressed)
         {
