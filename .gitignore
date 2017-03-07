@@ -1,23 +1,21 @@
-Library/
-Temp/
-.vs/
+UnityProject/Library/
+UnityProject/Temp/
+UnityProject/.vs/
 
-Assembly-CSharp-Editor-vs.csproj
-Assembly-CSharp-Editor.csproj
-VNC System.sln
-VNC System.csproj
-Assembly-CSharp-firstpass-vs.csproj
-Assembly-CSharp-firstpass.csproj
-Assembly-CSharp-vs.csproj
-Assembly-CSharp.csproj
-Unity-VNC-Client-csharp.sln
-Unity-VNC-Client-master.zip
-Unity-VNC-Client.sln
-Unity-VNC-Client.userprefs
-VNC System.Editor.csproj
-VNC System.Plugins.csproj
-
-BuildPlugin/Realvnc-4_1_3-winsrc/common/Debug/
-BuildPlugin/Realvnc-4_1_3-winsrc/common/Debug_Unicode/
-Unity-VNC-Client.Editor.csproj
-Unity-VNC-Client.csproj
+UnityProject/Assembly-CSharp-Editor-vs.csproj
+UnityProject/Assembly-CSharp-Editor.csproj
+UnityProject/VNC System.sln
+UnityProject/VNC System.csproj
+UnityProject/Assembly-CSharp-firstpass-vs.csproj
+UnityProject/Assembly-CSharp-firstpass.csproj
+UnityProject/Assembly-CSharp-vs.csproj
+UnityProject/Assembly-CSharp.csproj
+UnityProject/Unity-VNC-Client-csharp.sln
+UnityProject/Unity-VNC-Client-master.zip
+UnityProject/Unity-VNC-Client.sln
+UnityProject/Unity-VNC-Client.userprefs
+UnityProject/Unity-VNC-Client.Editor.csproj
+UnityProject/Unity-VNC-Client.csproj
+UnityProject/VNC System.Editor.csproj
+UnityProject/VNC System.Plugins.csproj
+PluginSource/projects/VisualStudio2015/.vs/
