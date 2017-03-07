@@ -19,11 +19,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-
-
 using UnityEngine;
 
-namespace UnityVncSharp.Unity
+namespace VNCScreen
 {
     /// <summary>
     /// Translate from Unity Keycode to XK Code (from x11) 

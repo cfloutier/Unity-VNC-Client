@@ -24,7 +24,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityVncSharp.Unity
+namespace VNCScreen
 {
 
     /// <summary>

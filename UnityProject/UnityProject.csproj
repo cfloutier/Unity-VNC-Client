@@ -101,7 +101,6 @@
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\EncodedRectangleFactory.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\ErrorEventArgs.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Framebuffer.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\IDesktopUpdater.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\IVncInputPolicy.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\RfbProtocol.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncClient.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="Assets\VNCScreen\Drawing\Point.cs" />
     <Compile Include="Assets\VNCScreen\Drawing\Rectangle.cs" />
     <Compile Include="Assets\VNCScreen\Drawing\Size.cs" />
+    <Compile Include="Assets\VNCScreen\IDesktopUpdater.cs" />
     <Compile Include="Assets\VNCScreen\IVNCClient.cs" />
     <Compile Include="Assets\VNCScreen\KeyTranslator.cs" />
     <Compile Include="Assets\VNCScreen\ScreenStates.cs" />

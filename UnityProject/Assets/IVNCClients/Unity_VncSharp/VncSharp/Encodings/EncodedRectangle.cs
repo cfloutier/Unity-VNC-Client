@@ -23,6 +23,7 @@ using UnityVncSharp.Drawing;
 using UnityVncSharp.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.IO;
+using VNCScreen;
 
 namespace UnityVncSharp.Encodings
 {

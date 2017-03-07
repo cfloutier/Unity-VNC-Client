@@ -22,7 +22,7 @@ using System;
 using UnityVncSharp.Drawing;
 using UnityVncSharp.Drawing.Imaging;
 
-namespace UnityVncSharp
+namespace VNCScreen
 {
 	/// <summary>
 	/// Classes that implement IDesktopUpdater are used to update and Draw on a local Bitmap representation of the remote desktop.

@@ -26,8 +26,10 @@ using System.Threading;
 using UnityEngine;
 using UnityVncSharp.Drawing;
 using UnityVncSharp.Drawing.Imaging;
+using UnityVncSharp;
 
-namespace UnityVncSharp.Unity
+
+namespace VNCScreen
 {
     /// <summary>
     /// SpecialKeys is a list of the various keyboard combinations that overlap with the client-side and make it
@@ -86,7 +88,6 @@ namespace UnityVncSharp.Unity
             }
         }
 
-
         void setDisconnectedMaterial()
         {
             if (disconnectedScreen != null)
@@ -110,7 +111,7 @@ namespace UnityVncSharp.Unity
 
         IVncClient buildVNC()
         {
-            return new VncClient();
+            return new VNCClient();
         }
 
         public RuntimeState state = RuntimeState.Disconnected;

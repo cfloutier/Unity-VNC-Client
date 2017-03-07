@@ -24,18 +24,15 @@ using UnityVncSharp.Drawing;
 using System.Diagnostics;
 using System.Security.Cryptography;
 
-
+using VNCScreen;
 using UnityVncSharp.Encodings;
 
 namespace UnityVncSharp
 {
-    /// <summary>
-    /// Delegate definition of an Event Handler used to indicate a Framebuffer Update has been received.
-    /// </summary>
-    public delegate void VncUpdateHandler(IDesktopUpdater update);
+   
 
 
-    public class VncClient : IVncClient
+    public class VNCClient : IVncClient
     {
         RfbProtocol rfb;            // The protocol object handling all communication with server.
         FrameBufferInfos bufferInfos;         // The geometry and properties of the remote framebuffer
@@ -66,7 +63,7 @@ namespace UnityVncSharp
         /// </summary>
         public event EventHandler ServerCutText;
 
-        public VncClient()
+        public VNCClient()
         {
         }
 

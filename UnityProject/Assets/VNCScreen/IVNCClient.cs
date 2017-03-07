@@ -18,9 +18,14 @@
 using System;
 using UnityVncSharp.Drawing;
 
-namespace UnityVncSharp
+namespace VNCScreen
 {
     public delegate void OnConnection(Exception error, bool needPassword);
+    /// <summary>
+    /// Delegate definition of an Event Handler used to indicate a Framebuffer Update has been received.
+    /// </summary>
+    public delegate void VncUpdateHandler(IDesktopUpdater update);
+
 
     /// <summary>
     /// This interface is used as abstraction layer between the vncSharp client and the plugin 
