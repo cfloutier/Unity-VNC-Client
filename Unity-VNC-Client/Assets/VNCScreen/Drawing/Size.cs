@@ -1,0 +1,107 @@
+﻿// Unity 3D Vnc Client - Unity 3D VNC Client Library
+// Copyright (C) 2017 Christophe Floutier
+//
+// Based on VncSharp - .NET VNC Client Library
+// Copyright (C) 2008 David Humphrey
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+namespace VNCScreen.Drawing
+{
+    /// <summary>
+    /// This class is an adpatation of the Size from System.Drawing (unavalable in unity)
+    /// </summary>
+    public class Size
+    {
+        public Size()
+        {
+            x = y = 0;
+        }
+
+        public Size(int X, int Y)
+        {
+            this.X = X;
+            this.Y = Y;
+        }
+
+        int y;
+        int x;
+
+        public int X
+        {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                if (value < 0)
+                    value = 0;
+
+                x = value;
+            }
+        }
+        public int Y
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                if (value < 0)
+                    value = 0;
+
+                y = value;
+            }
+        }
+
+        public int Width
+        {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                if (value < 0)
+                    value = 0;
+
+                x = value;
+            }
+        }
+        public int Height
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                if (value < 0)
+                    value = 0;
+
+                y = value;
+            }
+        }
+
+        public override string ToString()
+        {
+            return "[" + X + "," + Y + "]";
+        }
+    }
+
+}

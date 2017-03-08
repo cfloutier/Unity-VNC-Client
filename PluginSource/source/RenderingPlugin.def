@@ -6,7 +6,9 @@ LIBRARY
 EXPORTS
    UnityPluginLoad
    UnityPluginUnload
-   SetTimeFromUnity
-   SetTextureFromUnity
-   SetMeshBuffersFromUnity
    GetRenderEventFunc
+   Connect
+   Disconnect
+   IsConnected
+   SetTextureFromUnity
+  

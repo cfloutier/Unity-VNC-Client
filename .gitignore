@@ -1,21 +1,21 @@
-UnityProject/Library/
-UnityProject/Temp/
-UnityProject/.vs/
+Unity-VNC-Client/Library/
+Unity-VNC-Client/Temp/
+Unity-VNC-Client/.vs/
 
-UnityProject/Assembly-CSharp-Editor-vs.csproj
-UnityProject/Assembly-CSharp-Editor.csproj
-UnityProject/VNC System.sln
-UnityProject/VNC System.csproj
-UnityProject/Assembly-CSharp-firstpass-vs.csproj
-UnityProject/Assembly-CSharp-firstpass.csproj
-UnityProject/Assembly-CSharp-vs.csproj
-UnityProject/Assembly-CSharp.csproj
-UnityProject/Unity-VNC-Client-csharp.sln
-UnityProject/Unity-VNC-Client-master.zip
-UnityProject/Unity-VNC-Client.sln
-UnityProject/Unity-VNC-Client.userprefs
-UnityProject/Unity-VNC-Client.Editor.csproj
-UnityProject/Unity-VNC-Client.csproj
-UnityProject/VNC System.Editor.csproj
-UnityProject/VNC System.Plugins.csproj
+Unity-VNC-Client/Assembly-CSharp-Editor-vs.csproj
+Unity-VNC-Client/Assembly-CSharp-Editor.csproj
+Unity-VNC-Client/VNC System.sln
+Unity-VNC-Client/VNC System.csproj
+Unity-VNC-Client/Assembly-CSharp-firstpass-vs.csproj
+Unity-VNC-Client/Assembly-CSharp-firstpass.csproj
+Unity-VNC-Client/Assembly-CSharp-vs.csproj
+Unity-VNC-Client/Assembly-CSharp.csproj
+Unity-VNC-Client/Unity-VNC-Client-csharp.sln
+Unity-VNC-Client/Unity-VNC-Client-master.zip
+Unity-VNC-Client/Unity-VNC-Client.sln
+Unity-VNC-Client/Unity-VNC-Client.userprefs
+Unity-VNC-Client/Unity-VNC-Client.Editor.csproj
+Unity-VNC-Client/Unity-VNC-Client.csproj
+Unity-VNC-Client/VNC System.Editor.csproj
+Unity-VNC-Client/VNC System.Plugins.csproj
 PluginSource/projects/VisualStudio2015/.vs/
