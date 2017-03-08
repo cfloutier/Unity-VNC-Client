@@ -75,17 +75,22 @@ namespace UnityVncSharp
         /// </summary>
         public event EventHandler ServerCutText;
 
+        int received = 0;
 
-        public void updateDesktopImage()
-        {
+        public bool updateDesktopImage()
+        {      
             for (int i = 0; i < updates.Count; i++)
             {
+                received++;
                 IDesktopUpdater u = updates[i];
                 if (u != null)
                     u.Draw(theBitmap);
             }
 
+       //     UnityEngine.Debug.Log("received " + received);
+
             updates.Clear();
+            return received >= 1;
         }
 
         public Texture2D getTexture()
@@ -458,6 +463,8 @@ namespace UnityVncSharp
         /// </summary>
         private void GetRfbUpdates()
         {
+            Thread.Sleep(1000);
+
             int rectangles;
             int enc;
 

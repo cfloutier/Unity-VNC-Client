@@ -32,8 +32,6 @@ namespace VNCScreen
 
         void Start()
         {
-
-
             if (screen == null)
                 screen = GetComponent<VNCScreen>();
 

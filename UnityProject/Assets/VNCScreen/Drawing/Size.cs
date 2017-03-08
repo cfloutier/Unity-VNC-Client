@@ -97,6 +97,11 @@ namespace VNCScreen.Drawing
                 y = value;
             }
         }
+
+        public override string ToString()
+        {
+            return "[" + X + "," + Y + "]";
+        }
     }
 
 }

@@ -100,9 +100,10 @@ namespace VNCScreen
         {
             Disconnected,
             Disconnecting,
-            Connected,
+            
             Connecting,
-
+            WaitFirstBuffer,
+            Connected,
             Error
         }
 
@@ -122,7 +123,7 @@ namespace VNCScreen
         {
             get
             {
-                return state == RuntimeState.Connected;
+                return state == RuntimeState.Connected || state == RuntimeState.WaitFirstBuffer;
             }
         }
 
@@ -292,6 +293,9 @@ namespace VNCScreen
                     break;
                 case RuntimeState.Connected:
                     break;
+                case RuntimeState.WaitFirstBuffer:
+                    setDisconnectedMaterial();
+                    break;
                 case RuntimeState.Connecting:
                     setDisconnectedMaterial();
                     break;
@@ -323,7 +327,6 @@ namespace VNCScreen
             fullScreenRefresh = true;
         }
 
-
         /// <summary>
         /// After protocol-level initialization and connecting is complete, the local GUI objects have to be set-up, and requests for updates to the remote host begun.
         /// </summary>
@@ -333,11 +336,10 @@ namespace VNCScreen
             // Finish protocol handshake with host now that authentication is done.
           
             vnc.Initialize();
-            SetState(RuntimeState.Connected);
+            SetState(RuntimeState.WaitFirstBuffer);
+            Debug.Log("Await for first buffer");
 
-
-            screenSize = vnc.BufferSize;
-            
+            screenSize = vnc.BufferSize;     
 
             // Tell the user of this control the necessary info about the desktop in order to setup the display
             // Create a texture
@@ -368,11 +370,7 @@ namespace VNCScreen
             vnc.Disconnect();
             SetState(RuntimeState.Disconnected);
             OnConnectionLost("Disconnected");
-
-            
         }
-
-    
 
 
         // Update is called once per frame
@@ -380,7 +378,11 @@ namespace VNCScreen
         {
             if (IsConnected)
             {
-                vnc.updateDesktopImage();
+                if (vnc.updateDesktopImage())
+                {
+                    if (state == RuntimeState.WaitFirstBuffer)
+                        SetState(RuntimeState.Connected);
+                }
 
                 if (state == RuntimeState.Connected)
                 {
@@ -392,10 +394,14 @@ namespace VNCScreen
 
             }
 
-            foreach(var state  in stateChanges)
+            for (int i = 0; i< stateChanges.Count; i++)
             {
-                SetState(state);
+                SetState(stateChanges[i]);
             }
+
+        
+
+            stateChanges.Clear();
         }
 
         void OnApplicationQuit()
