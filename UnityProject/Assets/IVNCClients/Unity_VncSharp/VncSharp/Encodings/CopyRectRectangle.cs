@@ -21,6 +21,7 @@
 
 
 using VNCScreen.Drawing;
+using UnityVncSharp.Imaging;
 
 namespace UnityVncSharp.Encodings
 {

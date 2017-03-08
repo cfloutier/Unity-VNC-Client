@@ -21,7 +21,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
+
 using System.Threading;
 using UnityEngine;
 using VNCScreen.Drawing;
@@ -94,7 +94,6 @@ namespace VNCScreen
             }
         }
 
-        Bitmap theBitmap;                          // Internal representation of remote image.
         IVncClient vnc;                           // The Client object handling all protocol-level interaction
 
         public enum RuntimeState
@@ -109,7 +108,7 @@ namespace VNCScreen
 
         IVncClient buildVNC()
         {
-            return new VNCClient();
+            return new VNCSharpClient();
         }
 
         public RuntimeState state = RuntimeState.Disconnected;
@@ -266,27 +265,9 @@ namespace VNCScreen
             }
         }
 
-        List<IDesktopUpdater> updates = new List<IDesktopUpdater>();
+        
 
-        public void popUpdates()
-        {
-            for (int i = 0; i < updates.Count; i++)
-            {
-                IDesktopUpdater u = updates[i];
-                if (u != null)
-                    u.Draw(theBitmap);
-            }
-
-            updates.Clear();
-
-            if (state == RuntimeState.Connected)
-            {
-                vnc.RequestScreenUpdate(fullScreenRefresh);
-
-                // Make sure the next screen update is incremental
-                fullScreenRefresh = false;
-            }
-        }
+     
 
         List<RuntimeState> stateChanges = new List<RuntimeState>();
 
@@ -356,11 +337,11 @@ namespace VNCScreen
 
 
             screenSize = vnc.BufferSize;
-            theBitmap = new Bitmap(screenSize.Width, screenSize.Height);
+            
 
             // Tell the user of this control the necessary info about the desktop in order to setup the display
             // Create a texture
-            Texture2D tex = theBitmap.Texture;
+            Texture2D tex = vnc.getTexture();
 
             if (connectedMaterial == null)
                 connectedMaterial = GetComponent<Renderer>().sharedMaterial;
@@ -374,7 +355,7 @@ namespace VNCScreen
             //AutoScrollMinSize = desktopPolicy.AutoScrollMinSize;
 
             // Start getting updates from the remote host (vnc.StartUpdates will begin a worker thread).
-            vnc.VncUpdate += VncUpdate;
+           
             vnc.StartUpdates();
 
             return true;
@@ -388,13 +369,10 @@ namespace VNCScreen
             SetState(RuntimeState.Disconnected);
             OnConnectionLost("Disconnected");
 
-            updates.Clear();
+            
         }
 
-        protected void VncUpdate(IDesktopUpdater e)
-        {
-            updates.Add(e);
-        }
+    
 
 
         // Update is called once per frame
@@ -402,8 +380,16 @@ namespace VNCScreen
         {
             if (IsConnected)
             {
-                popUpdates();
-              
+                vnc.updateDesktopImage();
+
+                if (state == RuntimeState.Connected)
+                {
+                    vnc.RequestScreenUpdate(fullScreenRefresh);
+
+                    // Make sure the next screen update is incremental
+                    fullScreenRefresh = false;
+                }
+
             }
 
             foreach(var state  in stateChanges)
@@ -424,11 +410,8 @@ namespace VNCScreen
         {
             if (!IsConnected) return;
 
-            Texture2D t = theBitmap.Texture;
-            if (t == null)
-                return;
-
-            Point point = new Point((int)(pos.x * t.width), (int)((1 - pos.y) * t.height));
+            Size s = vnc.BufferSize;
+            Point point = new Point((int)(pos.x * s.Width), (int)((1 - pos.y) * s.Height));
 
             UpdateMouse(point, button0, button1, button2);
         }

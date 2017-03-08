@@ -22,6 +22,8 @@ using System;
 using System.IO;
 using VNCScreen;
 using VNCScreen.Drawing;
+using UnityVncSharp.Imaging;
+using UnityVncSharp.Encodings;
 
 
 namespace UnityVncSharp.Encodings

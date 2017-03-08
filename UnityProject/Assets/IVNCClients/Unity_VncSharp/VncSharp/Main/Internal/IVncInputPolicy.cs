@@ -18,27 +18,17 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-using System;
-using System.Runtime.Serialization;
+using VNCScreen.Drawing;
 
-namespace UnityVncSharp
+namespace UnityVncSharp.Internal
 {
-	public class VncProtocolException : ApplicationException
+	/// <summary>
+	/// A strategy encapsulating mouse/keyboard input.  Used by VncClient.
+	/// </summary>
+	public interface IVncInputPolicy
 	{
-		public VncProtocolException() : base()
-		{
-		}
+		void WriteKeyboardEvent(uint keysym, bool pressed);
 
-		public VncProtocolException(string message) : base(message)
-		{
-		}
-		
-		public VncProtocolException(string message, Exception inner) : base(message, inner)
-		{
-		}
-		
-		public VncProtocolException(SerializationInfo info, StreamingContext cxt) : base(info, cxt)
-		{
-		}
+		void WritePointerEvent(byte buttonMask, Point point);
 	}
 }

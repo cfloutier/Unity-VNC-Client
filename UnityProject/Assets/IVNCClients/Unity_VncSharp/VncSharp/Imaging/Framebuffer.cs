@@ -21,7 +21,7 @@
 using System;
 using VNCScreen.Drawing;
 
-namespace UnityVncSharp
+namespace UnityVncSharp.Imaging
 {
     public class FrameBufferInfos
     {

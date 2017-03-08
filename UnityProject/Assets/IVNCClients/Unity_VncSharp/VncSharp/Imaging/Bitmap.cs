@@ -23,7 +23,7 @@ using System;
 using UnityEngine;
 using VNCScreen.Drawing;
 
-namespace UnityVncSharp
+namespace UnityVncSharp.Imaging
 {
 
     /// <summary>

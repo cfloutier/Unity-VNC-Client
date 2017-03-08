@@ -19,44 +19,37 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
+using System.Diagnostics;
+using VNCScreen.Drawing;
+using UnityVncSharp.Encodings;
 
-namespace UnityVncSharp
+
+
+namespace UnityVncSharp.Internal
 {
 	/// <summary>
-	/// Used in connection with the ConnectComplete event. Contains information about the remote desktop useful for setting-up the client's GUI.
+	/// A view-only version of IVncInputPolicy.
 	/// </summary>
-	public class ErrorEventArg : EventArgs
+	public sealed class VncDefaultInputPolicy : IVncInputPolicy
 	{
-		string reason;
-        Exception e;
+		private RfbProtocol rfb;
 		
-		public ErrorEventArg(string reason) : base()
+		public VncDefaultInputPolicy(RfbProtocol rfb)
 		{
-            this.reason = reason;
-            this.e = null;
+			Debug.Assert(rfb != null);
+			this.rfb = rfb;
 		}
 
-        public ErrorEventArg(Exception e) : base()
-        {
-            this.reason = "Exception caught";
-            this.e = e;
-        }
+		// Let all exceptions get caught in VncClient
 
-
-        public string Reason
-        {
-			get { 
-				return reason; 
-			}
+		public void WriteKeyboardEvent(uint keysym, bool pressed)
+		{
+			rfb.WriteKeyEvent(keysym, pressed);
 		}
 
-        public Exception Exception
-        {
-            get
-            {
-                return e;
-            }
-        }
-
-    }
+		public void WritePointerEvent(byte buttonMask, Point point)
+		{
+			rfb.WritePointerEvent(buttonMask, point);
+		}
+	}
 }

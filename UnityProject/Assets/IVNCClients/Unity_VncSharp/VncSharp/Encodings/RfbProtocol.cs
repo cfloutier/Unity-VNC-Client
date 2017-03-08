@@ -20,12 +20,13 @@
 
 using System;
 using System.IO;
-using VNCScreen.Drawing;
-
 using System.Net.Sockets;
-using UnityEngine;
 
-namespace UnityVncSharp
+using UnityEngine;
+using VNCScreen.Drawing;
+using UnityVncSharp.Imaging;
+
+namespace UnityVncSharp.Encodings
 {
 	/// <summary>
 	/// Contains methods and properties to handle all aspects of the RFB Protocol versions 3.3 - 3.8.

@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 using VNCScreen.Drawing;
@@ -28,18 +29,27 @@ using System.Security.Cryptography;
 
 using VNCScreen;
 using UnityVncSharp.Encodings;
+using UnityVncSharp.Internal;
+using UnityVncSharp.Imaging;
+
+using UnityEngine;
 
 namespace UnityVncSharp
 {
    
 
 
-    public class VNCClient : IVncClient
+    public class VNCSharpClient : IVncClient
     {
         RfbProtocol rfb;            // The protocol object handling all communication with server.
         FrameBufferInfos bufferInfos;         // The geometry and properties of the remote framebuffer
         byte securityType;          // The type of Security agreed upon by client/server
         EncodedRectangleFactory factory;
+
+        Bitmap theBitmap;                          // Internal representation of remote image.
+
+        List<IDesktopUpdater> updates = new List<IDesktopUpdater>();
+
 
         Thread connectingThread;            // To get the connecting state
         Thread worker;                      // To request and read in-coming updates from server
@@ -65,7 +75,29 @@ namespace UnityVncSharp
         /// </summary>
         public event EventHandler ServerCutText;
 
-        public VNCClient()
+
+        public void updateDesktopImage()
+        {
+            for (int i = 0; i < updates.Count; i++)
+            {
+                IDesktopUpdater u = updates[i];
+                if (u != null)
+                    u.Draw(theBitmap);
+            }
+
+            updates.Clear();
+        }
+
+        public Texture2D getTexture()
+        {
+            if (theBitmap != null)
+                return theBitmap.Texture;
+
+            return null;
+        }
+
+
+        public VNCSharpClient()
         {
         }
 
@@ -300,6 +332,9 @@ namespace UnityVncSharp
             // Finish initializing protocol with host
             rfb.WriteClientInitialisation(false);
             bufferInfos = rfb.ReadServerInit();
+
+            theBitmap = new Bitmap(bufferInfos.Width, bufferInfos.Height);
+
             rfb.WriteSetPixelFormat(bufferInfos);    // just use the server's framebuffer format
 
             rfb.WriteSetEncodings(new uint[] {  RfbProtocol.ZRLE_ENCODING,
@@ -332,6 +367,8 @@ namespace UnityVncSharp
         /// </summary>
         public void Disconnect()
         {
+            
+
             // Stop the worker thread.
             done.Set();
 
@@ -351,19 +388,14 @@ namespace UnityVncSharp
 
             rfb.Close();
             rfb = null;
-        }
+            updates.Clear();
 
-        /// <summary>
-        /// An event that occurs whenever the server sends a Framebuffer Update.
-        /// </summary>
-        public event VncUpdateHandler VncUpdate;
+        }
 
         private bool CheckIfThreadDone()
         {
             return done.WaitOne(0, false);
         }
-
-
 
         private void Connection()
         {
@@ -391,7 +423,7 @@ namespace UnityVncSharp
                     else
                     {
                         securityType = GetSupportedSecurityType(types);
-                        Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
+                        System.Diagnostics.Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
 
                         rfb.WriteSecurityType(securityType);
 
@@ -460,9 +492,10 @@ namespace UnityVncSharp
 
                                 // Let the UI know that an updated rectangle is available, but check
                                 // to see if the user closed things down first.
-                                if (!CheckIfThreadDone() && VncUpdate != null)
+                                if (!CheckIfThreadDone())
                                 {
-                                    VncUpdate(er);
+                                    updates.Add(er);
+                                   
                                 }
                             }
                             break;

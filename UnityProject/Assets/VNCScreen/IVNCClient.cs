@@ -17,6 +17,7 @@
 
 using System;
 using VNCScreen.Drawing;
+using UnityEngine;
 
 
 namespace VNCScreen
@@ -80,15 +81,9 @@ namespace VNCScreen
         Size BufferSize { get; }
 
         /// <summary>
-        /// An event that occurs whenever the server sends a Framebuffer Update.
-        /// </summary>
-        event VncUpdateHandler VncUpdate;
-
-        /// <summary>
         /// Begin getting updates from the VNC Server.  This will continue until StopUpdates() is called.  NOTE: this must be called after Connect().
         /// </summary>
         void StartUpdates();
-
 
         /// <summary>
         /// Stops sending requests for updates and disconnects from the remote host.  You must call Connect() again if you wish to re-establish a connection.
@@ -112,6 +107,14 @@ namespace VNCScreen
         /// <param name="keysym">key code (x11) </param>
         /// <param name="pressed">pressed or released</param>
         void WriteKeyboardEvent(uint keysym, bool pressed);
+
+        /// <summary>
+        /// Update the Desktop Image 
+        /// </summary>
+        void updateDesktopImage();
+
+
+        Texture2D getTexture();
     }
 
     

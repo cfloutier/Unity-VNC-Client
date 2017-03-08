@@ -23,7 +23,7 @@ using System;
 using VNCScreen.Drawing;
 using UnityVncSharp.Encodings;
 
-namespace UnityVncSharp
+namespace UnityVncSharp.Internal
 {
 	/// <summary>
 	/// Factory class used to create derived EncodedRectangle objects at runtime based on data sent by VNC Server.

@@ -18,50 +18,45 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-#if NONE
 using System;
-using UnityVncSharp.Drawing;
-using UnityVncSharp.Drawing.Imaging;
 
-namespace UnityVncSharp
+namespace VNCScreen
 {
 	/// <summary>
-	/// A clipped version of VncDesktopTransformPolicy.
+	/// Used in connection with the ConnectComplete event. Contains information about the remote desktop useful for setting-up the client's GUI.
 	/// </summary>
-	public sealed class VncClippedDesktopPolicy : VncDesktopTransformPolicy
+	public class ErrorEventArg : EventArgs
 	{
-        public VncClippedDesktopPolicy(VncClient vnc,
-                                       RemoteDesktop remoteDesktop) 
-            : base(vnc, remoteDesktop)
+		string reason;
+        Exception e;
+		
+		public ErrorEventArg(string reason) : base()
+		{
+            this.reason = reason;
+            this.e = null;
+		}
+
+        public ErrorEventArg(Exception e) : base()
         {
+            this.reason = "Exception caught";
+            this.e = e;
         }
 
 
-        public override Point UpdateRemotePointer(Point current)
+        public string Reason
         {
-            Point adjusted = new Point();
-			return adjusted;
-        }
+			get { 
+				return reason; 
+			}
+		}
 
-        public override Rectangle AdjustUpdateRectangle(Rectangle updateRectangle)
-        {	
-            return updateRectangle;
-        }
-
-      
-        public override Rectangle GetMouseMoveRectangle()
+        public Exception Exception
         {
-			Rectangle desktopRect = vnc.Framebuffer.Rectangle;
-
-            return desktopRect;
+            get
+            {
+                return e;
+            }
         }
 
-        public override Point GetMouseMovePoint(Point current)
-        {
-            return current;
-        }
     }
 }
-
-#endif

@@ -18,17 +18,31 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+
+
+using System.Diagnostics;
 using VNCScreen.Drawing;
+using UnityVncSharp.Encodings;
+using UnityVncSharp.Internal;
 
 namespace UnityVncSharp
 {
 	/// <summary>
-	/// A strategy encapsulating mouse/keyboard input.  Used by VncClient.
+	/// A view-only version of IVncInputPolicy.
 	/// </summary>
-	public interface IVncInputPolicy
+	public sealed class VncViewInputPolicy : IVncInputPolicy
 	{
-		void WriteKeyboardEvent(uint keysym, bool pressed);
+		public VncViewInputPolicy(RfbProtocol rfb)
+		{
+			Debug.Assert(rfb != null);
+		}
 
-		void WritePointerEvent(byte buttonMask, Point point);
+		public void WriteKeyboardEvent(uint keysym, bool pressed)
+		{
+		}
+
+		public void WritePointerEvent(byte buttonMask, Point point)
+		{
+		}
 	}
 }

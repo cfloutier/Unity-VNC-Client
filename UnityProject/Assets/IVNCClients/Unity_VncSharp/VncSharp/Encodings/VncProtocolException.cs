@@ -18,29 +18,26 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+using System;
+using System.Runtime.Serialization;
 
-
-using System.Diagnostics;
-using VNCScreen.Drawing;
-
-
-namespace UnityVncSharp
+namespace UnityVncSharp.Encodings
 {
-	/// <summary>
-	/// A view-only version of IVncInputPolicy.
-	/// </summary>
-	public sealed class VncViewInputPolicy : IVncInputPolicy
+	public class VncProtocolException : ApplicationException
 	{
-		public VncViewInputPolicy(RfbProtocol rfb)
-		{
-			Debug.Assert(rfb != null);
-		}
-
-		public void WriteKeyboardEvent(uint keysym, bool pressed)
+		public VncProtocolException() : base()
 		{
 		}
 
-		public void WritePointerEvent(byte buttonMask, Point point)
+		public VncProtocolException(string message) : base(message)
+		{
+		}
+		
+		public VncProtocolException(string message, Exception inner) : base(message, inner)
+		{
+		}
+		
+		public VncProtocolException(SerializationInfo info, StreamingContext cxt) : base(info, cxt)
 		{
 		}
 	}

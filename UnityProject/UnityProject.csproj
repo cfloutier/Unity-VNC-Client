@@ -84,7 +84,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\Imaging\Bitmap.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\CPixelReader.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\CoRreRectangle.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\CopyRectRectangle.cs" />
@@ -95,19 +94,18 @@
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\PixelReader32.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\PixelReader8.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\RawRectangle.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\RfbProtocol.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\RreRectangle.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\VncProtocolException.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Encodings\ZrleRectangle.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\ConnectEventArgs.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\EncodedRectangleFactory.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\ErrorEventArgs.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Framebuffer.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\IVncInputPolicy.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\RfbProtocol.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncClient.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncClippedDesktopPolicy.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncDefaultInputPolicy.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncProtocolException.cs" />
-    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\VncViewInputPolicy.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Imaging\Bitmap.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Imaging\Framebuffer.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Internal\ConnectEventArgs.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Internal\EncodedRectangleFactory.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Internal\IVncInputPolicy.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Internal\VncDefaultInputPolicy.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\Main\Internal\VncViewInputPolicy.cs" />
+    <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\VncClient.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\zlib.NET\Adler32.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\zlib.NET\Deflate.cs" />
     <Compile Include="Assets\IVNCClients\Unity_VncSharp\VncSharp\zlib.NET\InfBlocks.cs" />
@@ -126,6 +124,7 @@
     <Compile Include="Assets\VNCScreen\Drawing\Point.cs" />
     <Compile Include="Assets\VNCScreen\Drawing\Rectangle.cs" />
     <Compile Include="Assets\VNCScreen\Drawing\Size.cs" />
+    <Compile Include="Assets\VNCScreen\ErrorEventArgs.cs" />
     <Compile Include="Assets\VNCScreen\IDesktopUpdater.cs" />
     <Compile Include="Assets\VNCScreen\IVNCClient.cs" />
     <Compile Include="Assets\VNCScreen\KeyTranslator.cs" />

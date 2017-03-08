@@ -20,6 +20,7 @@
 
 using UnityVncSharp;
 using VNCScreen.Drawing;
+using UnityVncSharp.Imaging;
 
 namespace VNCScreen
 {

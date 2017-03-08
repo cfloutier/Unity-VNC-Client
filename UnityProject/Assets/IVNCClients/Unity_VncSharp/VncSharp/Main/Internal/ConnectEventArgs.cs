@@ -20,7 +20,7 @@
 
 using System;
 
-namespace UnityVncSharp
+namespace UnityVncSharp.Internal
 {
 	/// <summary>
 	/// Used in connection with the ConnectComplete event. Contains information about the remote desktop useful for setting-up the client's GUI.
