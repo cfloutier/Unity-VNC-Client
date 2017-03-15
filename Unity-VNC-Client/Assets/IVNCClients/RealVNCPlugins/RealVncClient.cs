@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
+
+
 using VNCScreen;
 using VNCScreen.Drawing;
 using System;
+using System.Collections;
 using System.Threading;
 
-public class RealVncClient : IVncClient
+
+
+public class RealVncClient : MonoBehaviour, IVncClient
 {
     VNCPluginInterface pluginInterface = null;
 
@@ -41,10 +46,8 @@ public class RealVncClient : IVncClient
             connectingThread.Abort();
         }
 
-        connectingThread = new Thread(new ThreadStart(this.ConnectionThread));
-        connectingThread.SetApartmentState(ApartmentState.STA);
-        connectingThread.IsBackground = true;
-        connectingThread.Start();
+        StartCoroutine(Connection());
+
     }
 
     class ConnectionOptions
@@ -58,14 +61,16 @@ public class RealVncClient : IVncClient
     ConnectionOptions connectionInfos;
     VNCPluginInterface.ConnectionState state;
 
-    private void ConnectionThread()
+    private IEnumerator Connection()
     {
         VNCPluginInterface.Connect(connectionInfos.host, connectionInfos.port, connectionInfos.display, connectionInfos.viewOnly);
-        try
+
+        while (true)
         {
-            while (true)
+            bool exit = false;
+            try
             {
-                bool exitThread = false;
+
                 state = VNCPluginInterface.getEnumConnectionState();
                 switch (state)
                 {
@@ -81,28 +86,53 @@ public class RealVncClient : IVncClient
 
                         bool needPassword = VNCPluginInterface.NeedPassword();
                         onConnection(null, needPassword);
-                        exitThread = true;
+                        exit = true;
                         break;
                     case VNCPluginInterface.ConnectionState.Error:
                         Debug.LogError("Connection Error");
-                        exitThread = true;
+                        exit = true;
                         break;
                 }
-
-                if (exitThread)
-                    break;
-
-                Thread.Sleep(300);
             }
-        }
-        catch (Exception e)
-        {
-            if (!(e is ThreadAbortException))
+            catch (Exception e)
             {
-                onConnection(e, false);
+                if (!(e is ThreadAbortException))
+                {
+                    onConnection(e, false);
+                }
             }
+            if (exit)
+                break;
+
+            yield return new WaitForSeconds(0.25f);
         }
     }
+
+    
+    
+   
+
+    public void Start()
+    {
+        
+        
+
+    }
+
+
+    public void Update()
+    {
+        pluginInterface.LogFromPlugin();
+    }
+
+
+    void OnApplicationQuit()
+    {
+
+        pluginInterface.LogFromPlugin();
+    }
+
+
 
     public bool Authenticate(string password)
     {
@@ -116,6 +146,7 @@ public class RealVncClient : IVncClient
 
     public void Initialize()
     {
+        pluginInterface.InitLog();
 
     }
 

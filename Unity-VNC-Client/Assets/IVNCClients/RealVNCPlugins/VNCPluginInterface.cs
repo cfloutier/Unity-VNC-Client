@@ -37,6 +37,15 @@ public class VNCPluginInterface
     public static extern int getConnectionState();
 
 
+#if UNITY_IPHONE && !UNITY_EDITOR
+	[DllImport ("__Internal")]
+#else
+    [DllImport("RealVNCPlugin")]
+#endif
+    private static extern bool GetDebugLog(IntPtr log, int size);
+    private GCHandle m_LogHandle;
+
+  
     public static ConnectionState getEnumConnectionState()
     {
         return (ConnectionState) getConnectionState();
@@ -87,14 +96,22 @@ public class VNCPluginInterface
 	private static extern void RegisterPlugin();
 #endif
 
-    public void Init()
+    private int m_LogBufferSize = 2048;
+    private byte[] m_Log;
+
+    public void InitLog()
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
-		RegisterPlugin();
-#endif
+        m_Log = new byte[m_LogBufferSize];
+        m_LogHandle = GCHandle.Alloc(m_Log, GCHandleType.Pinned);
     }
 
-
+    public void LogFromPlugin()
+    {
+        while (GetDebugLog(m_LogHandle.AddrOfPinnedObject(), m_LogBufferSize))
+        {
+            Debug.Log("[Plugin] - " + System.Text.Encoding.UTF8.GetString(m_Log));
+        }
+    }
 
     public Texture2D CreateTextureAndPassToPlugin(Size TextureSize)
     {
