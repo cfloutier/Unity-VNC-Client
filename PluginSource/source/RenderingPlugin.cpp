@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <math.h>
 #include <vector>
-
+#include "windows.h"
 
 
 // --------------------------------------------------------------------------
@@ -23,8 +23,6 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API SetTextureFromUnity(v
 	// needs to happen on the rendering thread).
 	g_TextureHandle = textureHandle;
 }
-
-
 
 // --------------------------------------------------------------------------
 // UnitySetInterfaces
@@ -95,6 +93,24 @@ static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType ev
 }
 
 
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Connect(char * host, int port)
+{
+
+}
+ 
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
+{
+
+}
+
+extern "C" bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API IsConnected()
+{
+	return false;
+}
+
+
+
+float startTime = -1;
 
 // --------------------------------------------------------------------------
 // OnRenderEvent
@@ -106,8 +122,8 @@ static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType ev
 static void ModifyTexturePixels()
 {
 	void* textureHandle = g_TextureHandle;
-	int width = g_TextureWidth;
-	int height = g_TextureHeight;
+	int width = 256;
+	int height = 256;
 	if (!textureHandle)
 		return;
 
@@ -115,7 +131,12 @@ static void ModifyTexturePixels()
 	void* textureDataPtr = s_CurrentAPI->BeginModifyTexture(textureHandle, width, height, &textureRowPitch);
 	if (!textureDataPtr)
 		return;
-
+	 
+	
+	float g_Time = (float)GetTickCount() / 1000;
+	if (startTime == -1)
+		startTime = g_Time;
+	g_Time = g_Time - startTime;
 	const float t = g_Time * 4.0f;
 
 	unsigned char* dst = (unsigned char*)textureDataPtr;

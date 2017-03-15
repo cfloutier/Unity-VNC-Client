@@ -107,9 +107,29 @@ namespace VNCScreen
             Error
         }
 
+        public enum VNCPlugin
+        {
+            VNCSharp,
+            RealVnc
+        }
+
+        public VNCPlugin plugin;
+
         IVncClient buildVNC()
         {
-            return new VNCSharpClient();
+            switch (plugin)
+            {
+                default:
+                case VNCPlugin.VNCSharp:
+                    return new VNCSharpClient();
+                case VNCPlugin.RealVnc:
+                    return new RealVncClient();
+                    
+                    
+            }
+
+           
+            
         }
 
         public RuntimeState state = RuntimeState.Disconnected;
@@ -266,12 +286,7 @@ namespace VNCScreen
             }
         }
 
-        
-
-     
-
         List<RuntimeState> stateChanges = new List<RuntimeState>();
-
 
         private void SetState(RuntimeState newState)
         {
@@ -376,8 +391,11 @@ namespace VNCScreen
         // Update is called once per frame
         void Update()
         {
+
             if (IsConnected)
             {
+                GetComponent<Renderer>().sharedMaterial.mainTexture = vnc.getTexture();
+
                 if (vnc.updateDesktopImage())
                 {
                     if (state == RuntimeState.WaitFirstBuffer)
@@ -398,9 +416,7 @@ namespace VNCScreen
             {
                 SetState(stateChanges[i]);
             }
-
-        
-
+  
             stateChanges.Clear();
         }
 
@@ -409,8 +425,6 @@ namespace VNCScreen
             if (IsConnected)
                 Disconnect();
         }
-
-
 
         public void UpdateMouse(Vector2 pos, bool button0, bool button1, bool button2)
         {
@@ -421,7 +435,6 @@ namespace VNCScreen
 
             UpdateMouse(point, button0, button1, button2);
         }
-
 
         public void UpdateMouse(Point pos, bool button0, bool button1, bool button2)
         {
