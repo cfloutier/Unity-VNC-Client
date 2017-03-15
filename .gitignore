@@ -21,3 +21,6 @@ Unity-VNC-Client/VNC System.Plugins.csproj
 PluginSource/projects/VisualStudio2015/.vs/
 PluginSource/source/Realvnc/win/Debug/
 PluginSource/source/Realvnc/common/Debug_Unicode/
+PluginSource/source/Realvnc/common/Debug/
+PluginSource/source/Realvnc/win/rfb_win32/x64/
+PluginSource/source/Realvnc/win/vnc.VC.db
