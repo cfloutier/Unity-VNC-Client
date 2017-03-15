@@ -19,3 +19,4 @@ Unity-VNC-Client/Unity-VNC-Client.csproj
 Unity-VNC-Client/VNC System.Editor.csproj
 Unity-VNC-Client/VNC System.Plugins.csproj
 PluginSource/projects/VisualStudio2015/.vs/
+PluginSource/source/Realvnc/win/Debug/
