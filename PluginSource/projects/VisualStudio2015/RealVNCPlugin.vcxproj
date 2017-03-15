@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\ConnectionThread.cxx" />
+    <ClCompile Include="..\..\source\DebugLog.cpp" />
     <ClCompile Include="..\..\source\RealVNCPlugin.cpp" />
     <ClCompile Include="..\..\source\TextureModifer.cxx" />
     <ClCompile Include="..\..\source\UnityPlugin\GLEW\glew.c" />
@@ -37,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\ConnectionThread.h" />
+    <ClInclude Include="..\..\source\DebugLog.h" />
     <ClInclude Include="..\..\source\TextureModifer.h" />
     <ClInclude Include="..\..\source\UnityPlugin\GLEW\glew.h" />
     <ClInclude Include="..\..\source\UnityPlugin\GLEW\glxew.h" />

@@ -23,4 +23,8 @@ PluginSource/source/Realvnc/win/Debug/
 PluginSource/source/Realvnc/common/Debug_Unicode/
 PluginSource/source/Realvnc/common/Debug/
 PluginSource/source/Realvnc/win/rfb_win32/x64/
-PluginSource/source/Realvnc/win/vnc.VC.db
+PluginSource/source/Realvnc/win/*.db
+
+PluginSource/build/Win32/Debug/
+PluginSource/projects/VisualStudio2015/RealVNCPlugin.VC.VC.opendb
+PluginSource/projects/VisualStudio2015/RealVNCPlugin.VC.db

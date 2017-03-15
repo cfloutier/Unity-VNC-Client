@@ -26,6 +26,7 @@
     <ClCompile Include="..\..\source\ConnectionThread.cxx" />
     <ClCompile Include="..\..\source\VNCClient.cxx" />
     <ClCompile Include="..\..\source\TextureModifer.cxx" />
+    <ClCompile Include="..\..\source\DebugLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\source\RealVNCPlugin.def" />
@@ -81,5 +82,6 @@
     <ClInclude Include="..\..\source\ConnectionThread.h" />
     <ClInclude Include="..\..\source\VNCClient.h" />
     <ClInclude Include="..\..\source\TextureModifer.h" />
+    <ClInclude Include="..\..\source\DebugLog.h" />
   </ItemGroup>
 </Project>
