@@ -20,3 +20,4 @@ Unity-VNC-Client/VNC System.Editor.csproj
 Unity-VNC-Client/VNC System.Plugins.csproj
 PluginSource/projects/VisualStudio2015/.vs/
 PluginSource/source/Realvnc/win/Debug/
+PluginSource/source/Realvnc/common/Debug_Unicode/

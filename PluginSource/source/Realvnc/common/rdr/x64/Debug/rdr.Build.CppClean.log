@@ -1,0 +1,17 @@
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\rdr.pdb
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\randomstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\hexoutstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\hexinstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\exception.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\zliboutstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\zlibinstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\instream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\fdoutstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr\fdinstream.obj
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\debug\rdr.lib
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\rdr\x64\debug\rdr.tlog\cl.command.1.tlog
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\rdr\x64\debug\rdr.tlog\cl.read.1.tlog
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\rdr\x64\debug\rdr.tlog\cl.write.1.tlog
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\rdr\x64\debug\rdr.tlog\lib-link.read.1.tlog
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\rdr\x64\debug\rdr.tlog\lib-link.write.1.tlog
+c:\_dev\unity-vnc-client\pluginsource\source\realvnc\common\rdr\x64\debug\rdr.tlog\lib.command.1.tlog
