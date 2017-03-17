@@ -9,6 +9,7 @@
 UnityTextureHandler::UnityTextureHandler()
 {
 	width = height = 512;
+
 }
 
 void UnityTextureHandler::setUnityStuff(	void * handle,
@@ -25,19 +26,11 @@ void UnityTextureHandler::setUnityStuff(	void * handle,
 }
 
 float g_startTime = -1;
-void UnityTextureHandler::randomUpdate()
+void UnityTextureHandler::Sinuses()
 {
 	// Unknown / unsupported graphics device type? Do nothing
-	if (m_CurrentAPI == NULL)
-		return;
-
-	void* textureHandle = m_TextureHandle;
-	if (!textureHandle)
-		return;
-
-	int textureRowPitch;
-	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(textureHandle, width, height, &textureRowPitch);
-	if (!textureDataPtr)
+	void * textureDataPtr = startModify();
+	if (textureDataPtr == NULL)
 		return;
 
 	float g_Time = (float)GetTickCount() / 1000;
@@ -74,11 +67,64 @@ void UnityTextureHandler::randomUpdate()
 		dst += textureRowPitch;
 	}
 
-	m_CurrentAPI->EndModifyTexture(textureHandle, width, height, textureRowPitch, textureDataPtr);
+	endModify(textureDataPtr);
+} 
+
+void* UnityTextureHandler::startModify()
+{
+	// Unknown / unsupported graphics device type? Do nothing
+	if (m_CurrentAPI == NULL)
+		return NULL;
+
+	if (!m_TextureHandle)
+		return NULL;
+
+	
+	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(m_TextureHandle, width, height, &textureRowPitch);
+	if (!textureDataPtr)
+		return NULL;  
+	  
+	return textureDataPtr;
+}
+
+
+void UnityTextureHandler::endModify(void * textureDataPtr)
+{
+	m_CurrentAPI->EndModifyTexture(m_TextureHandle, width, height, textureRowPitch, textureDataPtr);
+}
+
+void UnityTextureHandler::Noise()
+{
+	void * textureDataPtr = startModify();
+	if (textureDataPtr == NULL)
+		return;
+
+	unsigned char* dst = (unsigned char*)textureDataPtr;
+	
+	for (int y = 0; y < height; ++y)
+	{
+		unsigned char* ptr = dst;
+		for (int x = 0; x < width; ++x)  
+		{
+			// Write the texture pixel
+			ptr[0] = rand() % 256;			
+			ptr[1] = rand() % 256;		
+			ptr[2] = rand() % 256; 
+			ptr[3] = rand() % 256;
+
+			// To next pixel (our pixels are 4 bpp)
+			ptr += 4;
+		}
+
+		// To next image row
+		dst += textureRowPitch;
+	}
+
+	endModify(textureDataPtr);
 }
 
 
 void UnityTextureHandler::Update()
 {
-	randomUpdate();
+	Noise();
 }

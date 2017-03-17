@@ -29,3 +29,13 @@ PluginSource/build/Win32/Debug/
 PluginSource/projects/VisualStudio2015/RealVNCPlugin.VC.VC.opendb
 PluginSource/projects/VisualStudio2015/RealVNCPlugin.VC.db
 turbovnc-master.zip
+PluginSource/source/Realvnc/common/Release/Xregion.lib
+PluginSource/source/Realvnc/common/Release/
+PluginSource/source/Realvnc/common/rfb/x64/Release/rfb.Build.CppClean.log
+PluginSource/source/Realvnc/common/rfb/x64/
+PluginSource/source/Realvnc/common/Xregion/x64/
+PluginSource/source/Realvnc/common/zlib/x64/
+PluginSource/source/Realvnc/common/rdr/x64/
+PluginSource/source/Realvnc/common/network/x64/Debug/network.log
+PluginSource/source/Realvnc/common/network/x64/
+PluginSource/source/Realvnc/win/Release/

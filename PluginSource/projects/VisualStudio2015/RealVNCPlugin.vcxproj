@@ -233,30 +233,31 @@ ENDLOCAL
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;REALVNCPLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;REALVNCPLUGIN_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../source/Realvnc/common;%(AdditionalIncludeDirectories);../../source/Realvnc/win</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies);rfb_win32.lib;rfb.lib;rdr.lib</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <ModuleDefinitionFile>../../source/RealVNCPlugin.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\..\source\Realvnc\common\Release;..\..\source\Realvnc\win\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>SETLOCAL
 
 if "$(PlatformShortName)" == "x86" (
-  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\..\UnityProject\Assets\Plugins\x86
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86
 ) else (
-  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\..\UnityProject\Assets\Plugins\x86_64
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86_64
 )
 echo Target Plugin Path is %TARGET_PLUGIN_PATH%
 copy /Y "$(TargetPath)" "%TARGET_PLUGIN_PATH%\$(TargetFileName)"

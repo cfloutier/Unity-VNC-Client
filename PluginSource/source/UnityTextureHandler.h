@@ -24,12 +24,15 @@ public:
 	int GetHeight(){		return height;	}
 
 protected:
-	void randomUpdate();
+	void Sinuses();
+	void Noise();
+	void* startModify();
+	void endModify(void * textureHandle);
 
 	void*	m_TextureHandle = 0;
 	int width = 256;
 	int height = 256;
-
+	int textureRowPitch;
 
 	RenderAPI* m_CurrentAPI = NULL;
 	UnityGfxRenderer m_DeviceType = kUnityGfxRendererNull;

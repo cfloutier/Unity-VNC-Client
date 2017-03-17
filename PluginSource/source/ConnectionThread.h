@@ -15,8 +15,6 @@ public :
 	
 	void QuitAndDelete();
 
-
-
 protected:
 	
 	void run(); 
