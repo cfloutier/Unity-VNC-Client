@@ -81,6 +81,10 @@ public class RealVncClient : MonoBehaviour, IVncClient
                         exit = true;
                         break;
                     case VNCPluginInterface.ConnectionState.Error:
+                        if (ConnectionLost != null)
+                            ConnectionLost(this, new ErrorEventArg("Error From plugin"));
+
+
                         Debug.LogError("Connection Error");
                         exit = true;
                         break;

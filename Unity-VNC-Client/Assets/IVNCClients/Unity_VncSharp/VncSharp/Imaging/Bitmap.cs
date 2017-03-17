@@ -88,7 +88,7 @@ namespace UnityVncSharp.Imaging
       
             int pos = 0;
 
-            int offset = Width - rectangle.Width;
+      //      int offset = Width - rectangle.Width;
             int row = 0;
 
             for (int y = 0; y < rectangle.Height; ++y)

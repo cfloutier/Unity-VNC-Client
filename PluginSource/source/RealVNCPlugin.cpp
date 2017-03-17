@@ -70,10 +70,16 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
 {
-	client->Disconnect();
-	delete client;
-	client = NULL;
+	if (client != NULL)
+	{
+		client->Disconnect();
+		delete client;
+		client = NULL;
+	}
+	DebugLog::Clear();
+
 }
+
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
 {

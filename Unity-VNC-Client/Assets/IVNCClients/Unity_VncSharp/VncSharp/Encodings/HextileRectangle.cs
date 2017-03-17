@@ -73,8 +73,8 @@ namespace UnityVncSharp.Encodings
 					// All others will be 16 wide.
 					int tw = (rectangle.Width - tx < 16) ? rectangle.Width - tx : 16;
 
-					int tlStart = ty * rectangle.Width + tx;
-					int tlOffset = rectangle.Width - tw;
+				//	int tlStart = ty * rectangle.Width + tx;
+				//	int tlOffset = rectangle.Width - tw;
 
 					byte subencoding = rfb.ReadByte();
 

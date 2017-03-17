@@ -9,7 +9,7 @@ public :
 	static void Init();
 	static void Release();
 	static void Log(const char * format, ...);
-
+	static void Clear();
 
 };
 

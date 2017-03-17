@@ -6,4 +6,8 @@
     <LocalDebuggerAttach>true</LocalDebuggerAttach>
     <LocalDebuggerWorkingDirectory>C:\Program Files\Unity\Editor</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerAttach>true</LocalDebuggerAttach>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

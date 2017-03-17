@@ -29,7 +29,7 @@ public:
 	void run();
 
 protected:
-	char* tempBuffer;
+	unsigned char* tempBuffer;
 
 	bool exitThread = false;
 	bool threadIsRunning = false;
@@ -44,6 +44,7 @@ protected:
 	int width = 256;
 	int height = 256;
 	int textureRowPitch;
+	int bufferSize;
 
 	RenderAPI* m_CurrentAPI = NULL;
 	UnityGfxRenderer m_DeviceType = kUnityGfxRendererNull;

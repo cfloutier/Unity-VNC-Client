@@ -120,8 +120,10 @@ public class VNCPluginInterface
 
     public void Release()
     {
+        
         LogFromPlugin();
         m_LogHandle.Free();
+        Disconnect();
     }
 
     public void LogFromPlugin()

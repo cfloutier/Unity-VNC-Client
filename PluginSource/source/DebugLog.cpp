@@ -66,6 +66,12 @@ void DebugLog::Release()
 	DeleteCriticalSection(&CriticalSection);
 }
 
+void DebugLog::Clear()
+{
+	logs.clear();
+}
+
+
 
 
 

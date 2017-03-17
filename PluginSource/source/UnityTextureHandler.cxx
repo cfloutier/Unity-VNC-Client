@@ -5,6 +5,8 @@
 #include <vector>
 #include "windows.h"
 
+#include "DebugLog.h"
+
 
 
 UnityTextureHandler::UnityTextureHandler()
@@ -26,18 +28,24 @@ UnityTextureHandler::~UnityTextureHandler()
 	if (tempBuffer != NULL) delete[] tempBuffer;
 }
 
-
 void UnityTextureHandler::run()
 {
+	UNITYLOG("Start Rendering Thread");
 	threadIsRunning = true;
 	while (!exitThread)
 	{
 		EnterCriticalSection(&CriticalSection);
 
-
+		Sinuses();
 
 		LeaveCriticalSection(&CriticalSection);
+
+		Sleep(5);
 	}
+
+	
+	UNITYLOG("End Rendering Thread");
+
 	threadIsRunning = false;
 }
 
@@ -53,28 +61,30 @@ void UnityTextureHandler::build(	void * handle,
 	m_UnityInterfaces = UnityInterfaces;
 	m_Graphics = Graphics;
 
+	// just to get the  textureRowPitch
+	void * t = startModify();
+	endModify(t);
+
 	if (tempBuffer != NULL) delete[] tempBuffer;
-	tempBuffer = new char[width*height * 4];
+	bufferSize = textureRowPitch*height;
+	tempBuffer = new unsigned char[bufferSize];
 
 	// start the main Thread
 	start();
 }
+
+
  
 float g_startTime = -1;
 void UnityTextureHandler::Sinuses()
 {
-	// Unknown / unsupported graphics device type? Do nothing
-	void * textureDataPtr = startModify();
-	if (textureDataPtr == NULL)
-		return;
-
 	float g_Time = (float)GetTickCount() / 1000;
 	if (g_startTime == -1)
 		g_startTime = g_Time;
 	g_Time = g_Time - g_startTime;
 	const float t = g_Time * 4.0f;
 
-	unsigned char* dst = (unsigned char*)textureDataPtr;
+	unsigned char* dst = tempBuffer;
 	for (int y = 0; y < height; ++y)
 	{
 		unsigned char* ptr = dst;
@@ -101,8 +111,6 @@ void UnityTextureHandler::Sinuses()
 		// To next image row
 		dst += textureRowPitch;
 	}
-
-	endModify(textureDataPtr);
 } 
 
 void* UnityTextureHandler::startModify()
@@ -114,11 +122,11 @@ void* UnityTextureHandler::startModify()
 	if (!m_TextureHandle)
 		return NULL;
 
-	
 	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(m_TextureHandle, width, height, &textureRowPitch);
 	if (!textureDataPtr)
 		return NULL;  
-	  
+
+	EnterCriticalSection(&CriticalSection);
 	return textureDataPtr;
 }
 
@@ -126,15 +134,12 @@ void* UnityTextureHandler::startModify()
 void UnityTextureHandler::endModify(void * textureDataPtr)
 {
 	m_CurrentAPI->EndModifyTexture(m_TextureHandle, width, height, textureRowPitch, textureDataPtr);
+	LeaveCriticalSection(&CriticalSection);
 }
 
 void UnityTextureHandler::Noise()
 {
-	void * textureDataPtr = startModify();
-	if (textureDataPtr == NULL)
-		return;
-
-	unsigned char* dst = (unsigned char*)textureDataPtr;
+	unsigned char* dst = tempBuffer;
 	
 	for (int y = 0; y < height; ++y)
 	{
@@ -154,12 +159,15 @@ void UnityTextureHandler::Noise()
 		// To next image row
 		dst += textureRowPitch;
 	}
-
-	endModify(textureDataPtr);
 }
-
 
 void UnityTextureHandler::Update()
 {
-	Sinuses();
+	void * textureDataPtr = startModify();
+	if (textureDataPtr == NULL)
+		return;
+
+	memcpy(textureDataPtr, tempBuffer, bufferSize);
+
+	endModify(textureDataPtr);
 }
