@@ -1,7 +1,8 @@
 #ifndef __VNC_CLIENT
 #define __VNC_CLIENT
 
-#include "TextureModifer.h"
+#include "UnityTextureHandler.h"
+#include "ConnectionThread.h"
 
 enum ConnectionState
 {
@@ -16,32 +17,27 @@ class VNCClient
 public :
 	VNCClient();
 
-	void Connect(char * host, int port);
+	void Connect(const char * host, int port);
 	void Disconnect();
 
-	void InitTextureHandler(void* textureHandle,
-		RenderAPI* s_CurrentAPI,
-		UnityGfxRenderer s_DeviceType,
-		IUnityInterfaces* s_UnityInterfaces,
-		IUnityGraphics* s_Graphics);
+	inline UnityTextureHandler * getTextureHandler() {		return texture;	}
 
 	int GetWidth();
 	int GetHeight();
+	bool NeedPassword();
 	ConnectionState GetConnectionState();
-	TextureModifer * modifier;
+	
 
 	void Update();
 
 protected:
+	void setConnectionState(ConnectionState state);
+	void stopConnectionThread();
 	ConnectionState m_connectionState = Iddle;
-	
+	ConnectionThread * m_ConnectionThread;
+	UnityTextureHandler * texture;
 
-	int		m_TextureWidth = 0;
-
-	int		m_TextureHeight = 0;
-
-	char *	m_host;
-	int		m_port;
+	friend class ConnectionThread;
 };
 
 #endif // __VNC_CLIENT

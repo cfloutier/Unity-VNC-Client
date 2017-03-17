@@ -1,2 +1,35 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(C:\_dev\Unity-VNC-Client\PluginSource\projects\VisualStudio2015\x64\Debug\network.lib) does not match the Library's OutputFile property value (C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\Debug\network.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+﻿  TcpSocket.cxx
+C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\rdr/InStream.h(50): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\rdr/InStream.h(99): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\rdr/OutStream.h(52): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\rdr/OutStream.h(73): warning C4267: 'initializing': conversion from 'size_t' to 'rdr::U32', possible loss of data
+C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\rdr/OutStream.h(96): warning C4244: 'argument': conversion from '__int64' to 'int', possible loss of data
+TcpSocket.cxx(90): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
+TcpSocket.cxx(104): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(109): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(2238): note: see declaration of 'gethostbyname'
+TcpSocket.cxx(148): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(164): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+TcpSocket.cxx(178): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(198): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+TcpSocket.cxx(264): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
+TcpSocket.cxx(322): warning C4244: '=': conversion from 'SOCKET' to 'int', possible loss of data
+TcpSocket.cxx(343): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(2238): note: see declaration of 'gethostbyname'
+TcpSocket.cxx(349): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(378): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(419): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(436): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1850): note: see declaration of 'inet_addr'
+TcpSocket.cxx(453): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+TcpSocket.cxx(455): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(C:\_dev\Unity-VNC-Client\PluginSource\projects\VisualStudio2015\x64\Debug\network.lib) does not match the Library's OutputFile property value (C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\Debug\network.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
   network.vcxproj -> C:\_dev\Unity-VNC-Client\PluginSource\projects\VisualStudio2015\x64\Debug\network.lib

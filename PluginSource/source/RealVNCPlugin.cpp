@@ -9,7 +9,8 @@
 #include "windows.h"
 #include "VNCClient.h"
 
-#include "TextureModifer.h"
+#include "DebugLog.h"
+#include "UnityTextureHandler.h"
 
 // --------------------------------------------------------------------------
 VNCClient * client;
@@ -22,20 +23,26 @@ static IUnityGraphics* s_Graphics = NULL;
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API SetTextureFromUnity(void* textureHandle)
 {
-
-	client->InitTextureHandler(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
-
-
+	client->getTextureHandler()->setUnityStuff(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
 }
-
 
 extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API getDesktopWidth()
 {
+	if (client == NULL)
+	{
+		UNITYLOG("No VNC CLient !!");
+		return 0;
+	}
 	return client->GetWidth();
 }
 
 extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API getDesktopHeight()
 {
+	if (client == NULL)
+	{
+		UNITYLOG("No VNC CLient !!");
+		return 0;
+	}
 	return client->GetHeight();
 }
 
@@ -46,23 +53,25 @@ extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API  getConnectionState()
 
 // --------------------------------------------------------------------------
 // UnitySetInterfaces
-
 static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType eventType);
 
-
-
-extern "C" void	UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnityInterfaces* unityInterfaces)
+// Unity plugin load event
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnityInterfaces* unityInterfaces)
 {
 	s_UnityInterfaces = unityInterfaces;
 	s_Graphics = s_UnityInterfaces->Get<IUnityGraphics>();
 	s_Graphics->RegisterDeviceEventCallback(OnGraphicsDeviceEvent);
-	
+
 	// Run OnGraphicsDeviceEvent(initialize) manually on plugin load
 	OnGraphicsDeviceEvent(kUnityGfxDeviceEventInitialize);
+
+	DebugLog::Init();
 }
+
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
 {
+	DebugLog::Release();
 	s_Graphics->UnregisterDeviceEventCallback(OnGraphicsDeviceEvent);
 }  
 
@@ -75,7 +84,7 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Connect(char * host, int port)
 {
-	if (client != NULL)
+	if (client != NULL)		
 		Disconnect();
 
 	client = new VNCClient();
@@ -108,6 +117,10 @@ extern "C" UnityRenderingEvent UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API GetRen
 	return OnRenderEvent;
 }
 
+extern "C" bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API NeedPassword()
+{
+	return client->NeedPassword();
+}
 
 static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType eventType)
 {

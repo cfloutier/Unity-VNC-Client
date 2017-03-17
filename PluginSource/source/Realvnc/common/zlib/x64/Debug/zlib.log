@@ -1,2 +1,62 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(C:\_dev\Unity-VNC-Client\PluginSource\projects\VisualStudio2015\x64\Debug\zlib.lib) does not match the Library's OutputFile property value (C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\Debug\zlib.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+﻿  adler32.c
+  compress.c
+  crc32.c
+  deflate.c
+  gzio.c
+gzio.c(242): warning C4267: '=': conversion from 'size_t' to 'uInt', possible loss of data
+gzio.c(389): warning C4267: '-=': conversion from 'size_t' to 'uInt', possible loss of data
+gzio.c(400): warning C4267: '=': conversion from 'size_t' to 'uInt', possible loss of data
+gzio.c(538): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  infblock.c
+infblock.c(140): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(165): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(182): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(186): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(192): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(201): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(202): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(217): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(225): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(232): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(241): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(258): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(271): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(284): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(297): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(326): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(332): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(339): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(357): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(361): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(364): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infblock.c(367): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+  infcodes.c
+infcodes.c(108): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(123): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(158): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(161): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(170): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(190): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(193): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(204): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(213): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(227): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(231): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(234): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+infcodes.c(237): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+  inffast.c
+inffast.c(102): warning C4244: '=': conversion from '__int64' to 'uInt', possible loss of data
+inffast.c(142): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+inffast.c(166): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+inffast.c(173): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+inffast.c(181): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+  inflate.c
+inflate.c(337): warning C4244: '+=': conversion from '__int64' to 'uLong', possible loss of data
+  inftrees.c
+  infutil.c
+  trees.c
+  uncompr.c
+  zutil.c
+  Generating Code...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1357,5): warning MSB8012: TargetPath(C:\_dev\Unity-VNC-Client\PluginSource\projects\VisualStudio2015\x64\Debug\zlib.lib) does not match the Library's OutputFile property value (C:\_dev\Unity-VNC-Client\PluginSource\source\Realvnc\common\Debug\zlib.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
   zlib.vcxproj -> C:\_dev\Unity-VNC-Client\PluginSource\projects\VisualStudio2015\x64\Debug\zlib.lib

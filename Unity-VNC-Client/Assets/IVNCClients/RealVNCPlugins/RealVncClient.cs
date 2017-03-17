@@ -7,8 +7,6 @@ using System;
 using System.Collections;
 using System.Threading;
 
-
-
 public class RealVncClient : MonoBehaviour, IVncClient
 {
     VNCPluginInterface pluginInterface = null;
@@ -30,9 +28,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
     /// </summary>
     public event OnConnection onConnection;
 
-    Thread connectingThread;            // To get the connecting state 
-
-
+    
     public void Connect(string host, int display, int port, bool viewOnly)
     {
         connectionInfos = new ConnectionOptions();
@@ -41,13 +37,9 @@ public class RealVncClient : MonoBehaviour, IVncClient
         connectionInfos.port = port;
         connectionInfos.viewOnly = viewOnly;
 
-        if (connectingThread != null && connectingThread.IsAlive)
-        {
-            connectingThread.Abort();
-        }
+        
 
         StartCoroutine(Connection());
-
     }
 
     class ConnectionOptions
@@ -108,31 +100,21 @@ public class RealVncClient : MonoBehaviour, IVncClient
         }
     }
 
-    
-    
-   
-
     public void Start()
     {
-        
-        
-
+        pluginInterface.Init();
     }
-
 
     public void Update()
     {
         pluginInterface.LogFromPlugin();
     }
 
-
     void OnApplicationQuit()
     {
 
-        pluginInterface.LogFromPlugin();
+        pluginInterface.Release();
     }
-
-
 
     public bool Authenticate(string password)
     {
@@ -146,7 +128,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
     public void Initialize()
     {
-        pluginInterface.InitLog();
+       
 
     }
 

@@ -1,26 +1,34 @@
 #include "VNCClient.h"
+
 #include <assert.h>
 #include <math.h>
 #include <vector>
-#include "windows.h"
+#include <windows.h>
 
+
+#include "DebugLog.h"
 
 VNCClient::VNCClient()
 {
-
+	setConnectionState(Iddle);
+	m_ConnectionThread = NULL;
+	texture = new UnityTextureHandler();
 }
 
-void VNCClient::Connect(char * host, int port)
+void VNCClient::Connect(const char * host, int port)
 {
-	m_host = host;
-	m_port = port;
+	UNITYLOG("Connect %s:%d", host, port);
+	stopConnectionThread();
+		
+	m_ConnectionThread = new ConnectionThread();
+	m_ConnectionThread->Connect(this, host, port);
 }
 
 void VNCClient::Update()
 {
-	if (modifier != NULL)
+	if (texture != NULL)
 	{
-		modifier->Update();
+		texture->Update();
 	}
 }
 
@@ -34,28 +42,61 @@ void VNCClient::Disconnect()
 	delete this;
 }
 
-void VNCClient::InitTextureHandler(
-	void* textureHandle,
-	RenderAPI* CurrentAPI ,
-	UnityGfxRenderer DeviceType ,
-	IUnityInterfaces* UnityInterfaces ,
-	IUnityGraphics* Graphics 	)
-{
-	modifier = new TextureModifer(textureHandle, 
-		CurrentAPI,
-		DeviceType,
-		UnityInterfaces,
-		Graphics);
-}
-
 int VNCClient::GetWidth()
 {
-	return m_TextureWidth;
+	if (texture == NULL)
+	{
+		UNITYLOG("Error no texture");
+		return -1;
+	}
+	return texture->GetWidth();
 }
 
 int VNCClient::GetHeight()
 {
-	return m_TextureHeight;
+	if (texture == NULL)
+	{
+		UNITYLOG("Error no texture");
+		return -1;
+	}
+	return texture->GetHeight();
 }
 
-  
+bool VNCClient::NeedPassword()
+{
+	return false;
+}
+
+void VNCClient::stopConnectionThread()
+{
+	if (m_ConnectionThread != NULL)
+	{
+		m_ConnectionThread->QuitAndDelete();
+	}
+	m_ConnectionThread = NULL;
+
+}
+
+void VNCClient::setConnectionState(ConnectionState state)
+{
+	m_connectionState = state;
+	switch (state)
+	{
+	case Iddle:
+		UNITYLOG("setConnectionState Iddle");
+		break;
+	case Connecting:
+		UNITYLOG("setConnectionState Connecting");
+		break;
+	case Connected:
+		UNITYLOG("setConnectionState Connected");
+		stopConnectionThread();
+		break;
+	case Error:
+		UNITYLOG("setConnectionState Error");
+		stopConnectionThread();
+		break;
+	default:
+		break;
+	}
+}

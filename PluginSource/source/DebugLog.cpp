@@ -16,9 +16,7 @@ list<string>::const_iterator logs_iterator;
 // Global variable
 CRITICAL_SECTION CriticalSection;
 
-
-
-void Debug::Log(const char * format, ...)
+void DebugLog::Log(const char * format, ...)
 {
 	char logString[1024];
 	va_list args;
@@ -31,7 +29,6 @@ void Debug::Log(const char * format, ...)
 
 	// Release ownership of the critical section.
 	LeaveCriticalSection(&CriticalSection);
-
 }
 
 // --------------------------------------------------------------------------
@@ -58,19 +55,13 @@ extern "C" bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API GetDebugLog(void* log
 // --------------------------------------------------------------------------
 // UnitySetInterfaces
 
-void Debug::Init()
+void DebugLog::Init()
 {
-
-
-	if (!InitializeCriticalSectionAndSpinCount(&CriticalSection,
-		0x00000400))
-		return;
-
+	InitializeCriticalSection(&CriticalSection);
 }
 
-void Debug::Release()
+void DebugLog::Release()
 {
-
 	// Release resources used by the critical section object.
 	DeleteCriticalSection(&CriticalSection);
 }

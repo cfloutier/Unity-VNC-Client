@@ -106,19 +106,19 @@ void Dialog::enableItem(int id, bool state) {
 
 
 
-BOOL CALLBACK Dialog::staticDialogProc(HWND hwnd, UINT msg,
+INT_PTR CALLBACK Dialog::staticDialogProc(HWND hwnd, UINT msg,
 				       WPARAM wParam, LPARAM lParam)
 {
   if (msg == WM_INITDIALOG)
-    SetWindowLong(hwnd, GWL_USERDATA, (LONG)lParam);
+	  SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG)lParam);
 
-  LONG self = GetWindowLong(hwnd, GWL_USERDATA);
+  LONG_PTR self = GetWindowLongPtr(hwnd, GWLP_USERDATA);
   if (!self) return FALSE;
 
   return ((Dialog*)self)->dialogProc(hwnd, msg, wParam, lParam);
 }
 
-BOOL Dialog::dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+INT_PTR Dialog::dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
   switch (msg) {
 
@@ -165,19 +165,19 @@ PropSheetPage::~PropSheetPage() {
 }
 
 
-BOOL CALLBACK PropSheetPage::staticPageProc(HWND hwnd, UINT msg,
+INT_PTR CALLBACK PropSheetPage::staticPageProc(HWND hwnd, UINT msg,
 				       WPARAM wParam, LPARAM lParam)
 {
   if (msg == WM_INITDIALOG)
-    SetWindowLong(hwnd, GWL_USERDATA, ((PROPSHEETPAGE*)lParam)->lParam);
+	  SetWindowLongPtr(hwnd, GWLP_USERDATA, ((PROPSHEETPAGE*)lParam)->lParam);
 
-  LONG self = GetWindowLong(hwnd, GWL_USERDATA);
+  LONG_PTR self = GetWindowLongPtr(hwnd, GWLP_USERDATA);
   if (!self) return FALSE;
 
   return ((PropSheetPage*)self)->dialogProc(hwnd, msg, wParam, lParam);
 }
 
-BOOL PropSheetPage::dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+INT_PTR PropSheetPage::dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
   switch (msg) {
 

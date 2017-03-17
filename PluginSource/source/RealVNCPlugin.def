@@ -11,6 +11,8 @@ EXPORTS
    Disconnect
    IsConnected
    SetTextureFromUnity
+   GetDebugLog
+   NeedPassword
    getDesktopWidth
    getDesktopHeight
    getConnectionState

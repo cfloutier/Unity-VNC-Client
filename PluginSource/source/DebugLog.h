@@ -1,13 +1,14 @@
 #ifndef DEBUG_LOG_
 #define DEBUG_LOG_
 
+#define UNITYLOG DebugLog::Log
 
-class Debug
+class DebugLog
 {
 public :
-	void Init();
-	void Release();
-	void Log(const char * format, ...);
+	static void Init();
+	static void Release();
+	static void Log(const char * format, ...);
 
 
 };

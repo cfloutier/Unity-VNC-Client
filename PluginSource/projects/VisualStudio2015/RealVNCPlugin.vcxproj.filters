@@ -24,9 +24,9 @@
       <Filter>UnityPlugin</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\ConnectionThread.cxx" />
-    <ClCompile Include="..\..\source\VNCClient.cxx" />
-    <ClCompile Include="..\..\source\TextureModifer.cxx" />
     <ClCompile Include="..\..\source\DebugLog.cpp" />
+    <ClCompile Include="..\..\source\VNCClient.cxx" />
+    <ClCompile Include="..\..\source\UnityTextureHandler.cxx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\source\RealVNCPlugin.def" />
@@ -80,8 +80,8 @@
       <Filter>UnityPlugin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\ConnectionThread.h" />
-    <ClInclude Include="..\..\source\VNCClient.h" />
-    <ClInclude Include="..\..\source\TextureModifer.h" />
     <ClInclude Include="..\..\source\DebugLog.h" />
+    <ClInclude Include="..\..\source\VNCClient.h" />
+    <ClInclude Include="..\..\source\UnityTextureHandler.h" />
   </ItemGroup>
 </Project>

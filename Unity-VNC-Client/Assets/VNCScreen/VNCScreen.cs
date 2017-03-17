@@ -123,7 +123,9 @@ namespace VNCScreen
                 case VNCPlugin.VNCSharp:
                     return new VNCSharpClient();
                 case VNCPlugin.RealVnc:
-                    return new RealVncClient();
+                    {
+                        return gameObject.AddComponent<RealVncClient>();
+                    }
                     
                     
             }
@@ -348,8 +350,7 @@ namespace VNCScreen
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is already in the Connected state.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>		
         protected bool Initialize()
         {
-            // Finish protocol handshake with host now that authentication is done.
-          
+            // Finish protocol handshake with host now that authentication is done.  
             vnc.Initialize();
             SetState(RuntimeState.WaitFirstBuffer);
             Debug.Log("Await for first buffer");

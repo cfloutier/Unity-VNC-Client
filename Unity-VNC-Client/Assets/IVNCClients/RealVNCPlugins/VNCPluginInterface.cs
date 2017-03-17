@@ -6,6 +6,15 @@ using VNCScreen.Drawing;
 
 public class VNCPluginInterface
 {
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+	[DllImport ("__Internal")]
+	private static extern void RegisterPlugin();
+#endif
+
+
+
+
 #if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
 	[DllImport ("__Internal")]
 #else
@@ -99,10 +108,20 @@ public class VNCPluginInterface
     private int m_LogBufferSize = 2048;
     private byte[] m_Log;
 
-    public void InitLog()
+    public void Init()
     {
         m_Log = new byte[m_LogBufferSize];
         m_LogHandle = GCHandle.Alloc(m_Log, GCHandleType.Pinned);
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+		RegisterPlugin();
+#endif
+    }
+
+    public void Release()
+    {
+        LogFromPlugin();
+        m_LogHandle.Free();
     }
 
     public void LogFromPlugin()

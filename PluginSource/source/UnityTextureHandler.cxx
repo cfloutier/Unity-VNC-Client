@@ -1,0 +1,84 @@
+#include "UnityTextureHandler.h"
+
+#include <assert.h>
+#include <math.h>
+#include <vector>
+#include "windows.h"
+
+
+UnityTextureHandler::UnityTextureHandler()
+{
+	width = height = 512;
+}
+
+void UnityTextureHandler::setUnityStuff(	void * handle,
+	RenderAPI* CurrentAPI,
+	UnityGfxRenderer DeviceType,
+	IUnityInterfaces* UnityInterfaces,
+	IUnityGraphics* Graphics)
+{
+	m_TextureHandle = handle;
+	m_CurrentAPI = CurrentAPI;
+	m_DeviceType = DeviceType;
+	m_UnityInterfaces = UnityInterfaces;
+	m_Graphics = Graphics;
+}
+
+float g_startTime = -1;
+void UnityTextureHandler::randomUpdate()
+{
+	// Unknown / unsupported graphics device type? Do nothing
+	if (m_CurrentAPI == NULL)
+		return;
+
+	void* textureHandle = m_TextureHandle;
+	if (!textureHandle)
+		return;
+
+	int textureRowPitch;
+	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(textureHandle, width, height, &textureRowPitch);
+	if (!textureDataPtr)
+		return;
+
+	float g_Time = (float)GetTickCount() / 1000;
+	if (g_startTime == -1)
+		g_startTime = g_Time;
+	g_Time = g_Time - g_startTime;
+	const float t = g_Time * 4.0f;
+
+	unsigned char* dst = (unsigned char*)textureDataPtr;
+	for (int y = 0; y < height; ++y)
+	{
+		unsigned char* ptr = dst;
+		for (int x = 0; x < width; ++x)
+		{
+			// Simple "plasma effect": several combined sine waves
+			int vv = int(
+				(127.0f + (127.0f * sinf(x / 7.0f + t))) +
+				(127.0f + (127.0f * sinf(y / 5.0f - t))) +
+				(127.0f + (127.0f * sinf((x + y) / 6.0f - t))) +
+				(127.0f + (127.0f * sinf(sqrtf(float(x*x + y*y)) / 4.0f - t)))
+				) / 4;
+
+			// Write the texture pixel
+			ptr[0] = vv;
+			ptr[1] = vv;
+			ptr[2] = vv;
+			ptr[3] = vv;
+
+			// To next pixel (our pixels are 4 bpp)
+			ptr += 4;
+		}
+
+		// To next image row
+		dst += textureRowPitch;
+	}
+
+	m_CurrentAPI->EndModifyTexture(textureHandle, width, height, textureRowPitch, textureDataPtr);
+}
+
+
+void UnityTextureHandler::Update()
+{
+	randomUpdate();
+}

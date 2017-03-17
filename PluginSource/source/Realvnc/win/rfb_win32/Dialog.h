@@ -87,9 +87,9 @@ namespace rfb {
       void enableItem(int id, bool state);
 
     protected:
-      static BOOL CALLBACK staticDialogProc(HWND hwnd, UINT msg,
+      static INT_PTR CALLBACK staticDialogProc(HWND hwnd, UINT msg,
 			      WPARAM wParam, LPARAM lParam);
-      virtual BOOL dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+      virtual INT_PTR dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
       HINSTANCE inst;
       HWND handle;
       bool alreadyShowing;
@@ -145,8 +145,8 @@ namespace rfb {
 
     protected:
       void setPropSheet(PropSheet* ps) {propSheet = ps;};
-      static BOOL CALLBACK staticPageProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-      virtual BOOL dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+      static INT_PTR CALLBACK staticPageProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+      virtual INT_PTR dialogProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
       PROPSHEETPAGE page;
       PropSheet* propSheet;
     };

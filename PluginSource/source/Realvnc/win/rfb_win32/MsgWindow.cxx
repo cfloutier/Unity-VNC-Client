@@ -46,10 +46,10 @@ LRESULT CALLBACK MsgWindowProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam)
   LRESULT result;
 
   if (msg == WM_CREATE)
-    SetWindowLong(wnd, GWL_USERDATA, (long)((CREATESTRUCT*)lParam)->lpCreateParams);
+	  SetWindowLongPtr(wnd, GWLP_USERDATA, (long)((CREATESTRUCT*)lParam)->lpCreateParams);
   else if (msg == WM_DESTROY)
-    SetWindowLong(wnd, GWL_USERDATA, 0);
-  MsgWindow* _this = (MsgWindow*) GetWindowLong(wnd, GWL_USERDATA);
+	  SetWindowLongPtr(wnd, GWLP_USERDATA, 0);
+  MsgWindow* _this = (MsgWindow*) GetWindowLong(wnd, GWLP_USERDATA);
   if (!_this) {
     vlog.info("null _this in %x, message %x", wnd, msg);
     return SafeDefWindowProc(wnd, msg, wParam, lParam);
