@@ -23,7 +23,7 @@ static IUnityGraphics* s_Graphics = NULL;
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API SetTextureFromUnity(void* textureHandle)
 {
-	client->getTextureHandler()->setUnityStuff(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
+	client->getTextureHandler()->build(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
 }
 
 extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API getDesktopWidth()
@@ -68,19 +68,20 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 	DebugLog::Init();
 }
 
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
+{
+	client->Disconnect();
+	delete client;
+	client = NULL;
+}
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
 {
 	DebugLog::Release();
+	Disconnect();
 	s_Graphics->UnregisterDeviceEventCallback(OnGraphicsDeviceEvent);
 }  
 
-
-extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
-{
-	client->Disconnect();	
-	client = NULL;
-}
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Connect(char * host, int port)
 {
@@ -88,7 +89,6 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Connect(char * host, 
 		Disconnect();
 
 	client = new VNCClient();
-
 	client->Connect(host, port);
 }
  

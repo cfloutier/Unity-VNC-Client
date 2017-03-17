@@ -4,13 +4,18 @@
 #include "UnityPlugin/PlatformBase.h"
 #include "UnityPlugin/RenderAPI.h"
 
-class UnityTextureHandler
+#include "rfb/Threading.h"
+
+using namespace rfb;
+
+class UnityTextureHandler : Thread
 {
 public:
 	UnityTextureHandler();
+	~UnityTextureHandler();
 
 	void setTextureSize(int Width, int Height);
-	void setUnityStuff(void * handle,
+	void build(void * handle,
 		RenderAPI* CurrentAPI,
 		UnityGfxRenderer DeviceType,
 		IUnityInterfaces* UnityInterfaces,
@@ -18,12 +23,18 @@ public:
 
 	void Update();
 
-	static void OnGraphicsDeviceEvent(UnityGfxDeviceEventType eventType);
-
 	int GetWidth()	{		return width;	}
 	int GetHeight(){		return height;	}
 
+	void run();
+
 protected:
+	char* tempBuffer;
+
+	bool exitThread = false;
+	bool threadIsRunning = false;
+	CRITICAL_SECTION CriticalSection;
+
 	void Sinuses();
 	void Noise();
 	void* startModify();

@@ -16,6 +16,7 @@ class VNCClient
 {
 public :
 	VNCClient();
+	~VNCClient();
 
 	void Connect(const char * host, int port);
 	void Disconnect();

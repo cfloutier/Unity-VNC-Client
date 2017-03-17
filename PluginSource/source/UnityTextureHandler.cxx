@@ -6,13 +6,42 @@
 #include "windows.h"
 
 
+
 UnityTextureHandler::UnityTextureHandler()
 {
 	width = height = 512;
-
+	tempBuffer = NULL;
+	InitializeCriticalSection(&CriticalSection);
 }
 
-void UnityTextureHandler::setUnityStuff(	void * handle,
+UnityTextureHandler::~UnityTextureHandler()
+{
+	exitThread = true;
+
+	while (threadIsRunning)
+		Sleep(5);
+
+	DeleteCriticalSection(&CriticalSection);
+
+	if (tempBuffer != NULL) delete[] tempBuffer;
+}
+
+
+void UnityTextureHandler::run()
+{
+	threadIsRunning = true;
+	while (!exitThread)
+	{
+		EnterCriticalSection(&CriticalSection);
+
+
+
+		LeaveCriticalSection(&CriticalSection);
+	}
+	threadIsRunning = false;
+}
+
+void UnityTextureHandler::build(	void * handle,
 	RenderAPI* CurrentAPI,
 	UnityGfxRenderer DeviceType,
 	IUnityInterfaces* UnityInterfaces,
@@ -23,8 +52,14 @@ void UnityTextureHandler::setUnityStuff(	void * handle,
 	m_DeviceType = DeviceType;
 	m_UnityInterfaces = UnityInterfaces;
 	m_Graphics = Graphics;
-}
 
+	if (tempBuffer != NULL) delete[] tempBuffer;
+	tempBuffer = new char[width*height * 4];
+
+	// start the main Thread
+	start();
+}
+ 
 float g_startTime = -1;
 void UnityTextureHandler::Sinuses()
 {
@@ -126,5 +161,5 @@ void UnityTextureHandler::Noise()
 
 void UnityTextureHandler::Update()
 {
-	Noise();
+	Sinuses();
 }

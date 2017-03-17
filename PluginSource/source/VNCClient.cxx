@@ -15,6 +15,14 @@ VNCClient::VNCClient()
 	texture = new UnityTextureHandler();
 }
 
+VNCClient::~VNCClient()
+{
+	if (texture != NULL)
+		delete texture;
+
+	stopConnectionThread();
+}
+
 void VNCClient::Connect(const char * host, int port)
 {
 	UNITYLOG("Connect %s:%d", host, port);
@@ -39,7 +47,7 @@ ConnectionState VNCClient::GetConnectionState()
 
 void VNCClient::Disconnect()
 {
-	delete this;
+	stopConnectionThread();
 }
 
 int VNCClient::GetWidth()
@@ -74,7 +82,6 @@ void VNCClient::stopConnectionThread()
 		m_ConnectionThread->QuitAndDelete();
 	}
 	m_ConnectionThread = NULL;
-
 }
 
 void VNCClient::setConnectionState(ConnectionState state)
