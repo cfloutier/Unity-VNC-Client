@@ -40,3 +40,6 @@ PluginSource/source/Realvnc/common/network/x64/Debug/network.log
 PluginSource/source/Realvnc/common/network/x64/
 PluginSource/source/Realvnc/win/Release/
 PluginSource/build/x64/
+build/x64/
+build/Win32/
+PluginSource/VS2015/.vs/

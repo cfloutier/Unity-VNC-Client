@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ConnectionThread.cxx" />
+    <ClCompile Include="DebugLog.cpp" />
+    <ClCompile Include="RealVNCPlugin.cpp" />
+    <ClCompile Include="UnityTextureHandler.cxx" />
+    <ClCompile Include="VNCClient.cxx" />
+    <ClCompile Include="UnityPlugin\RenderAPI.cpp">
+      <Filter>UnityPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityPlugin\RenderAPI_D3D9.cpp">
+      <Filter>UnityPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityPlugin\RenderAPI_D3D11.cpp">
+      <Filter>UnityPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityPlugin\RenderAPI_D3D12.cpp">
+      <Filter>UnityPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityPlugin\RenderAPI_OpenGL2.cpp">
+      <Filter>UnityPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityPlugin\RenderAPI_OpenGLCoreES.cpp">
+      <Filter>UnityPlugin</Filter>
+    </ClCompile>
+    <ClCompile Include="UnityPlugin\GLEW\glew.c">
+      <Filter>UnityPlugin\GLEW</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnityPlugin\RenderAPI_Metal.mm">
+      <Filter>UnityPlugin</Filter>
+    </None>
+    <None Include="RealVNCPlugin.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="UnityPlugin">
+      <UniqueIdentifier>{9b79898f-ac56-46f7-a10d-516b1f59e172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnityPlugin\GLEW">
+      <UniqueIdentifier>{833d5fd2-17c0-4dfb-bbec-aa8644cca9e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnityPlugin\Unity">
+      <UniqueIdentifier>{7da2856a-4939-4aab-b144-da65171fa74a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConnectionThread.h" />
+    <ClInclude Include="DebugLog.h" />
+    <ClInclude Include="UnityTextureHandler.h" />
+    <ClInclude Include="VNCClient.h" />
+    <ClInclude Include="UnityPlugin\PlatformBase.h">
+      <Filter>UnityPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\RenderAPI.h">
+      <Filter>UnityPlugin</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\Unity\IUnityGraphics.h">
+      <Filter>UnityPlugin\Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\Unity\IUnityGraphicsD3D9.h">
+      <Filter>UnityPlugin\Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\Unity\IUnityGraphicsD3D11.h">
+      <Filter>UnityPlugin\Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\Unity\IUnityGraphicsD3D12.h">
+      <Filter>UnityPlugin\Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\Unity\IUnityGraphicsMetal.h">
+      <Filter>UnityPlugin\Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\Unity\IUnityInterface.h">
+      <Filter>UnityPlugin\Unity</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\GLEW\glew.h">
+      <Filter>UnityPlugin\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\GLEW\glxew.h">
+      <Filter>UnityPlugin\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityPlugin\GLEW\wglew.h">
+      <Filter>UnityPlugin\GLEW</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
