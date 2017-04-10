@@ -9,7 +9,7 @@
 #include "windows.h"
 #include "VNCClient.h"
 
-#include "DebugLog.h"
+#include "UnityLog.h"
 #include "UnityTextureHandler.h"
 
 // --------------------------------------------------------------------------
@@ -65,7 +65,7 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 	// Run OnGraphicsDeviceEvent(initialize) manually on plugin load
 	OnGraphicsDeviceEvent(kUnityGfxDeviceEventInitialize);
 
-	DebugLog::Init();
+	UnityLog::Init();
 }
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
@@ -76,14 +76,14 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
 		delete client;
 		client = NULL;
 	}
-	DebugLog::Clear();
+	UnityLog::Clear();
 
 }
 
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
 {
-	DebugLog::Release();
+	UnityLog::Release();
 	Disconnect();
 	s_Graphics->UnregisterDeviceEventCallback(OnGraphicsDeviceEvent);
 }  

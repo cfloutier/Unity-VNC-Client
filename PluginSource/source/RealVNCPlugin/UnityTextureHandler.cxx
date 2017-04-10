@@ -5,9 +5,7 @@
 #include <vector>
 #include "windows.h"
 
-#include "DebugLog.h"
-
-
+#include "UnityLog.h"
 
 UnityTextureHandler::UnityTextureHandler()
 {

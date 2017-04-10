@@ -19,7 +19,7 @@ protected:
 	
 	void run(); 
 
-	const char* m_host;
+	char* m_host;
 	int m_port;
 	VNCClient *m_client;
 

@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="ConnectionThread.cxx" />
-    <ClCompile Include="DebugLog.cpp" />
     <ClCompile Include="RealVNCPlugin.cpp" />
     <ClCompile Include="UnityTextureHandler.cxx" />
     <ClCompile Include="VNCClient.cxx" />
@@ -27,6 +26,10 @@
     <ClCompile Include="UnityPlugin\GLEW\glew.c">
       <Filter>UnityPlugin\GLEW</Filter>
     </ClCompile>
+    <ClCompile Include="ConnOptions.cxx" />
+    <ClCompile Include="DesktopWindow.cxx" />
+    <ClCompile Include="CConn.cxx" />
+    <ClCompile Include="UnityLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="UnityPlugin\RenderAPI_Metal.mm">
@@ -47,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConnectionThread.h" />
-    <ClInclude Include="DebugLog.h" />
     <ClInclude Include="UnityTextureHandler.h" />
     <ClInclude Include="VNCClient.h" />
     <ClInclude Include="UnityPlugin\PlatformBase.h">
@@ -83,5 +85,9 @@
     <ClInclude Include="UnityPlugin\GLEW\wglew.h">
       <Filter>UnityPlugin\GLEW</Filter>
     </ClInclude>
+    <ClInclude Include="ConnOptions.h" />
+    <ClInclude Include="DesktopWindow.h" />
+    <ClInclude Include="CConn.h" />
+    <ClInclude Include="UnityLog.h" />
   </ItemGroup>
 </Project>

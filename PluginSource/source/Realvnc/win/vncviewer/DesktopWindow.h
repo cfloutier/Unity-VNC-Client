@@ -56,9 +56,10 @@ namespace rfb {
       //   This can (and often will) differ from the PixelBuffer format
       PixelFormat getNativePF() const;
 
-      // - Get the underlying window handle
-      //   This is used by F8Menu to modify the window's menu
-      HWND getHandle() const {return handle;}
+	  // check if the window is visible
+	  bool isVisible();
+
+	  void HideWindow();
 
       // - Set the window title
       void setName(const char* name);
@@ -223,7 +224,7 @@ namespace rfb {
       Rect client_size;
       Point scrolloffset;
       Point maxscrolloffset;
-      HWND handle;
+     
       rdr::U8 menuKey;
 
       Callback* callback;
