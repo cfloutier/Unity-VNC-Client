@@ -6,23 +6,28 @@
 #include <time.h>
 #include <rfb/Logger.h>
 
-using namespace rfb;
 
-class UnityLog
+namespace rfb
 {
-public :
-	static void Init();
-	static void Release();
-	static void Log(const char * format, ...);
-	static void Clear();
-};
+	namespace unity {
 
-class UnityDebugLogger : public Logger
-{
-public:
-	UnityDebugLogger();
+		class UnityLog
+		{
+		public:
+			static void Init();
+			static void Release();
+			static void Log(const char * format, ...);
+			static void Clear();
+		};
 
-	virtual void write(int level, const char *logname, const char *message);
-};
+		class UnityDebugLogger : public Logger
+		{
+		public:
+			UnityDebugLogger();
+
+			virtual void write(int level, const char *logname, const char *message);
+		};
+	}
+}
 
 #endif

@@ -15,8 +15,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
  * USA.
  */
-
 #include <windows.h>
+#include "DesktopWindow.h"
+
+
 #include <commctrl.h>
 #include <rfb/Configuration.h>
 #include <rfb/LogWriter.h>
@@ -25,12 +27,10 @@
 #include <rfb_win32/MonitorInfo.h>
 #include <rfb_win32/DeviceContext.h>
 #include <rfb_win32/Win32Util.h>
-#include <vncviewer/DesktopWindow.h>
-#include <vncviewer/resource.h>
 
 using namespace rfb;
 using namespace rfb::win32;
-
+using namespace rfb::unity;
 
 // - Statics & consts
 
@@ -41,233 +41,39 @@ const int TIMER_POINTER_INTERVAL = 2;
 const int TIMER_POINTER_3BUTTON = 3;
 
 
-//
-// -=- DesktopWindowClass
-
-//
-// Window class used as the basis for all DesktopWindow instances
-//
-
-class DesktopWindowClass {
-public:
-  DesktopWindowClass();
-  ~DesktopWindowClass();
-  ATOM classAtom;
-  HINSTANCE instance;
-};
-
-LRESULT CALLBACK DesktopWindowProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-  LRESULT result;
-  if (msg == WM_CREATE)
-    SetWindowLong(wnd, GWL_USERDATA, (long)((CREATESTRUCT*)lParam)->lpCreateParams);
-  else if (msg == WM_DESTROY)
-    SetWindowLong(wnd, GWL_USERDATA, 0);
-  DesktopWindow* _this = (DesktopWindow*) GetWindowLong(wnd, GWL_USERDATA);
-  if (!_this) {
-    vlog.info("null _this in %x, message %u", wnd, msg);
-    return rfb::win32::SafeDefWindowProc(wnd, msg, wParam, lParam);
-  }
-
-  try {
-    result = _this->processMessage(msg, wParam, lParam);
-  } catch (rdr::Exception& e) {
-    vlog.error("untrapped: %s", e.str());
-  }
-
-  return result;
-};
-
-static HCURSOR dotCursor = (HCURSOR)LoadImage(GetModuleHandle(0), MAKEINTRESOURCE(IDC_DOT_CURSOR), IMAGE_CURSOR, 0, 0, LR_SHARED);
-static HCURSOR arrowCursor = (HCURSOR)LoadImage(NULL, IDC_ARROW, IMAGE_CURSOR, 0, 0, LR_SHARED); 
-
-DesktopWindowClass::DesktopWindowClass() : classAtom(0) {
-  WNDCLASS wndClass;
-  wndClass.style = 0;
-  wndClass.lpfnWndProc = DesktopWindowProc;
-  wndClass.cbClsExtra = 0;
-  wndClass.cbWndExtra = 0;
-  wndClass.hInstance = instance = GetModuleHandle(0);
-  wndClass.hIcon = (HICON)LoadImage(GetModuleHandle(0), MAKEINTRESOURCE(IDI_ICON), IMAGE_ICON, 0, 0, LR_SHARED);
-  if (!wndClass.hIcon)
-    printf("unable to load icon:%ld", GetLastError());
-  wndClass.hCursor = NULL;
-  wndClass.hbrBackground = NULL;
-  wndClass.lpszMenuName = 0;
-  wndClass.lpszClassName = _T("rfb::win32::DesktopWindowClass");
-  classAtom = RegisterClass(&wndClass);
-  if (!classAtom) {
-    throw rdr::SystemException("unable to register DesktopWindow window class", GetLastError());
-  }
-}
-
-DesktopWindowClass::~DesktopWindowClass() {
-  if (classAtom) {
-    UnregisterClass((const TCHAR*)classAtom, instance);
-  }
-}
-
-DesktopWindowClass baseClass;
-
 
 //
 // -=- DesktopWindow instance implementation
 //
 
 DesktopWindow::DesktopWindow(Callback* cb) 
-  : buffer(0),
-    client_size(0, 0, 16, 16), window_size(0, 0, 32, 32),
+  : 
+    client_size(0, 0, 16, 16), 
+	window_size(0, 0, 32, 32),
+
     cursorVisible(false), cursorAvailable(false), cursorInBuffer(false),
     systemCursorVisible(true), trackingMouseLeave(false),
      has_focus(false), palette_changed(false),
     fullscreenActive(false), fullscreenRestore(false),
-    bumpScroll(false), callback(cb) {
+    callback(cb) {
 
   // Create the window
   const char* name = "DesktopWindow";
-  handle = CreateWindow((const TCHAR*)baseClass.classAtom, TStr(name), WS_OVERLAPPEDWINDOW,
-    0, 0, 10, 10, 0, 0, baseClass.instance, this);
-  if (!handle)
-    throw rdr::SystemException("unable to create WMNotifier window instance", GetLastError());
-  vlog.debug("created window \"%s\" (%x)", name, handle);
 
-  // Initialise the CPointer pointer handler
-  ptr.setHWND(handle);
-  ptr.setIntervalTimerId(TIMER_POINTER_INTERVAL);
-  ptr.set3ButtonTimerId(TIMER_POINTER_3BUTTON);
-
-  // Initialise the bumpscroll timer
-  bumpScrollTimer.setHWND(handle);
-  bumpScrollTimer.setId(TIMER_BUMPSCROLL);
-
-  // Hook the clipboard
-  clipboard.setNotifier(this);
-
-  // Create the backing buffer
-  buffer = new win32::DIBSectionBuffer(handle);
-
-  // Show the window
-  centerWindow(handle, 0);
-  ShowWindow(handle, SW_SHOW);
 }
 
 DesktopWindow::~DesktopWindow() {
   vlog.debug("~DesktopWindow");
-  showSystemCursor();
-  if (handle) {
-    disableLowLevelKeyEvents(handle);
-    DestroyWindow(handle);
-    handle = 0;
-  }
-  delete buffer;
+  
+
+
+
   vlog.debug("~DesktopWindow done");
 }
 
 
-void DesktopWindow::setFullscreen(bool fs) {
-  if (fs && !fullscreenActive) {
-    fullscreenActive = bumpScroll = true;
 
-    // Un-minimize the window if required
-    if (GetWindowLong(handle, GWL_STYLE) & WS_MINIMIZE)
-      ShowWindow(handle, SW_RESTORE);
-
-    // Save the current window position
-    GetWindowRect(handle, &fullscreenOldRect);
-
-    // Find the size of the display the window is on
-    MonitorInfo mi(handle);
-
-    // Set the window full-screen
-    DWORD flags = GetWindowLong(handle, GWL_STYLE);
-    fullscreenOldFlags = flags;
-    flags = flags & ~(WS_CAPTION | WS_THICKFRAME | WS_MAXIMIZE | WS_MINIMIZE);
-    vlog.debug("flags=%x", flags);
-
-    SetWindowLong(handle, GWL_STYLE, flags);
-    SetWindowPos(handle, HWND_TOP, mi.rcMonitor.left, mi.rcMonitor.top,
-      mi.rcMonitor.right-mi.rcMonitor.left,
-      mi.rcMonitor.bottom-mi.rcMonitor.top,
-      SWP_FRAMECHANGED);
-  } else if (!fs && fullscreenActive) {
-    fullscreenActive = bumpScroll = false;
-
-    // Set the window non-fullscreen
-    SetWindowLong(handle, GWL_STYLE, fullscreenOldFlags);
-
-    // Set the window position
-    SetWindowPos(handle, HWND_NOTOPMOST,
-      fullscreenOldRect.left, fullscreenOldRect.top,
-      fullscreenOldRect.right - fullscreenOldRect.left, 
-      fullscreenOldRect.bottom - fullscreenOldRect.top,
-      SWP_FRAMECHANGED);
-  }
-
-  // Adjust the viewport offset to cope with change in size between FS
-  // and previous window state.
-  setViewportOffset(scrolloffset);
-}
-
-void DesktopWindow::setDisableWinKeys(bool dwk) {
-  // Enable low-level event hooking, so we get special keys directly
-  if (dwk)
-    enableLowLevelKeyEvents(handle);
-  else
-    disableLowLevelKeyEvents(handle);
-}
-
-
-void DesktopWindow::setMonitor(const char* monitor) {
-  MonitorInfo mi(monitor);
-  mi.moveTo(handle);
-}
-
-char* DesktopWindow::getMonitor() const {
-  MonitorInfo mi(handle);
-  return strDup(mi.szDevice);
-}
-
-
-bool DesktopWindow::setViewportOffset(const Point& tl) {
-  Point np = Point(max(0, min(tl.x, buffer->width()-client_size.width())),
-    max(0, min(tl.y, buffer->height()-client_size.height())));
-  Point delta = np.translate(scrolloffset.negate());
-  if (!np.equals(scrolloffset)) {
-    scrolloffset = np;
-    ScrollWindowEx(handle, -delta.x, -delta.y, 0, 0, 0, 0, SW_INVALIDATE);
-    UpdateWindow(handle);
-    return true;
-  }
-  return false;
-}
-
-
-bool DesktopWindow::processBumpScroll(const Point& pos)
-{
-  if (!bumpScroll) return false;
-  int bumpScrollPixels = 20;
-  bumpScrollDelta = Point();
-
-  if (pos.x == client_size.width()-1)
-    bumpScrollDelta.x = bumpScrollPixels;
-  else if (pos.x == 0)
-    bumpScrollDelta.x = -bumpScrollPixels;
-  if (pos.y == client_size.height()-1)
-    bumpScrollDelta.y = bumpScrollPixels;
-  else if (pos.y == 0)
-    bumpScrollDelta.y = -bumpScrollPixels;
-
-  if (bumpScrollDelta.x || bumpScrollDelta.y) {
-    if (bumpScrollTimer.isActive()) return true;
-    if (setViewportOffset(scrolloffset.translate(bumpScrollDelta))) {
-      bumpScrollTimer.start(25);
-      return true;
-    }
-  }
-
-  bumpScrollTimer.stop();
-  return false;
-}
-
+/*
 
 LRESULT
 DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -293,18 +99,18 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
         // Draw using the correct palette
         PaletteSelector pSel(paintDC, windowPalette.getHandle());
 
-        if (buffer->bitmap) {
+        if (texture->bitmap) {
           // Update the bitmap's palette
           if (palette_changed) {
             palette_changed = false;
-            buffer->refreshPalette();
+            texture->refreshPalette();
           }
 
           // Get device context
-          BitmapDC bitmapDC(paintDC, buffer->bitmap);
+          BitmapDC bitmapDC(paintDC, texture->bitmap);
 
           // Blit the border if required
-          Rect bufpos = desktopToClient(buffer->getRect());
+          Rect bufpos = desktopToClient(texture->getRect());
           if (!pr.enclosed_by(bufpos)) {
             vlog.debug("draw border");
             HBRUSH black = (HBRUSH) GetStockObject(BLACK_BRUSH);
@@ -366,7 +172,7 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
       DWORD current_style = GetWindowLong(handle, GWL_STYLE);
       DWORD style = current_style & ~(WS_VSCROLL | WS_HSCROLL);
       RECT r;
-      SetRect(&r, 0, 0, buffer->width(), buffer->height());
+      SetRect(&r, 0, 0, texture->width(), texture->height());
       AdjustWindowRect(&r, style, FALSE);
       Rect reqd_size = Rect(r.left, r.top, r.right, r.bottom);
 
@@ -512,8 +318,8 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
         Point clientPos = Point(LOWORD(lParam), HIWORD(lParam));
         Point p = clientToDesktop(clientPos);
 
-        // If the mouse is not within the server buffer area, do nothing
-        cursorInBuffer = buffer->getRect().contains(p);
+        // If the mouse is not within the server texture area, do nothing
+        cursorInBuffer = texture->getRect().contains(p);
         if (!cursorInBuffer) {
           cursorOutsideBuffer();
           break;
@@ -652,102 +458,24 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
   return rfb::win32::SafeDefWindowProc(handle, msg, wParam, lParam);
 }
 
-
-void
-DesktopWindow::hideLocalCursor() {
-  // - Blit the cursor backing store over the cursor
-  // *** ALWAYS call this BEFORE changing buffer PF!!!
-  if (cursorVisible) {
-    cursorVisible = false;
-    buffer->imageRect(cursorBackingRect, cursorBacking.data);
-    invalidateDesktopRect(cursorBackingRect);
-  }
-}
-
-void
-DesktopWindow::showLocalCursor() {
-  if (cursorAvailable && !cursorVisible && cursorInBuffer) {
-    if (!buffer->getPF().equal(cursor.getPF()) ||
-      cursor.getRect().is_empty()) {
-      vlog.info("attempting to render invalid local cursor");
-      cursorAvailable = false;
-      showSystemCursor();
-      return;
-    }
-    cursorVisible = true;
-    
-    cursorBackingRect = cursor.getRect().translate(cursorPos).translate(cursor.hotspot.negate());
-    cursorBackingRect = cursorBackingRect.intersect(buffer->getRect());
-    buffer->getImage(cursorBacking.data, cursorBackingRect);
-
-    renderLocalCursor();
-
-    invalidateDesktopRect(cursorBackingRect);
-  }
-}
-
-void DesktopWindow::cursorOutsideBuffer()
-{
-  cursorInBuffer = false;
-  hideLocalCursor();
-  showSystemCursor();
-}
-
-void
-DesktopWindow::renderLocalCursor()
-{
-  Rect r = cursor.getRect();
-  r = r.translate(cursorPos).translate(cursor.hotspot.negate());
-  buffer->maskRect(r, cursor.data, cursor.mask.buf);
-}
-
-void
-DesktopWindow::hideSystemCursor() {
-  if (systemCursorVisible) {
-    vlog.debug("hide system cursor");
-    systemCursorVisible = false;
-    ShowCursor(FALSE);
-  }
-}
-
-void
-DesktopWindow::showSystemCursor() {
-  if (!systemCursorVisible) {
-    vlog.debug("show system cursor");
-    systemCursorVisible = true;
-    ShowCursor(TRUE);
-  }
-}
-
-
-bool
-DesktopWindow::invalidateDesktopRect(const Rect& crect) {
-  Rect rect = desktopToClient(crect);
-  if (rect.intersect(client_size).is_empty()) return false;
-  RECT invalid = {rect.tl.x, rect.tl.y, rect.br.x, rect.br.y};
-  InvalidateRect(handle, &invalid, FALSE);
-  return true;
-}
-
+*/
 
 void
 DesktopWindow::notifyClipboardChanged(const char* text, int len) {
   callback->clientCutText(text, len);
 }
 
+void DesktopWindow::Hide()
+{
+	vlog.debug("Hide Dektop : TODO");
 
-void
-DesktopWindow::setPF(const PixelFormat& pf) {
-  // If the cursor is the wrong format then clear it
-  if (!pf.equal(buffer->getPF()))
-    setCursor(0, 0, Point(), 0, 0);
-
-  // Update the desktop buffer
-  buffer->setPF(pf);
-  
-  // Redraw the window
-  InvalidateRect(handle, 0, 0);
 }
+
+bool rfb::unity::DesktopWindow::isVisible()
+{
+	return true;
+}
+
 
 void
 DesktopWindow::setSize(int w, int h) {
@@ -756,26 +484,8 @@ DesktopWindow::setSize(int w, int h) {
   // If the locally-rendered cursor is visible then remove it
   hideLocalCursor();
 
-  // Resize the backing buffer
-  buffer->setSize(w, h);
-
-  // If the window is not maximised or full-screen then resize it
-  if (!(GetWindowLong(handle, GWL_STYLE) & WS_MAXIMIZE) && !fullscreenActive) {
-    // Resize the window to the required size
-    RECT r = {0, 0, w, h};
-    AdjustWindowRect(&r, GetWindowLong(handle, GWL_STYLE), FALSE);
-
-    // Resize about the center of the window, and clip to current monitor
-    MonitorInfo mi(handle);
-    resizeWindow(handle, r.right-r.left, r.bottom-r.top);
-    mi.clipTo(handle);
-  } else {
-    // Ensure the screen contents are consistent
-    InvalidateRect(handle, 0, FALSE);
-  }
-
-  // Enable/disable scrollbars as appropriate
-  calculateScrollBars();
+  // Resize the backing texture
+  texture->setSize(w, h);
 }
 
 void
@@ -785,13 +495,13 @@ DesktopWindow::setCursor(int w, int h, const Point& hotspot, void* data, void* m
   cursor.hotspot = hotspot;
 
   cursor.setSize(w, h);
-  cursor.setPF(buffer->getPF());
+  cursor.setPF(texture->getPF());
   cursor.imageRect(cursor.getRect(), data);
   memcpy(cursor.mask.buf, mask, cursor.maskLen());
   cursor.crop();
 
   cursorBacking.setSize(w, h);
-  cursorBacking.setPF(buffer->getPF());
+  cursorBacking.setPF(texture->getPF());
 
   cursorAvailable = true;
 
@@ -799,110 +509,42 @@ DesktopWindow::setCursor(int w, int h, const Point& hotspot, void* data, void* m
 }
 
 PixelFormat
-DesktopWindow::getNativePF() const {
-  vlog.debug("getNativePF()");
-  return WindowDC(handle).getPF();
+DesktopWindow::getNativePF() const
+{
+  vlog.debug("getNativePF() return rgba");
+ 
+  return PixelFormat(32, 32, 8, 8, 8, 0, 8, 16);
 }
 
-
+/*
 void
 DesktopWindow::refreshWindowPalette(int start, int count) {
-  vlog.debug("refreshWindowPalette(%d, %d)", start, count);
+	vlog.debug("refreshWindowPalette(%d, %d)", start, count);
 
-  Colour colours[256];
-  if (count > 256) {
-    vlog.debug("%d palette entries", count);
-    throw rdr::Exception("too many palette entries");
-  }
+	Colour colours[256];
+	if (count > 256) {
+		vlog.debug("%d palette entries", count);
+		throw rdr::Exception("too many palette entries");
+	}
 
-  // Copy the palette from the DIBSectionBuffer
-  ColourMap* cm = buffer->getColourMap();
-  if (!cm) return;
-  for (int i=0; i<count; i++) {
-    int r, g, b;
-    cm->lookup(i, &r, &g, &b);
-    colours[i].r = r;
-    colours[i].g = g;
-    colours[i].b = b;
-  }
+	// Copy the palette from the DIBSectionBuffer
+	ColourMap* cm = texture->getColourMap();
+	if (!cm) return;
+	for (int i = 0; i < count; i++) {
+		int r, g, b;
+		cm->lookup(i, &r, &g, &b);
+		colours[i].r = r;
+		colours[i].g = g;
+		colours[i].b = b;
+	}
 
-  // Set the window palette
-  windowPalette.setEntries(start, count, colours);
+	// Set the window palette
+	windowPalette.setEntries(start, count, colours);
 
-  // Cause the window to be redrawn
-  palette_changed = true;
-  InvalidateRect(handle, 0, FALSE);
+	// Cause the window to be redrawn
+	palette_changed = true;
 }
-
-
-void DesktopWindow::calculateScrollBars() {
-  // Calculate the required size of window
-  DWORD current_style = GetWindowLong(handle, GWL_STYLE);
-  DWORD style = current_style & ~(WS_VSCROLL | WS_HSCROLL);
-  DWORD old_style;
-  RECT r;
-  SetRect(&r, 0, 0, buffer->width(), buffer->height());
-  AdjustWindowRect(&r, style, FALSE);
-  Rect reqd_size = Rect(r.left, r.top, r.right, r.bottom);
-
-  if (!bumpScroll) {
-    // We only enable scrollbars if bump-scrolling is not active.
-    // Effectively, this means if full-screen is not active,
-    // but I think it's better to make these things explicit.
-    
-    // Work out whether scroll bars are required
-    do {
-      old_style = style;
-
-      if (!(style & WS_HSCROLL) && (reqd_size.width() > window_size.width())) {
-        style |= WS_HSCROLL;
-        reqd_size.br.y += GetSystemMetrics(SM_CXHSCROLL);
-      }
-      if (!(style & WS_VSCROLL) && (reqd_size.height() > window_size.height())) {
-        style |= WS_VSCROLL;
-        reqd_size.br.x += GetSystemMetrics(SM_CXVSCROLL);
-      }
-    } while (style != old_style);
-  }
-
-  // Tell Windows to update the window style & cached settings
-  if (style != current_style) {
-    SetWindowLong(handle, GWL_STYLE, style);
-    SetWindowPos(handle, NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-  }
-
-  // Update the scroll settings
-  SCROLLINFO si;
-  if (style & WS_VSCROLL) {
-    si.cbSize = sizeof(si); 
-    si.fMask  = SIF_RANGE | SIF_PAGE | SIF_POS; 
-    si.nMin   = 0; 
-    si.nMax   = buffer->height(); 
-    si.nPage  = buffer->height() - (reqd_size.height() - window_size.height()); 
-    maxscrolloffset.y = max(0, si.nMax-si.nPage);
-    scrolloffset.y = min(maxscrolloffset.y, scrolloffset.y);
-    si.nPos   = scrolloffset.y;
-    SetScrollInfo(handle, SB_VERT, &si, TRUE);
-  }
-  if (style & WS_HSCROLL) {
-    si.cbSize = sizeof(si); 
-    si.fMask  = SIF_RANGE | SIF_PAGE | SIF_POS; 
-    si.nMin   = 0;
-    si.nMax   = buffer->width(); 
-    si.nPage  = buffer->width() - (reqd_size.width() - window_size.width()); 
-    maxscrolloffset.x = max(0, si.nMax-si.nPage);
-    scrolloffset.x = min(maxscrolloffset.x, scrolloffset.x);
-    si.nPos   = scrolloffset.x;
-    SetScrollInfo(handle, SB_HORZ, &si, TRUE);
-  }
-}
-
-
-void
-DesktopWindow::setName(const char* name) {
-  SetWindowText(handle, TStr(name));
-}
-
+*/
 
 void
 DesktopWindow::serverCutText(const char* str, int len) {
@@ -915,28 +557,28 @@ DesktopWindow::serverCutText(const char* str, int len) {
 
 void DesktopWindow::fillRect(const Rect& r, Pixel pix) {
   if (cursorBackingRect.overlaps(r)) hideLocalCursor();
-  buffer->fillRect(r, pix);
+  texture->fillRect(r, pix);
   invalidateDesktopRect(r);
 }
 void DesktopWindow::imageRect(const Rect& r, void* pixels) {
   if (cursorBackingRect.overlaps(r)) hideLocalCursor();
-  buffer->imageRect(r, pixels);
+  texture->imageRect(r, pixels);
   invalidateDesktopRect(r);
 }
 void DesktopWindow::copyRect(const Rect& r, int srcX, int srcY) {
   if (cursorBackingRect.overlaps(r) ||
       cursorBackingRect.overlaps(Rect(srcX, srcY, srcX+r.width(), srcY+r.height())))
     hideLocalCursor();
-  buffer->copyRect(r, Point(r.tl.x-srcX, r.tl.y-srcY));
+  texture->copyRect(r, r.tl.x-srcX, r.tl.y-srcY);
   invalidateDesktopRect(r);
 }
 
 void DesktopWindow::invertRect(const Rect& r) {
   int stride;
-  rdr::U8* p = buffer->getPixelsRW(r, &stride);
+  rdr::U8* p = texture->getPixelsRW(r, &stride);
   for (int y = 0; y < r.height(); y++) {
     for (int x = 0; x < r.width(); x++) {
-      switch (buffer->getPF().bpp) {
+      switch (texture->getPF().bpp) {
       case 8:  ((rdr::U8* )p)[x+y*stride] ^= 0xff;       break;
       case 16: ((rdr::U16*)p)[x+y*stride] ^= 0xffff;     break;
       case 32: ((rdr::U32*)p)[x+y*stride] ^= 0xffffffff; break;

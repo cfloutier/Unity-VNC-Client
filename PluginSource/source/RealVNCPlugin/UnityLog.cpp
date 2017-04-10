@@ -16,6 +16,8 @@ list<string>::const_iterator logs_iterator;
 // Global variable
 CRITICAL_SECTION CriticalSection;
 
+using namespace rfb::unity;
+
 void UnityLog::Log(const char * format, ...)
 {
 	char logString[1024];

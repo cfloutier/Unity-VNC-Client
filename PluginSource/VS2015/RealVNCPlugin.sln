@@ -13,8 +13,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rdr", "..\source\Realvnc\co
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network", "..\source\Realvnc\common\network\network.vcxproj", "{6001F642-84E6-448F-9D69-C1F540291186}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vncviewer", "..\source\Realvnc\win\vncviewer\vncviewer.vcxproj", "{DBB955AF-768C-4121-A2A1-30012B9FF417}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rfb_win32", "..\source\Realvnc\win\rfb_win32\rfb_win32.vcxproj", "{B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RealVNCPlugin", "..\source\RealVNCPlugin\RealVNCPlugin.vcxproj", "{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}"
@@ -26,6 +24,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RealVNCPlugin", "..\source\
 		{97B4B6EB-C049-4C53-A195-46B24CCEB709} = {97B4B6EB-C049-4C53-A195-46B24CCEB709}
 		{B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE} = {B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vncviewer", "..\source\Realvnc\win\vncviewer\vncviewer.vcxproj", "{DBB955AF-768C-4121-A2A1-30012B9FF417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,15 +92,6 @@ Global
 		{6001F642-84E6-448F-9D69-C1F540291186}.Release|Win32.Build.0 = Release|Win32
 		{6001F642-84E6-448F-9D69-C1F540291186}.Release|x64.ActiveCfg = Release|x64
 		{6001F642-84E6-448F-9D69-C1F540291186}.Release|x64.Build.0 = Release|x64
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|Win32.ActiveCfg = Debug Unicode|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|Win32.Build.0 = Debug Unicode|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|x64.ActiveCfg = Debug Unicode|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|Win32.Build.0 = Debug|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|x64.ActiveCfg = Debug|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|Win32.ActiveCfg = Release|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|Win32.Build.0 = Release|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|x64.ActiveCfg = Release|Win32
 		{B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE}.Debug Unicode|Win32.ActiveCfg = Debug Unicode|Win32
 		{B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE}.Debug Unicode|Win32.Build.0 = Debug Unicode|Win32
 		{B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE}.Debug Unicode|x64.ActiveCfg = Debug Unicode|x64
@@ -124,6 +115,15 @@ Global
 		{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}.Release|Win32.Build.0 = Release|Win32
 		{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}.Release|x64.ActiveCfg = Release|x64
 		{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}.Release|x64.Build.0 = Release|x64
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|Win32.ActiveCfg = Debug Unicode|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|Win32.Build.0 = Debug Unicode|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|x64.ActiveCfg = Debug Unicode|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|Win32.Build.0 = Debug|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|x64.ActiveCfg = Debug|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|Win32.ActiveCfg = Release|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|Win32.Build.0 = Release|Win32
+		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

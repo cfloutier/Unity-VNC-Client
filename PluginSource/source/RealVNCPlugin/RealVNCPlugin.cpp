@@ -12,6 +12,9 @@
 #include "UnityLog.h"
 #include "UnityTextureHandler.h"
 
+using namespace rfb::unity;
+
+
 // --------------------------------------------------------------------------
 VNCClient * client;
 

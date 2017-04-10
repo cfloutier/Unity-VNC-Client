@@ -7,9 +7,11 @@
 
 #include "UnityLog.h"
 
+using namespace rfb::unity;
+
 UnityTextureHandler::UnityTextureHandler()
 {
-	width = height = 512;
+	m_width = m_height = 512;
 	tempBuffer = NULL;
 	InitializeCriticalSection(&CriticalSection);
 }
@@ -41,13 +43,13 @@ void UnityTextureHandler::run()
 		Sleep(5);
 	}
 
-	
+
 	UNITYLOG("End Rendering Thread");
 
 	threadIsRunning = false;
 }
 
-void UnityTextureHandler::build(	void * handle,
+void UnityTextureHandler::build(void * handle,
 	RenderAPI* CurrentAPI,
 	UnityGfxRenderer DeviceType,
 	IUnityInterfaces* UnityInterfaces,
@@ -64,7 +66,7 @@ void UnityTextureHandler::build(	void * handle,
 	endModify(t);
 
 	if (tempBuffer != NULL) delete[] tempBuffer;
-	bufferSize = textureRowPitch*height;
+	bufferSize = textureRowPitch*m_height;
 	tempBuffer = new unsigned char[bufferSize];
 
 	// start the main Thread
@@ -72,7 +74,7 @@ void UnityTextureHandler::build(	void * handle,
 }
 
 
- 
+
 float g_startTime = -1;
 void UnityTextureHandler::Sinuses()
 {
@@ -83,10 +85,10 @@ void UnityTextureHandler::Sinuses()
 	const float t = g_Time * 4.0f;
 
 	unsigned char* dst = tempBuffer;
-	for (int y = 0; y < height; ++y)
+	for (int y = 0; y < m_height; ++y)
 	{
 		unsigned char* ptr = dst;
-		for (int x = 0; x < width; ++x)
+		for (int x = 0; x < m_width; ++x)
 		{
 			// Simple "plasma effect": several combined sine waves
 			int vv = int(
@@ -109,7 +111,7 @@ void UnityTextureHandler::Sinuses()
 		// To next image row
 		dst += textureRowPitch;
 	}
-} 
+}
 
 void* UnityTextureHandler::startModify()
 {
@@ -120,9 +122,9 @@ void* UnityTextureHandler::startModify()
 	if (!m_TextureHandle)
 		return NULL;
 
-	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(m_TextureHandle, width, height, &textureRowPitch);
+	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(m_TextureHandle, m_width, m_height, &textureRowPitch);
 	if (!textureDataPtr)
-		return NULL;  
+		return NULL;
 
 	EnterCriticalSection(&CriticalSection);
 	return textureDataPtr;
@@ -131,23 +133,23 @@ void* UnityTextureHandler::startModify()
 
 void UnityTextureHandler::endModify(void * textureDataPtr)
 {
-	m_CurrentAPI->EndModifyTexture(m_TextureHandle, width, height, textureRowPitch, textureDataPtr);
+	m_CurrentAPI->EndModifyTexture(m_TextureHandle, m_width, m_height, textureRowPitch, textureDataPtr);
 	LeaveCriticalSection(&CriticalSection);
 }
 
 void UnityTextureHandler::Noise()
 {
 	unsigned char* dst = tempBuffer;
-	
-	for (int y = 0; y < height; ++y)
+
+	for (int y = 0; y < m_height; ++y)
 	{
 		unsigned char* ptr = dst;
-		for (int x = 0; x < width; ++x)  
+		for (int x = 0; x < m_width; ++x)
 		{
 			// Write the texture pixel
-			ptr[0] = rand() % 256;			
-			ptr[1] = rand() % 256;		
-			ptr[2] = rand() % 256; 
+			ptr[0] = rand() % 256;
+			ptr[1] = rand() % 256;
+			ptr[2] = rand() % 256;
 			ptr[3] = rand() % 256;
 
 			// To next pixel (our pixels are 4 bpp)

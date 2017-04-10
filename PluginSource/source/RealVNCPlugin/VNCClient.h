@@ -4,41 +4,46 @@
 #include "UnityTextureHandler.h"
 #include "ConnectionThread.h"
 
-enum ConnectionState
+namespace rfb
 {
-	Iddle,
-	Connecting,
-	Connected,
-	Error
-};
+	namespace unity {
+		enum ConnectionState
+		{
+			Iddle,
+			Connecting,
+			Connected,
+			Error
+		};
 
-class VNCClient 
-{
-public :
-	VNCClient();
-	~VNCClient();
+		class VNCClient
+		{
+		public:
+			VNCClient();
+			~VNCClient();
 
-	void Connect(const char * host, int port);
-	void Disconnect();
+			void Connect(const char * host, int port);
+			void Disconnect();
 
-	inline UnityTextureHandler * getTextureHandler() {		return texture;	}
+			inline UnityTextureHandler * getTextureHandler() { return texture; }
 
-	int GetWidth();
-	int GetHeight();
-	bool NeedPassword();
-	ConnectionState GetConnectionState();
-	
+			int GetWidth();
+			int GetHeight();
+			bool NeedPassword();
+			ConnectionState GetConnectionState();
 
-	void Update();
 
-protected:
-	void setConnectionState(ConnectionState state);
-	void stopConnectionThread();
-	ConnectionState m_connectionState = Iddle;
-	ConnectionThread * m_ConnectionThread;
-	UnityTextureHandler * texture;
+			void Update();
 
-	friend class ConnectionThread;
-};
+		protected:
+			void setConnectionState(ConnectionState state);
+			void stopConnectionThread();
+			ConnectionState m_connectionState = Iddle;
+			ConnectionThread * m_ConnectionThread;
+			UnityTextureHandler * texture;
+
+			friend class ConnectionThread;
+		};
+	}
+}
 
 #endif // __VNC_CLIENT

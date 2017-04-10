@@ -21,60 +21,65 @@
  // Definition of the CConnOptions class, responsible for storing the
  // current & requested VNC Viewer options.
 
-#ifndef __CONNECTION_OPTIONS_H__
-#define __CONNECTION_OPTIONS_H__
+#ifndef __CONNOPTIONS_H__
+#define __CONNOPTIONS_H__
 
 #include <rfb/Password.h>
 
-	//
-	// -=- Options structure.  Each viewer option has a corresponding
-	//     entry in CConnOptions.  The viewer options are set by calling
-	//     CConn::applyOptions(...)
-	//     The CConnOptions structure automatically picks up the default
-	//     value of each option from the Configuration system
-	//     The readFromFile and writeFromFile methods can be used to load
-	//     and save VNC configuration files.  readFromFile is backwards
-	//     compatible with 3.3 releases, while writeToFile is not.
+namespace rfb
+{
+	namespace unity {
+		//
+		// -=- Options structure.  Each viewer option has a corresponding
+		//     entry in CConnOptions.  The viewer options are set by calling
+		//     CConn::applyOptions(...)
+		//     The CConnOptions structure automatically picks up the default
+		//     value of each option from the Configuration system
+		//     The readFromFile and writeFromFile methods can be used to load
+		//     and save VNC configuration files.  readFromFile is backwards
+		//     compatible with 3.3 releases, while writeToFile is not.
 
-class CConnOptions {
-public:
-	CConnOptions();
-	CConnOptions(const CConnOptions& o) { operator=(o); }
-	CConnOptions& operator=(const CConnOptions& o);
-	void readFromFile(const char* filename_);
-	void writeToFile(const char* filename_);
-	void writeDefaults();
-	bool useLocalCursor;
-	bool useDesktopResize;
-	bool fullScreen;
-	bool fullColour;
-	int lowColourLevel;
-	int preferredEncoding;
-	bool autoSelect;
-	bool shared;
-	bool sendPtrEvents;
-	bool sendKeyEvents;
-	bool clientCutText;
-	bool serverCutText;
-	bool disableWinKeys;
-	bool emulate3;
-	int pointerEventInterval;
-	bool protocol3_3;
-	bool acceptBell;
-	CharArray userName;
-	void setUserName(const char* user);
-	PlainPasswd password;
-	void setPassword(const char* pwd);
-	CharArray configFileName;
-	void setConfigFileName(const char* cfn);
-	CharArray host;
-	void setHost(const char* h);
-	CharArray monitor;
-	void setMonitor(const char* m);
-	unsigned int menuKey;
-	void setMenuKey(const char* keyName);
-	char* menuKeyName();
-	bool autoReconnect;
-};
+		class ConnOptions {
+		public:
+			ConnOptions();
+			ConnOptions(const ConnOptions& o) { operator=(o); }
+			ConnOptions& operator=(const ConnOptions& o);
+			void readFromFile(const char* filename_);
+			void writeToFile(const char* filename_);
+			void writeDefaults();
+			bool useLocalCursor;
+			bool useDesktopResize;
+			bool fullScreen;
+			bool fullColour;
+			int lowColourLevel;
+			int preferredEncoding;
+			bool autoSelect;
+			bool shared;
+			bool sendPtrEvents;
+			bool sendKeyEvents;
+			bool clientCutText;
+			bool serverCutText;
+			bool disableWinKeys;
+			bool emulate3;
+			int pointerEventInterval;
+			bool protocol3_3;
+			bool acceptBell;
+			CharArray userName;
+			void setUserName(const char* user);
+			PlainPasswd password;
+			void setPassword(const char* pwd);
+			CharArray configFileName;
+			void setConfigFileName(const char* cfn);
+			CharArray host;
+			void setHost(const char* h);
+			CharArray monitor;
+			void setMonitor(const char* m);
+			unsigned int menuKey;
+			void setMenuKey(const char* keyName);
+			char* menuKeyName();
+			bool autoReconnect;
+		};
+	}
+}
 
 #endif

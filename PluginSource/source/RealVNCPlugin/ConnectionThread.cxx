@@ -8,7 +8,7 @@
 #include <rfb/LogWriter.h>
 
 using namespace rfb;
-using namespace rfb::win32;
+using namespace rfb::unity;
 
 using namespace win32;
 
@@ -30,6 +30,7 @@ void ConnectionThread::run()
 {
 	if (m_client == NULL)
 		return;
+
 	CConn conn;
 	m_client->setConnectionState(Connecting);
 

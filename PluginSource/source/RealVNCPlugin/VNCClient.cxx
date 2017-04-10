@@ -6,7 +6,9 @@
 #include <windows.h>
 
 
-#include "DebugLog.h"
+#include "UnityLog.h"
+
+using namespace rfb::unity;
 
 VNCClient::VNCClient()
 {
@@ -57,7 +59,7 @@ int VNCClient::GetWidth()
 		UNITYLOG("Error no texture");
 		return -1;
 	}
-	return texture->GetWidth();
+	return texture->width();
 }
 
 int VNCClient::GetHeight()
@@ -67,7 +69,7 @@ int VNCClient::GetHeight()
 		UNITYLOG("Error no texture");
 		return -1;
 	}
-	return texture->GetHeight();
+	return texture->height();
 }
 
 bool VNCClient::NeedPassword()

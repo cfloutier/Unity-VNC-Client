@@ -16,7 +16,8 @@
  * USA.
  */
 
-#include <vncviewer/CConnOptions.h>
+#include "ConnOptions.h"
+
 #include <rfb/Configuration.h>
 #include <rfb/encodings.h>
 #include <rfb/LogWriter.h>
@@ -28,6 +29,8 @@
 
 using namespace rfb;
 using namespace rfb::win32;
+using namespace rfb::unity;
+
 
 
 // - Settings stored in the registry & in .vnc files, by Save Defaults and
@@ -91,7 +94,7 @@ static BoolParameter autoReconnect("AutoReconnect", "Offer to reconnect to the r
                                    "is dropped because an error occurs.", true);
 
 
-CConnOptions::CConnOptions()
+ConnOptions::ConnOptions()
 : useLocalCursor(::useLocalCursor), useDesktopResize(::useDesktopResize),
 autoSelect(::autoSelect), fullColour(::fullColour), fullScreen(::fullScreen),
 shared(::sharedConnection), sendPtrEvents(::sendPtrEvents), sendKeyEvents(::sendKeyEvents),
@@ -111,7 +114,7 @@ autoReconnect(::autoReconnect)
 }
 
 
-void CConnOptions::readFromFile(const char* filename) {
+void ConnOptions::readFromFile(const char* filename) {
   FILE* f = fopen(filename, "r");
   if (!f)
     throw rdr::Exception("Failed to read configuration file");
@@ -244,7 +247,7 @@ void CConnOptions::readFromFile(const char* filename) {
   }
 }
 
-void CConnOptions::writeToFile(const char* filename) {
+void ConnOptions::writeToFile(const char* filename) {
   FILE* f = fopen(filename, "w");
   if (!f)
     throw rdr::Exception("Failed to write configuration file");
@@ -299,7 +302,7 @@ void CConnOptions::writeToFile(const char* filename) {
 }
 
 
-void CConnOptions::writeDefaults() {
+void ConnOptions::writeDefaults() {
   RegKey key;
   key.createKey(HKEY_CURRENT_USER, _T("Software\\RealVNC\\VNCviewer4"));
   key.setBool(_T("UseLocalCursor"), useLocalCursor);
@@ -326,13 +329,13 @@ void CConnOptions::writeDefaults() {
 }
 
 
-void CConnOptions::setUserName(const char* user) {userName.replaceBuf(strDup(user));}
-void CConnOptions::setPassword(const char* pwd) {password.replaceBuf(strDup(pwd));}
-void CConnOptions::setConfigFileName(const char* cfn) {configFileName.replaceBuf(strDup(cfn));}
-void CConnOptions::setHost(const char* h) {host.replaceBuf(strDup(h));}
-void CConnOptions::setMonitor(const char* m) {monitor.replaceBuf(strDup(m));}
+void ConnOptions::setUserName(const char* user) {userName.replaceBuf(strDup(user));}
+void ConnOptions::setPassword(const char* pwd) {password.replaceBuf(strDup(pwd));}
+void ConnOptions::setConfigFileName(const char* cfn) {configFileName.replaceBuf(strDup(cfn));}
+void ConnOptions::setHost(const char* h) {host.replaceBuf(strDup(h));}
+void ConnOptions::setMonitor(const char* m) {monitor.replaceBuf(strDup(m));}
 
-void CConnOptions::setMenuKey(const char* keyName) {
+void ConnOptions::setMenuKey(const char* keyName) {
   if (!keyName[0]) {
     menuKey = 0;
   } else {
@@ -344,7 +347,7 @@ void CConnOptions::setMenuKey(const char* keyName) {
     }
   }
 }
-char* CConnOptions::menuKeyName() {
+char* ConnOptions::menuKeyName() {
   int fNum = (menuKey-VK_F1)+1;
   if (fNum<1 || fNum>12)
     return strDup("");
@@ -354,7 +357,7 @@ char* CConnOptions::menuKeyName() {
 }
 
 
-CConnOptions& CConnOptions::operator=(const CConnOptions& o) {
+ConnOptions& ConnOptions::operator=(const ConnOptions& o) {
   useLocalCursor = o.useLocalCursor;
   useDesktopResize = o.useDesktopResize;
   fullScreen = o.fullScreen;

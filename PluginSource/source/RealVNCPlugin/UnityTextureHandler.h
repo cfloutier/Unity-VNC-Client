@@ -1,56 +1,74 @@
-#ifndef __TEXTURE_MODIFER
-#define __TEXTURE_MODIFER
+#ifndef __UNITYTEXTUREHANDLER_
+#define __UNITYTEXTUREHANDLER_
 
 #include "UnityPlugin/PlatformBase.h"
 #include "UnityPlugin/RenderAPI.h"
 
-#include "rfb/Threading.h"
+#include <rfb/Threading.h>
+#include <rfb/PixelFormat.h>
+#include <rfb/Rect.h>
+using namespace rdr;
 
-using namespace rfb;
-
-class UnityTextureHandler : Thread
+namespace rfb
 {
-public:
-	UnityTextureHandler();
-	~UnityTextureHandler();
+	namespace unity {
 
-	void setTextureSize(int Width, int Height);
-	void build(void * handle,
-		RenderAPI* CurrentAPI,
-		UnityGfxRenderer DeviceType,
-		IUnityInterfaces* UnityInterfaces,
-		IUnityGraphics* Graphics);
+		class UnityTextureHandler : Thread
+		{
+		public:
+			UnityTextureHandler();
+			~UnityTextureHandler();
 
-	void Update();
+			void setTextureSize(int Width, int Height);
+			void build(void * handle,
+				RenderAPI* CurrentAPI,
+				UnityGfxRenderer DeviceType,
+				IUnityInterfaces* UnityInterfaces,
+				IUnityGraphics* Graphics);
 
-	int GetWidth()	{		return width;	}
-	int GetHeight(){		return height;	}
+			void Update();
 
-	void run();
+			int width() { return m_width; }
+			int height() { return m_height; }
 
-protected:
-	unsigned char* tempBuffer;
 
-	bool exitThread = false;
-	bool threadIsRunning = false;
-	CRITICAL_SECTION CriticalSection;
+			void fillRect(const Rect& r, Pixel pix);
+			void imageRect(const Rect& r, void* pixels);
+			void copyRect(const Rect& r, int srcX, int srcY);
 
-	void Sinuses();
-	void Noise();
-	void* startModify();
-	void endModify(void * textureHandle);
+			void setColour(int i, int r, int g, int b);
+			void setSize(int width, int height);
+			PixelFormat getPF() { return m_pixelFormat; };
+			U8* getPixelsRW(Rect r, int * stride);
 
-	void*	m_TextureHandle = 0;
-	int width = 256;
-	int height = 256;
-	int textureRowPitch;
-	int bufferSize;
+			void run();
 
-	RenderAPI* m_CurrentAPI = NULL;
-	UnityGfxRenderer m_DeviceType = kUnityGfxRendererNull;
-	IUnityInterfaces* m_UnityInterfaces = NULL;
-	IUnityGraphics* m_Graphics = NULL;
+		protected:
+			unsigned char* tempBuffer;
 
-};
+			bool exitThread = false;
+			bool threadIsRunning = false;
+			CRITICAL_SECTION CriticalSection;
+
+			void Sinuses();
+			void Noise();
+			void* startModify();
+			void endModify(void * textureHandle);
+
+			void*	m_TextureHandle = 0;
+			int m_width = 256;
+			int m_height = 256;
+			int textureRowPitch;
+			int bufferSize;
+
+			RenderAPI* m_CurrentAPI = NULL;
+			UnityGfxRenderer m_DeviceType = kUnityGfxRendererNull;
+			IUnityInterfaces* m_UnityInterfaces = NULL;
+			IUnityGraphics* m_Graphics = NULL;
+
+			PixelFormat m_pixelFormat;
+		};
+	}
+}
 
 #endif // __VNC_CLIENT

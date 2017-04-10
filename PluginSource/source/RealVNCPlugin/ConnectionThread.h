@@ -1,29 +1,32 @@
-#ifndef __FAKE_THREAD
-#define __FAKE_THREAD
+#ifndef __CONNECTIONTHREAD_
+#define __CONNECTIONTHREAD_
 
 #include <rfb_win32/Threading.h>
 
-using namespace rfb;
-
-class VNCClient;
-class ConnectionThread : public Thread
+namespace rfb
 {
-public :
-	ConnectionThread();
+	namespace unity {
 
-	void Connect(VNCClient *client, const char* host, int port);
-	
-	void QuitAndDelete();
+		class VNCClient;
+		class ConnectionThread : public Thread
+		{
+		public:
+			ConnectionThread();
 
-protected:
-	
-	void run(); 
+			void Connect(VNCClient *client, const char* host, int port);
 
-	char* m_host;
-	int m_port;
-	VNCClient *m_client;
+			void QuitAndDelete();
 
-	bool exit = false;
-};
- 
-#endif
+		protected:
+
+			void run();
+
+			char* m_host;
+			int m_port;
+			VNCClient *m_client;
+
+			bool exit = false;
+		};
+	}
+}
+#endif // __CONNECTIONTHREAD_
