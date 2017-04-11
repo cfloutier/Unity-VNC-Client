@@ -28,7 +28,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
     /// </summary>
     public event OnConnection onConnection;
 
-    
+
     public void Connect(string host, int display, int port, bool viewOnly)
     {
         connectionInfos = new ConnectionOptions();
@@ -36,8 +36,6 @@ public class RealVncClient : MonoBehaviour, IVncClient
         connectionInfos.display = display;
         connectionInfos.port = port;
         connectionInfos.viewOnly = viewOnly;
-
-        
 
         StartCoroutine(Connection());
     }
@@ -52,7 +50,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
     ConnectionOptions connectionInfos;
     VNCPluginInterface.ConnectionState state;
-
+    bool needNewtexture = true;
     private IEnumerator Connection()
     {
         VNCPluginInterface.Connect(connectionInfos.host, connectionInfos.port, connectionInfos.display, connectionInfos.viewOnly);
@@ -62,28 +60,33 @@ public class RealVncClient : MonoBehaviour, IVncClient
             bool exit = false;
             try
             {
-
                 state = VNCPluginInterface.getEnumConnectionState();
                 switch (state)
                 {
                     case VNCPluginInterface.ConnectionState.Iddle:
                         break;
                     case VNCPluginInterface.ConnectionState.Connecting:
-                        break;
-                    case VNCPluginInterface.ConnectionState.Connected:
 
+                        break;
+                    case VNCPluginInterface.ConnectionState.PasswordNeeded:
+                        onConnection(null, true);
+                        break;
+
+                    case VNCPluginInterface.ConnectionState.Connected:
+                        onConnection(null, false);
+                        exit = true;
+                        break;
+
+                    case VNCPluginInterface.ConnectionState.BufferSizeChanged:
+                        needNewtexture = true;
                         TextureSize = new Size(
                             VNCPluginInterface.getDesktopWidth(),
                             VNCPluginInterface.getDesktopHeight());
-
-                        bool needPassword = VNCPluginInterface.NeedPassword();
-                        onConnection(null, needPassword);
-                        exit = true;
                         break;
+
                     case VNCPluginInterface.ConnectionState.Error:
                         if (ConnectionLost != null)
                             ConnectionLost(this, new ErrorEventArg("Error From plugin"));
-
 
                         Debug.LogError("Connection Error");
                         exit = true;
@@ -116,13 +119,12 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
     void OnApplicationQuit()
     {
-
         pluginInterface.Release();
     }
 
-    public bool Authenticate(string password)
+    public void Authenticate(string password, OnPassword onPassword)
     {
-        return true;
+        onPassword(true);
     }
 
     public void RequestScreenUpdate(bool refreshFullScreen)
@@ -132,7 +134,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
     public void Initialize()
     {
-       
+
 
     }
 
@@ -148,7 +150,8 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
     public void StartUpdates()
     {
-        texture = pluginInterface.CreateTextureAndPassToPlugin(BufferSize);
+
+
     }
 
     public void Disconnect()
@@ -175,9 +178,34 @@ public class RealVncClient : MonoBehaviour, IVncClient
         return true;
     }
 
-
     public Texture2D getTexture()
     {
+        state = VNCPluginInterface.getEnumConnectionState();
+        switch (state)
+        {
+            case VNCPluginInterface.ConnectionState.BufferSizeChanged:
+                needNewtexture = true;
+                TextureSize = new Size(
+                    VNCPluginInterface.getDesktopWidth(),
+                    VNCPluginInterface.getDesktopHeight());
+
+                break;
+            
+            case VNCPluginInterface.ConnectionState.Error:
+                if (ConnectionLost != null)
+                    ConnectionLost(this, new ErrorEventArg("Error From plugin"));
+
+                break;
+            default:
+                Debug.LogWarning("Stange behaviour");
+                break;
+        }
+
+
+        if (needNewtexture)
+            texture = pluginInterface.CreateTextureAndPassToPlugin(BufferSize);
+
+
         return texture;
     }
 }

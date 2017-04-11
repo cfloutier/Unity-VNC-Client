@@ -119,8 +119,6 @@ void CConn::applyOptions(ConnOptions& opt) {
 		 window->setPointerEventInterval(options.pointerEventInterval);
 		 window->setMenuKey(options.menuKey);*/
 		window__->setDisableWinKeys(options.disableWinKeys);
-		if (!options.useLocalCursor)
-			window__->setCursor(0, 0, Point(), 0, 0);
 	}
 }
 
@@ -315,14 +313,6 @@ CConn::setDesktopSize(int w, int h) {
 	CConnection::setDesktopSize(w, h);
 }
 
-void
-CConn::setCursor(int w, int h, const Point& hotspot, void* data, void* mask) {
-	if (!options.useLocalCursor) return;
-
-	// Set the window to use the new cursor
-	window__->setCursor(w, h, hotspot, data, mask);
-}
-
 
 void
 CConn::close(const char* reason) {
@@ -367,9 +357,6 @@ CConn::framebufferUpdateEnd()
 	{
 		requestNewUpdate();
 	}
-
-	// Make sure the local cursor is shown
-	window__->showCursor();
 }
 
 

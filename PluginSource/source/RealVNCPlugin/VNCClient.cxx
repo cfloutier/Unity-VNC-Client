@@ -72,11 +72,6 @@ int VNCClient::GetHeight()
 	return texture->height();
 }
 
-bool VNCClient::NeedPassword()
-{
-	return false;
-}
-
 void VNCClient::stopConnectionThread()
 {
 	if (m_ConnectionThread != NULL)

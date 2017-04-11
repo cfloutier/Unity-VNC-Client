@@ -76,10 +76,9 @@ void ConnectionThread::run()
 
 void ConnectionThread::Connect(VNCClient * client,  const char* host, int port)
 {
-	m_host = new char[256];
-	strcpy(m_host, host);
-
+	m_host = strdup(host);
 	m_port = port;
+
 	m_client = client;
 	start();
 }

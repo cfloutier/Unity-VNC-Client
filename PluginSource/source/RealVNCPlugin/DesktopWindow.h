@@ -53,8 +53,7 @@ namespace rfb
 			DesktopWindow(Callback* cb_);
 			~DesktopWindow();
 
-			// - Window message handling procedure
-			LRESULT processMessage(UINT msg, WPARAM wParam, LPARAM lParam);
+			
 
 			// - Determine the native pixel format of the window
 			//   This can (and often will) differ from the PixelBuffer format
@@ -74,12 +73,9 @@ namespace rfb
 			// - Set the pixel format, size etc of the underlying PixelBuffer
 			void setPF(const PixelFormat& pf);
 			PixelFormat getPF() const { return texture->getPF(); }
+
 			void setSize(int w, int h);
 			void setColour(int i, int r, int g, int b) { texture->setColour(i, r, g, b); }
-
-			// - Set the cursor to render when the pointer is within the desktop buffer
-			void setCursor(int w, int h, const Point& hotspot, void* data, void* mask);
-			void showCursor() { showLocalCursor(); }
 
 			// - Set the window fullscreen / determine whether it is fullscreen
 			void setFullscreen(bool fs);
@@ -117,7 +113,7 @@ namespace rfb
 				virtual ~Callback() {}
 				virtual void displayChanged() = 0;
 				virtual void paintCompleted() = 0;
-				virtual bool sysCommand(WPARAM wParam, LPARAM lParam) = 0;
+				
 				virtual void closeWindow() = 0;
 				virtual void refreshMenu(bool enableSysItems) = 0;
 			};
@@ -170,27 +166,6 @@ namespace rfb
 			// the portion of the Desktop to display
 			bool setViewportOffset(const Point& tl);
 
-
-			// Locally-rendered VNC cursor
-			void hideLocalCursor();
-			void showLocalCursor();
-			void renderLocalCursor();
-
-			// The system-rendered cursor
-			void hideSystemCursor();
-			void showSystemCursor();
-
-			// cursorOutsideBuffer() is called whenever we detect that the mouse has
-			// moved outside the desktop.  It restores the system arrow cursor.
-			void cursorOutsideBuffer();
-
-			// Returns true if part of the supplied rect is visible, false otherwise
-			bool invalidateDesktopRect(const Rect& crect);
-
-			// Determine whether or not we need to enable/disable scrollbars and set the
-			// window style accordingly
-			void calculateScrollBars();
-
 			// Win32-specific input handling
 			rfb::win32::CPointer ptr;
 			Point oldpos;
@@ -215,7 +190,7 @@ namespace rfb
 			bool cursorAvailable;   // Is cursor available for rendering?
 			Point cursorPos;
 			ManagedPixelBuffer cursorBacking;
-			Rect cursorBackingRect;
+			
 
 			// Local window state
 			

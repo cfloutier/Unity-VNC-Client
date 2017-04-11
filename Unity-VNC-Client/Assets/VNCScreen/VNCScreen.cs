@@ -100,7 +100,7 @@ namespace VNCScreen
         {
             Disconnected,
             Disconnecting,
-            
+
             Connecting,
             WaitFirstBuffer,
             Connected,
@@ -126,12 +126,12 @@ namespace VNCScreen
                     {
                         return gameObject.AddComponent<RealVncClient>();
                     }
-                    
-                    
+
+
             }
 
-           
-            
+
+
         }
 
         public RuntimeState state = RuntimeState.Disconnected;
@@ -217,7 +217,6 @@ namespace VNCScreen
             }
             this.connectionReceived = true;
             this.needPassword = needPassword;
-
         }
 
         /// <summary>
@@ -226,21 +225,27 @@ namespace VNCScreen
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is already Connected.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>
         /// <exception cref="System.NullReferenceException">Thrown if the password is null.</exception>
         /// <param name="password">The user's password.</param>
-        public bool Authenticate(string password)
+        public void Authenticate(string password)
         {
-            
-            if (!passwordPending) throw new InvalidOperationException("Authentication is only required when Connect() returns True and the VNC Host requires a password.");
-            if (password == null) throw new NullReferenceException("password");
+            if (!passwordPending)
+                throw new InvalidOperationException("Authentication is only required when Connect() returns True and the VNC Host requires a password.");
+
+            if (password == null)
+                throw new NullReferenceException("password");
 
             passwordPending = false;  // repeated calls to Authenticate should fail.
-            if (vnc.Authenticate(password))
+            vnc.Authenticate(password, OnPassword);
+        }
+
+        void OnPassword(bool ok)
+        {
+            if (ok)
             {
-                return Initialize();
+                Initialize();
             }
             else
             {
                 OnConnectionLost("Wrong Password");
-                return false;
             }
         }
 
@@ -264,7 +269,7 @@ namespace VNCScreen
             if (state == RuntimeState.Connected)
             {
                 state = RuntimeState.Disconnecting;
-              
+
                 Disconnect();
             }
 
@@ -355,7 +360,7 @@ namespace VNCScreen
             SetState(RuntimeState.WaitFirstBuffer);
             Debug.Log("Await for first buffer");
 
-            screenSize = vnc.BufferSize;     
+            screenSize = vnc.BufferSize;
 
             // Tell the user of this control the necessary info about the desktop in order to setup the display
             // Create a texture
@@ -372,8 +377,7 @@ namespace VNCScreen
             // Refresh scroll properties
             //AutoScrollMinSize = desktopPolicy.AutoScrollMinSize;
 
-            // Start getting updates from the remote host (vnc.StartUpdates will begin a worker thread).
-           
+            // Start getting updates from the remote host (vnc.StartUpdates will begin a worker thread).          
             vnc.StartUpdates();
 
             return true;
@@ -413,11 +417,11 @@ namespace VNCScreen
 
             }
 
-            for (int i = 0; i< stateChanges.Count; i++)
+            for (int i = 0; i < stateChanges.Count; i++)
             {
                 SetState(stateChanges[i]);
             }
-  
+
             stateChanges.Clear();
         }
 
@@ -462,7 +466,7 @@ namespace VNCScreen
         public void SendSpecialKeys(SpecialKeys keys, bool release)
         {
             if (state != RuntimeState.Connected) return;
-           
+
             // For all of these I am sending the key presses manually instead of calling
             // the keyboard event handlers, as I don't want to propegate the calls up to the 
             // base control class and form.

@@ -27,6 +27,10 @@ namespace VNCScreen
     /// Delegate definition of an Event Handler used to indicate a Framebuffer Update has been received.
     /// </summary>
     public delegate void VncUpdateHandler(IDesktopUpdater update);
+    /// <summary>
+    /// Delegate definition to check response from server on password
+    /// </summary>
+    public delegate void OnPassword(bool valid);
 
 
     /// <summary>
@@ -59,7 +63,7 @@ namespace VNCScreen
         /// </summary>
         /// <param name="password">The password to use.</param>
         /// <returns>Returns True if Authentication worked, otherwise False.</returns>
-        bool Authenticate(string password);
+        void Authenticate(string password, OnPassword onPassword);
 
         /// <summary>
         /// Requests that the remote host send a screen update.

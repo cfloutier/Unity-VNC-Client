@@ -13,6 +13,7 @@ UnityTextureHandler::UnityTextureHandler()
 {
 	m_width = m_height = 512;
 	tempBuffer = NULL;
+	m_ready = false;
 	InitializeCriticalSection(&CriticalSection);
 }
 
@@ -70,10 +71,10 @@ void UnityTextureHandler::build(void * handle,
 	tempBuffer = new unsigned char[bufferSize];
 
 	// start the main Thread
-	start();
+	//start();
+
+	m_ready = true;
 }
-
-
 
 float g_startTime = -1;
 void UnityTextureHandler::Sinuses()
@@ -113,30 +114,6 @@ void UnityTextureHandler::Sinuses()
 	}
 }
 
-void* UnityTextureHandler::startModify()
-{
-	// Unknown / unsupported graphics device type? Do nothing
-	if (m_CurrentAPI == NULL)
-		return NULL;
-
-	if (!m_TextureHandle)
-		return NULL;
-
-	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(m_TextureHandle, m_width, m_height, &textureRowPitch);
-	if (!textureDataPtr)
-		return NULL;
-
-	EnterCriticalSection(&CriticalSection);
-	return textureDataPtr;
-}
-
-
-void UnityTextureHandler::endModify(void * textureDataPtr)
-{
-	m_CurrentAPI->EndModifyTexture(m_TextureHandle, m_width, m_height, textureRowPitch, textureDataPtr);
-	LeaveCriticalSection(&CriticalSection);
-}
-
 void UnityTextureHandler::Noise()
 {
 	unsigned char* dst = tempBuffer;
@@ -161,8 +138,37 @@ void UnityTextureHandler::Noise()
 	}
 }
 
+void* UnityTextureHandler::startModify()
+{
+	// Unknown / unsupported graphics device type? Do nothing
+	if (m_CurrentAPI == NULL)
+		return NULL;
+
+	if (!m_TextureHandle)
+		return NULL;
+
+	void* textureDataPtr = m_CurrentAPI->BeginModifyTexture(m_TextureHandle, m_width, m_height, &textureRowPitch);
+	if (!textureDataPtr)
+		return NULL;
+
+	EnterCriticalSection(&CriticalSection);
+	return textureDataPtr;
+}
+
+
+void UnityTextureHandler::endModify(void * textureDataPtr)
+{
+	m_CurrentAPI->EndModifyTexture(m_TextureHandle, m_width, m_height, textureRowPitch, textureDataPtr);
+	LeaveCriticalSection(&CriticalSection);
+}
+
+// the whole buffer is copied for each update
+// a good optimisation shoudl eb to copy only the modified part
 void UnityTextureHandler::Update()
 {
+	if (!m_ready)
+		return;
+
 	void * textureDataPtr = startModify();
 	if (textureDataPtr == NULL)
 		return;
@@ -170,4 +176,17 @@ void UnityTextureHandler::Update()
 	memcpy(textureDataPtr, tempBuffer, bufferSize);
 
 	endModify(textureDataPtr);
+}
+
+void UnityTextureHandler::setColour(int i, int r, int g, int b)
+{
+
+}
+
+void UnityTextureHandler::setSize(int width, int height)
+{
+	m_width = width;
+	m_height = height;
+
+	m_ready = false;
 }

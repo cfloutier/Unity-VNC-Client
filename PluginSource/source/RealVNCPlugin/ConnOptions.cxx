@@ -31,8 +31,6 @@ using namespace rfb;
 using namespace rfb::win32;
 using namespace rfb::unity;
 
-
-
 // - Settings stored in the registry & in .vnc files, by Save Defaults and
 //   Save Configuration respectively.
 

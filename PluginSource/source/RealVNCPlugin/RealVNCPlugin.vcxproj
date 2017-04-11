@@ -86,7 +86,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -178,7 +178,7 @@ ENDLOCAL
       <AdditionalIncludeDirectories>../Realvnc/common;%(AdditionalIncludeDirectories);../Realvnc/win</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies);rfb_win32.lib;rfb.lib;rdr.lib;network.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies);rfb_win32.lib;rfb.lib;rdr.lib;network.lib;ws2_32.lib;zlib.lib;version.lib;comctl32.lib;xregion.lib</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>RealVNCPlugin.def</ModuleDefinitionFile>

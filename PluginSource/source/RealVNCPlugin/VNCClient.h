@@ -9,10 +9,13 @@ namespace rfb
 	namespace unity {
 		enum ConnectionState
 		{
-			Iddle,
-			Connecting,
-			Connected,
-			Error
+			Iddle,  
+			Connecting,  // connection has been asked, waiting for response
+			PasswordNeeded, // if password is needed, it must be send by unity part
+			BufferSizeChanged, // when connection is validated, the buffer size is known, unity should send a new buffer
+								// this state can also be set when the distant screen size changes
+			Connected,	// everything is ok, update can be called 
+			Error		// an error occured
 		};
 
 		class VNCClient
@@ -27,10 +30,9 @@ namespace rfb
 			inline UnityTextureHandler * getTextureHandler() { return texture; }
 
 			int GetWidth();
-			int GetHeight();
-			bool NeedPassword();
-			ConnectionState GetConnectionState();
+			int GetHeight();	
 
+			ConnectionState GetConnectionState();
 
 			void Update();
 

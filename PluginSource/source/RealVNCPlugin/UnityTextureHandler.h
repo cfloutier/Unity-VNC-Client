@@ -20,6 +20,7 @@ namespace rfb
 			~UnityTextureHandler();
 
 			void setTextureSize(int Width, int Height);
+			// build from Unity 
 			void build(void * handle,
 				RenderAPI* CurrentAPI,
 				UnityGfxRenderer DeviceType,
@@ -30,7 +31,6 @@ namespace rfb
 
 			int width() { return m_width; }
 			int height() { return m_height; }
-
 
 			void fillRect(const Rect& r, Pixel pix);
 			void imageRect(const Rect& r, void* pixels);
@@ -43,8 +43,16 @@ namespace rfb
 
 			void run();
 
+			bool isTextureReady()
+			{
+				return m_ready;
+			}
+
+
 		protected:
 			unsigned char* tempBuffer;
+
+			bool m_ready = false;
 
 			bool exitThread = false;
 			bool threadIsRunning = false;

@@ -32,9 +32,12 @@ public class VNCPluginInterface
     public enum ConnectionState
     {
         Iddle,
-        Connecting,
-        Connected,
-        Error      
+        Connecting,  // connection has been asked, waiting for response
+        PasswordNeeded, // if password is needed, it must be send by unity part
+        BufferSizeChanged, // when connection is validated, the buffer size is known, unity should send a new buffer
+                           // this state can also be set when the distant screen size changes
+        Connected,  // everything is ok, update can be called 
+        Error		// an error occured
     }
 
 
@@ -54,7 +57,6 @@ public class VNCPluginInterface
     private static extern bool GetDebugLog(IntPtr log, int size);
     private GCHandle m_LogHandle;
 
-  
     public static ConnectionState getEnumConnectionState()
     {
         return (ConnectionState) getConnectionState();
@@ -66,14 +68,6 @@ public class VNCPluginInterface
     [DllImport("RealVNCPlugin")]
 #endif
     public static extern int getDesktopWidth();
-
-
-#if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
-	[DllImport ("__Internal")]
-#else
-    [DllImport("RealVNCPlugin")]
-#endif
-    public static extern bool NeedPassword();
 
 #if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
 	[DllImport ("__Internal")]

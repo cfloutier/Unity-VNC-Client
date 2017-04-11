@@ -36,8 +36,6 @@ using UnityEngine;
 
 namespace UnityVncSharp
 {
-   
-
 
     public class VNCSharpClient : IVncClient
     {
@@ -239,14 +237,18 @@ namespace UnityVncSharp
             return 0;
         }
 
+
+
+
         /// <summary>
         /// Use a password to authenticate with a VNC Host. NOTE: This is only necessary if Connect() returns TRUE.
         /// </summary>
         /// <param name="password">The password to use.</param>
         /// <returns>Returns True if Authentication worked, otherwise False.</returns>
-        public bool Authenticate(string password)
+        public void Authenticate(string password, OnPassword onPassword)
         {
             if (password == null) throw new ArgumentNullException("password");
+            if (onPassword == null) throw new ArgumentNullException("onPassword");
 
             // If new Security Types are supported in future, add the code here.  For now, only 
             // VNC Authentication is supported.
@@ -261,7 +263,7 @@ namespace UnityVncSharp
 
             if (rfb.ReadSecurityResult() == 0)
             {
-                return true;
+                onPassword(true); 
             }
             else
             {
@@ -271,7 +273,7 @@ namespace UnityVncSharp
                 // In earlier versions of the protocol, the server will just drop the connection.
                 if (rfb.ServerVersion == 3.8) rfb.ReadSecurityFailureReason();
                 rfb.Close();    // TODO: Is this the right place for this???
-                return false;
+                onPassword(false);
             }
         }
 

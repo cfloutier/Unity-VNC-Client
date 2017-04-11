@@ -86,7 +86,10 @@ namespace rfb {
 			// DesktopWindow::Callback interface
 			void displayChanged();
 			void paintCompleted();
-			bool sysCommand(WPARAM wParam, LPARAM lParam);
+			bool sysCommand(WPARAM wParam, LPARAM lParam)
+			{
+
+			}
 			void closeWindow();
 			void refreshMenu(bool enableSysItems) {};
 
@@ -96,7 +99,7 @@ namespace rfb {
 			void bell();
 			void framebufferUpdateEnd();
 			void setDesktopSize(int w, int h);
-			void setCursor(int w, int h, const Point& hotspot, void* data, void* mask);
+			
 			void setName(const char* name);
 			void serverInit();
 			void serverCutText(const char* str, int len);

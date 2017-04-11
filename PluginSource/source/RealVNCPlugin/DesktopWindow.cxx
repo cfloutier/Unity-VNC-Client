@@ -1,15 +1,15 @@
 /* Copyright (C) 2002-2005 RealVNC Ltd.  All Rights Reserved.
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307,
@@ -46,29 +46,29 @@ const int TIMER_POINTER_3BUTTON = 3;
 // -=- DesktopWindow instance implementation
 //
 
-DesktopWindow::DesktopWindow(Callback* cb) 
-  : 
-    client_size(0, 0, 16, 16), 
+DesktopWindow::DesktopWindow(Callback* cb)
+	:
+	client_size(0, 0, 16, 16),
 	window_size(0, 0, 32, 32),
 
-    cursorVisible(false), cursorAvailable(false), cursorInBuffer(false),
-    systemCursorVisible(true), trackingMouseLeave(false),
-     has_focus(false), palette_changed(false),
-    fullscreenActive(false), fullscreenRestore(false),
-    callback(cb) {
+	cursorVisible(false), cursorAvailable(false), cursorInBuffer(false),
+	systemCursorVisible(true), trackingMouseLeave(false),
+	has_focus(false), palette_changed(false),
+	fullscreenActive(false), fullscreenRestore(false),
+	callback(cb) {
 
-  // Create the window
-  const char* name = "DesktopWindow";
+	// Create the window
+	const char* name = "DesktopWindow";
 
 }
 
 DesktopWindow::~DesktopWindow() {
-  vlog.debug("~DesktopWindow");
-  
+	vlog.debug("~DesktopWindow");
 
 
 
-  vlog.debug("~DesktopWindow done");
+
+	vlog.debug("~DesktopWindow done");
 }
 
 
@@ -79,204 +79,204 @@ LRESULT
 DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
   switch (msg) {
 
-    // -=- Process standard window messages
+	// -=- Process standard window messages
 
   case WM_DISPLAYCHANGE:
-    // Display format has changed - notify callback
-    callback->displayChanged();
-    break;
+	// Display format has changed - notify callback
+	callback->displayChanged();
+	break;
 
   case WM_PAINT:
-    {
-      PAINTSTRUCT ps;
-      HDC paintDC = BeginPaint(handle, &ps);
-      if (!paintDC)
-        throw rdr::SystemException("unable to BeginPaint", GetLastError());
-      Rect pr = Rect(ps.rcPaint.left, ps.rcPaint.top, ps.rcPaint.right, ps.rcPaint.bottom);
+	{
+	  PAINTSTRUCT ps;
+	  HDC paintDC = BeginPaint(handle, &ps);
+	  if (!paintDC)
+		throw rdr::SystemException("unable to BeginPaint", GetLastError());
+	  Rect pr = Rect(ps.rcPaint.left, ps.rcPaint.top, ps.rcPaint.right, ps.rcPaint.bottom);
 
-      if (!pr.is_empty()) {
+	  if (!pr.is_empty()) {
 
-        // Draw using the correct palette
-        PaletteSelector pSel(paintDC, windowPalette.getHandle());
+		// Draw using the correct palette
+		PaletteSelector pSel(paintDC, windowPalette.getHandle());
 
-        if (texture->bitmap) {
-          // Update the bitmap's palette
-          if (palette_changed) {
-            palette_changed = false;
-            texture->refreshPalette();
-          }
+		if (texture->bitmap) {
+		  // Update the bitmap's palette
+		  if (palette_changed) {
+			palette_changed = false;
+			texture->refreshPalette();
+		  }
 
-          // Get device context
-          BitmapDC bitmapDC(paintDC, texture->bitmap);
+		  // Get device context
+		  BitmapDC bitmapDC(paintDC, texture->bitmap);
 
-          // Blit the border if required
-          Rect bufpos = desktopToClient(texture->getRect());
-          if (!pr.enclosed_by(bufpos)) {
-            vlog.debug("draw border");
-            HBRUSH black = (HBRUSH) GetStockObject(BLACK_BRUSH);
-            RECT r;
-            SetRect(&r, 0, 0, bufpos.tl.x, client_size.height()); FillRect(paintDC, &r, black);
-            SetRect(&r, bufpos.tl.x, 0, bufpos.br.x, bufpos.tl.y); FillRect(paintDC, &r, black);
-            SetRect(&r, bufpos.br.x, 0, client_size.width(), client_size.height()); FillRect(paintDC, &r, black);
-            SetRect(&r, bufpos.tl.x, bufpos.br.y, bufpos.br.x, client_size.height()); FillRect(paintDC, &r, black);
-          }
+		  // Blit the border if required
+		  Rect bufpos = desktopToClient(texture->getRect());
+		  if (!pr.enclosed_by(bufpos)) {
+			vlog.debug("draw border");
+			HBRUSH black = (HBRUSH) GetStockObject(BLACK_BRUSH);
+			RECT r;
+			SetRect(&r, 0, 0, bufpos.tl.x, client_size.height()); FillRect(paintDC, &r, black);
+			SetRect(&r, bufpos.tl.x, 0, bufpos.br.x, bufpos.tl.y); FillRect(paintDC, &r, black);
+			SetRect(&r, bufpos.br.x, 0, client_size.width(), client_size.height()); FillRect(paintDC, &r, black);
+			SetRect(&r, bufpos.tl.x, bufpos.br.y, bufpos.br.x, client_size.height()); FillRect(paintDC, &r, black);
+		  }
 
-          // Do the blit
-          Point buf_pos = clientToDesktop(pr.tl);
+		  // Do the blit
+		  Point buf_pos = clientToDesktop(pr.tl);
 
-          if (!BitBlt(paintDC, pr.tl.x, pr.tl.y, pr.width(), pr.height(),
-                      bitmapDC, buf_pos.x, buf_pos.y, SRCCOPY))
-            throw rdr::SystemException("unable to BitBlt to window", GetLastError());
-        }
-      }
+		  if (!BitBlt(paintDC, pr.tl.x, pr.tl.y, pr.width(), pr.height(),
+					  bitmapDC, buf_pos.x, buf_pos.y, SRCCOPY))
+			throw rdr::SystemException("unable to BitBlt to window", GetLastError());
+		}
+	  }
 
-      EndPaint(handle, &ps);
+	  EndPaint(handle, &ps);
 
-      // - Notify the callback that a paint message has finished processing
-      callback->paintCompleted();
-    }
-    return 0;
+	  // - Notify the callback that a paint message has finished processing
+	  callback->paintCompleted();
+	}
+	return 0;
 
-    // -=- Palette management
+	// -=- Palette management
 
   case WM_PALETTECHANGED:
-    vlog.debug("WM_PALETTECHANGED");
-    if ((HWND)wParam == handle) {
-      vlog.debug("ignoring");
-      break;
-    }
+	vlog.debug("WM_PALETTECHANGED");
+	if ((HWND)wParam == handle) {
+	  vlog.debug("ignoring");
+	  break;
+	}
   case WM_QUERYNEWPALETTE:
-    vlog.debug("re-selecting palette");
-    {
-      WindowDC wdc(handle);
-      PaletteSelector pSel(wdc, windowPalette.getHandle());
-      if (pSel.isRedrawRequired()) {
-        InvalidateRect(handle, 0, FALSE);
-        UpdateWindow(handle);
-      }
-    }
-    return TRUE;
+	vlog.debug("re-selecting palette");
+	{
+	  WindowDC wdc(handle);
+	  PaletteSelector pSel(wdc, windowPalette.getHandle());
+	  if (pSel.isRedrawRequired()) {
+		InvalidateRect(handle, 0, FALSE);
+		UpdateWindow(handle);
+	  }
+	}
+	return TRUE;
 
-    // -=- Window position
+	// -=- Window position
 
-    // Prevent the window from being resized to be too large if in normal mode.
-    // If maximized or fullscreen the allow oversized windows.
+	// Prevent the window from being resized to be too large if in normal mode.
+	// If maximized or fullscreen the allow oversized windows.
 
   case WM_WINDOWPOSCHANGING:
-    {
-      WINDOWPOS* wpos = (WINDOWPOS*)lParam;
-      if (wpos->flags & SWP_NOSIZE)
-        break;
+	{
+	  WINDOWPOS* wpos = (WINDOWPOS*)lParam;
+	  if (wpos->flags & SWP_NOSIZE)
+		break;
 
-      // Work out how big the window should ideally be
-      DWORD current_style = GetWindowLong(handle, GWL_STYLE);
-      DWORD style = current_style & ~(WS_VSCROLL | WS_HSCROLL);
-      RECT r;
-      SetRect(&r, 0, 0, texture->width(), texture->height());
-      AdjustWindowRect(&r, style, FALSE);
-      Rect reqd_size = Rect(r.left, r.top, r.right, r.bottom);
+	  // Work out how big the window should ideally be
+	  DWORD current_style = GetWindowLong(handle, GWL_STYLE);
+	  DWORD style = current_style & ~(WS_VSCROLL | WS_HSCROLL);
+	  RECT r;
+	  SetRect(&r, 0, 0, texture->width(), texture->height());
+	  AdjustWindowRect(&r, style, FALSE);
+	  Rect reqd_size = Rect(r.left, r.top, r.right, r.bottom);
 
-      if (current_style & WS_VSCROLL)
-        reqd_size.br.x += GetSystemMetrics(SM_CXVSCROLL);
-      if (current_style & WS_HSCROLL)
-        reqd_size.br.y += GetSystemMetrics(SM_CXHSCROLL);
-      RECT current;
-      GetWindowRect(handle, &current);
+	  if (current_style & WS_VSCROLL)
+		reqd_size.br.x += GetSystemMetrics(SM_CXVSCROLL);
+	  if (current_style & WS_HSCROLL)
+		reqd_size.br.y += GetSystemMetrics(SM_CXHSCROLL);
+	  RECT current;
+	  GetWindowRect(handle, &current);
 
-      if (!(GetWindowLong(handle, GWL_STYLE) & WS_MAXIMIZE) && !fullscreenActive) {
-        // Ensure that the window isn't resized too large
-        if (wpos->cx > reqd_size.width()) {
-          wpos->cx = reqd_size.width();
-          wpos->x = current.left;
-        }
-        if (wpos->cy > reqd_size.height()) {
-          wpos->cy = reqd_size.height();
-          wpos->y = current.top;
-        }
-      }
-    }
-    break;
+	  if (!(GetWindowLong(handle, GWL_STYLE) & WS_MAXIMIZE) && !fullscreenActive) {
+		// Ensure that the window isn't resized too large
+		if (wpos->cx > reqd_size.width()) {
+		  wpos->cx = reqd_size.width();
+		  wpos->x = current.left;
+		}
+		if (wpos->cy > reqd_size.height()) {
+		  wpos->cy = reqd_size.height();
+		  wpos->y = current.top;
+		}
+	  }
+	}
+	break;
 
-    // Add scrollbars if required and update window size info we have cached.
+	// Add scrollbars if required and update window size info we have cached.
 
   case WM_SIZE:
-    {
-      Point old_offset = desktopToClient(Point(0, 0));
+	{
+	  Point old_offset = desktopToClient(Point(0, 0));
 
-      // Update the cached sizing information
-      RECT r;
-      GetWindowRect(handle, &r);
-      window_size = Rect(r.left, r.top, r.right, r.bottom);
-      GetClientRect(handle, &r);
-      client_size = Rect(r.left, r.top, r.right, r.bottom);
+	  // Update the cached sizing information
+	  RECT r;
+	  GetWindowRect(handle, &r);
+	  window_size = Rect(r.left, r.top, r.right, r.bottom);
+	  GetClientRect(handle, &r);
+	  client_size = Rect(r.left, r.top, r.right, r.bottom);
 
-      // Determine whether scrollbars are required
-      calculateScrollBars();
+	  // Determine whether scrollbars are required
+	  calculateScrollBars();
 
-      // Redraw if required
-      if ((!old_offset.equals(desktopToClient(Point(0, 0)))))
-        InvalidateRect(handle, 0, TRUE);
-    }
-    break;
+	  // Redraw if required
+	  if ((!old_offset.equals(desktopToClient(Point(0, 0)))))
+		InvalidateRect(handle, 0, TRUE);
+	}
+	break;
 
   case WM_VSCROLL:
-  case WM_HSCROLL: 
-    {
-      Point delta;
-      int newpos = (msg == WM_VSCROLL) ? scrolloffset.y : scrolloffset.x;
+  case WM_HSCROLL:
+	{
+	  Point delta;
+	  int newpos = (msg == WM_VSCROLL) ? scrolloffset.y : scrolloffset.x;
 
-      switch (LOWORD(wParam)) {
-      case SB_PAGEUP: newpos -= 50; break;
-      case SB_PAGEDOWN: newpos += 50; break;
-      case SB_LINEUP: newpos -= 5; break;
-      case SB_LINEDOWN: newpos += 5; break;
-      case SB_THUMBTRACK:
-      case SB_THUMBPOSITION: newpos = HIWORD(wParam); break;
-      default: vlog.info("received unknown scroll message");
-      };
+	  switch (LOWORD(wParam)) {
+	  case SB_PAGEUP: newpos -= 50; break;
+	  case SB_PAGEDOWN: newpos += 50; break;
+	  case SB_LINEUP: newpos -= 5; break;
+	  case SB_LINEDOWN: newpos += 5; break;
+	  case SB_THUMBTRACK:
+	  case SB_THUMBPOSITION: newpos = HIWORD(wParam); break;
+	  default: vlog.info("received unknown scroll message");
+	  };
 
-      if (msg == WM_HSCROLL)
-        setViewportOffset(Point(newpos, scrolloffset.y));
-      else
-        setViewportOffset(Point(scrolloffset.x, newpos));
-  
-      SCROLLINFO si;
-      si.cbSize = sizeof(si); 
-      si.fMask  = SIF_POS; 
-      si.nPos   = newpos; 
-      SetScrollInfo(handle, (msg == WM_VSCROLL) ? SB_VERT : SB_HORZ, &si, TRUE); 
-    }
-    break;
+	  if (msg == WM_HSCROLL)
+		setViewportOffset(Point(newpos, scrolloffset.y));
+	  else
+		setViewportOffset(Point(scrolloffset.x, newpos));
 
-    // -=- Bump-scrolling
+	  SCROLLINFO si;
+	  si.cbSize = sizeof(si);
+	  si.fMask  = SIF_POS;
+	  si.nPos   = newpos;
+	  SetScrollInfo(handle, (msg == WM_VSCROLL) ? SB_VERT : SB_HORZ, &si, TRUE);
+	}
+	break;
+
+	// -=- Bump-scrolling
 
   case WM_TIMER:
-    switch (wParam) {
-    case TIMER_BUMPSCROLL:
-      if (!setViewportOffset(scrolloffset.translate(bumpScrollDelta)))
-        bumpScrollTimer.stop();
-      break;
-    case TIMER_POINTER_INTERVAL:
-    case TIMER_POINTER_3BUTTON:
-      ptr.handleTimer(callback, wParam);
-      break;
-    }
-    break;
+	switch (wParam) {
+	case TIMER_BUMPSCROLL:
+	  if (!setViewportOffset(scrolloffset.translate(bumpScrollDelta)))
+		bumpScrollTimer.stop();
+	  break;
+	case TIMER_POINTER_INTERVAL:
+	case TIMER_POINTER_3BUTTON:
+	  ptr.handleTimer(callback, wParam);
+	  break;
+	}
+	break;
 
-    // -=- Cursor shape/visibility handling
+	// -=- Cursor shape/visibility handling
 
   case WM_SETCURSOR:
-    if (LOWORD(lParam) != HTCLIENT)
-      break;
-    SetCursor(cursorInBuffer ? dotCursor : arrowCursor);
-    return TRUE;
+	if (LOWORD(lParam) != HTCLIENT)
+	  break;
+	SetCursor(cursorInBuffer ? dotCursor : arrowCursor);
+	return TRUE;
 
   case WM_MOUSELEAVE:
-    trackingMouseLeave = false;
-    cursorOutsideBuffer();
-    return 0;
+	trackingMouseLeave = false;
+	cursorOutsideBuffer();
+	return 0;
 
-    // -=- Mouse input handling
+	// -=- Mouse input handling
 
   case WM_MOUSEMOVE:
   case WM_LBUTTONUP:
@@ -288,170 +288,170 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
 #ifdef WM_MOUSEWHEEL
   case WM_MOUSEWHEEL:
 #endif
-    if (has_focus)
-    {
-      if (!trackingMouseLeave) {
-        TRACKMOUSEEVENT tme;
-        tme.cbSize = sizeof(TRACKMOUSEEVENT);
-        tme.dwFlags = TME_LEAVE;
-        tme.hwndTrack = handle;
-        _TrackMouseEvent(&tme);
-        trackingMouseLeave = true;
-      }
-      int mask = 0;
-      if (LOWORD(wParam) & MK_LBUTTON) mask |= 1;
-      if (LOWORD(wParam) & MK_MBUTTON) mask |= 2;
-      if (LOWORD(wParam) & MK_RBUTTON) mask |= 4;
+	if (has_focus)
+	{
+	  if (!trackingMouseLeave) {
+		TRACKMOUSEEVENT tme;
+		tme.cbSize = sizeof(TRACKMOUSEEVENT);
+		tme.dwFlags = TME_LEAVE;
+		tme.hwndTrack = handle;
+		_TrackMouseEvent(&tme);
+		trackingMouseLeave = true;
+	  }
+	  int mask = 0;
+	  if (LOWORD(wParam) & MK_LBUTTON) mask |= 1;
+	  if (LOWORD(wParam) & MK_MBUTTON) mask |= 2;
+	  if (LOWORD(wParam) & MK_RBUTTON) mask |= 4;
 
 #ifdef WM_MOUSEWHEEL
-      if (msg == WM_MOUSEWHEEL) {
-        int delta = (short)HIWORD(wParam);
-        int repeats = (abs(delta)+119) / 120;
-        int wheelMask = (delta > 0) ? 8 : 16;
-        vlog.debug("repeats %d, mask %d\n",repeats,wheelMask);
-        for (int i=0; i<repeats; i++) {
-          ptr.pointerEvent(callback, oldpos, mask | wheelMask);
-          ptr.pointerEvent(callback, oldpos, mask);
-        }
-      } else {
+	  if (msg == WM_MOUSEWHEEL) {
+		int delta = (short)HIWORD(wParam);
+		int repeats = (abs(delta)+119) / 120;
+		int wheelMask = (delta > 0) ? 8 : 16;
+		vlog.debug("repeats %d, mask %d\n",repeats,wheelMask);
+		for (int i=0; i<repeats; i++) {
+		  ptr.pointerEvent(callback, oldpos, mask | wheelMask);
+		  ptr.pointerEvent(callback, oldpos, mask);
+		}
+	  } else {
 #endif
-        Point clientPos = Point(LOWORD(lParam), HIWORD(lParam));
-        Point p = clientToDesktop(clientPos);
+		Point clientPos = Point(LOWORD(lParam), HIWORD(lParam));
+		Point p = clientToDesktop(clientPos);
 
-        // If the mouse is not within the server texture area, do nothing
-        cursorInBuffer = texture->getRect().contains(p);
-        if (!cursorInBuffer) {
-          cursorOutsideBuffer();
-          break;
-        }
+		// If the mouse is not within the server texture area, do nothing
+		cursorInBuffer = texture->getRect().contains(p);
+		if (!cursorInBuffer) {
+		  cursorOutsideBuffer();
+		  break;
+		}
 
-        // If we're locally rendering the cursor then redraw it
-        if (cursorAvailable) {
-          // - Render the cursor!
-          if (!p.equals(cursorPos)) {
-            hideLocalCursor();
-            cursorPos = p;
-            showLocalCursor();
-            if (cursorVisible)
-              hideSystemCursor();
-          }
-        }
+		// If we're locally rendering the cursor then redraw it
+		if (cursorAvailable) {
+		  // - Render the cursor!
+		  if (!p.equals(cursorPos)) {
+			hideLocalCursor();
+			cursorPos = p;
+			showLocalCursor();
+			if (cursorVisible)
+			  hideSystemCursor();
+		  }
+		}
 
-        // If we are doing bump-scrolling then try that first...
-        if (processBumpScroll(clientPos))
-          break;
+		// If we are doing bump-scrolling then try that first...
+		if (processBumpScroll(clientPos))
+		  break;
 
-        // Send a pointer event to the server
-        ptr.pointerEvent(callback, p, mask);
-        oldpos = p;
+		// Send a pointer event to the server
+		ptr.pointerEvent(callback, p, mask);
+		oldpos = p;
 #ifdef WM_MOUSEWHEEL
-      }
+	  }
 #endif
-    } else {
-      cursorOutsideBuffer();
-    }
-    break;
+	} else {
+	  cursorOutsideBuffer();
+	}
+	break;
 
-    // -=- Track whether or not the window has focus
+	// -=- Track whether or not the window has focus
 
   case WM_SETFOCUS:
-    has_focus = true;
-    break;
+	has_focus = true;
+	break;
   case WM_KILLFOCUS:
-    has_focus = false;
-    cursorOutsideBuffer();
-    // Restore the keyboard to a consistent state
-    kbd.releaseAllKeys(callback);
-    break;
+	has_focus = false;
+	cursorOutsideBuffer();
+	// Restore the keyboard to a consistent state
+	kbd.releaseAllKeys(callback);
+	break;
 
-    // -=- Handle the extra window menu items
+	// -=- Handle the extra window menu items
 
-    // Pass system menu messages to the callback and only attempt
-    // to process them ourselves if the callback returns false.
+	// Pass system menu messages to the callback and only attempt
+	// to process them ourselves if the callback returns false.
   case WM_SYSCOMMAND:
-    // Call the supplied callback
-    if (callback->sysCommand(wParam, lParam))
-      break;
+	// Call the supplied callback
+	if (callback->sysCommand(wParam, lParam))
+	  break;
 
-    // - Not processed by the callback, so process it as a system message
-    switch (wParam & 0xfff0) {
+	// - Not processed by the callback, so process it as a system message
+	switch (wParam & 0xfff0) {
 
-      // When restored, ensure that full-screen mode is re-enabled if required.
-    case SC_RESTORE:
-      {
-      if (GetWindowLong(handle, GWL_STYLE) & WS_MINIMIZE) {
-        rfb::win32::SafeDefWindowProc(handle, msg, wParam, lParam);
-        setFullscreen(fullscreenRestore);
-      }
-      else if (fullscreenActive)
-        setFullscreen(false);
-      else
-        rfb::win32::SafeDefWindowProc(handle, msg, wParam, lParam);
+	  // When restored, ensure that full-screen mode is re-enabled if required.
+	case SC_RESTORE:
+	  {
+	  if (GetWindowLong(handle, GWL_STYLE) & WS_MINIMIZE) {
+		rfb::win32::SafeDefWindowProc(handle, msg, wParam, lParam);
+		setFullscreen(fullscreenRestore);
+	  }
+	  else if (fullscreenActive)
+		setFullscreen(false);
+	  else
+		rfb::win32::SafeDefWindowProc(handle, msg, wParam, lParam);
 
-      return 0;
-      }
+	  return 0;
+	  }
 
-      // If we are maximized or minimized then that cancels full-screen mode.
-    case SC_MINIMIZE:
-    case SC_MAXIMIZE:
-      fullscreenRestore = fullscreenActive;
-      setFullscreen(false);
-      break;
+	  // If we are maximized or minimized then that cancels full-screen mode.
+	case SC_MINIMIZE:
+	case SC_MAXIMIZE:
+	  fullscreenRestore = fullscreenActive;
+	  setFullscreen(false);
+	  break;
 
-      // If the menu is about to be shown, make sure it's up to date
-    case SC_KEYMENU:
-    case SC_MOUSEMENU:
-      callback->refreshMenu(true);
-      break;
+	  // If the menu is about to be shown, make sure it's up to date
+	case SC_KEYMENU:
+	case SC_MOUSEMENU:
+	  callback->refreshMenu(true);
+	  break;
 
-    };
-    break;
+	};
+	break;
 
-    // Treat all menu commands as system menu commands
+	// Treat all menu commands as system menu commands
   case WM_COMMAND:
-    SendMessage(handle, WM_SYSCOMMAND, wParam, lParam);
-    return 0;
+	SendMessage(handle, WM_SYSCOMMAND, wParam, lParam);
+	return 0;
 
-    // -=- Handle keyboard input
+	// -=- Handle keyboard input
 
   case WM_KEYUP:
   case WM_KEYDOWN:
-    // Hook the MenuKey to pop-up the window menu
-    if (menuKey && (wParam == menuKey)) {
+	// Hook the MenuKey to pop-up the window menu
+	if (menuKey && (wParam == menuKey)) {
 
-      bool ctrlDown = (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0;
-      bool altDown = (GetAsyncKeyState(VK_MENU) & 0x8000) != 0;
-      bool shiftDown = (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0;
-      if (!(ctrlDown || altDown || shiftDown)) {
+	  bool ctrlDown = (GetAsyncKeyState(VK_CONTROL) & 0x8000) != 0;
+	  bool altDown = (GetAsyncKeyState(VK_MENU) & 0x8000) != 0;
+	  bool shiftDown = (GetAsyncKeyState(VK_SHIFT) & 0x8000) != 0;
+	  if (!(ctrlDown || altDown || shiftDown)) {
 
-        // If MenuKey is being released then pop-up the menu
-        if ((msg == WM_KEYDOWN)) {
-          // Make sure it's up to date
-          callback->refreshMenu(false);
+		// If MenuKey is being released then pop-up the menu
+		if ((msg == WM_KEYDOWN)) {
+		  // Make sure it's up to date
+		  callback->refreshMenu(false);
 
-          // Show it under the pointer
-          POINT pt;
-          GetCursorPos(&pt);
-          cursorInBuffer = false;
-          TrackPopupMenu(GetSystemMenu(handle, FALSE),
-            TPM_CENTERALIGN | TPM_VCENTERALIGN, pt.x, pt.y, 0, handle, 0);
-        }
+		  // Show it under the pointer
+		  POINT pt;
+		  GetCursorPos(&pt);
+		  cursorInBuffer = false;
+		  TrackPopupMenu(GetSystemMenu(handle, FALSE),
+			TPM_CENTERALIGN | TPM_VCENTERALIGN, pt.x, pt.y, 0, handle, 0);
+		}
 
-        // Ignore the MenuKey keypress for both press & release events
-        return 0;
-      }
-    }
+		// Ignore the MenuKey keypress for both press & release events
+		return 0;
+	  }
+	}
 	case WM_SYSKEYDOWN:
 	case WM_SYSKEYUP:
-    kbd.keyEvent(callback, wParam, lParam, (msg == WM_KEYDOWN) || (msg == WM_SYSKEYDOWN));
-    return 0;
+	kbd.keyEvent(callback, wParam, lParam, (msg == WM_KEYDOWN) || (msg == WM_SYSKEYDOWN));
+	return 0;
 
-    // -=- Handle the window closing
+	// -=- Handle the window closing
 
   case WM_CLOSE:
-    vlog.debug("WM_CLOSE %x", handle);
-    callback->closeWindow();
-    break;
+	vlog.debug("WM_CLOSE %x", handle);
+	callback->closeWindow();
+	break;
 
   };
 
@@ -462,7 +462,7 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
 
 void
 DesktopWindow::notifyClipboardChanged(const char* text, int len) {
-  callback->clientCutText(text, len);
+	callback->clientCutText(text, len);
 }
 
 void DesktopWindow::Hide()
@@ -476,44 +476,22 @@ bool rfb::unity::DesktopWindow::isVisible()
 	return true;
 }
 
-
 void
-DesktopWindow::setSize(int w, int h) {
-  vlog.debug("setSize %dx%d", w, h);
+DesktopWindow::setSize(int w, int h)
+{
+	vlog.debug("setSize %dx%d", w, h);
 
-  // If the locally-rendered cursor is visible then remove it
-  hideLocalCursor();
-
-  // Resize the backing texture
-  texture->setSize(w, h);
+	// Resize the backing texture
+	texture->setSize(w, h);
 }
 
-void
-DesktopWindow::setCursor(int w, int h, const Point& hotspot, void* data, void* mask) {
-  hideLocalCursor();
-
-  cursor.hotspot = hotspot;
-
-  cursor.setSize(w, h);
-  cursor.setPF(texture->getPF());
-  cursor.imageRect(cursor.getRect(), data);
-  memcpy(cursor.mask.buf, mask, cursor.maskLen());
-  cursor.crop();
-
-  cursorBacking.setSize(w, h);
-  cursorBacking.setPF(texture->getPF());
-
-  cursorAvailable = true;
-
-  showLocalCursor();
-}
 
 PixelFormat
 DesktopWindow::getNativePF() const
 {
-  vlog.debug("getNativePF() return rgba");
- 
-  return PixelFormat(32, 32, 8, 8, 8, 0, 8, 16);
+	vlog.debug("getNativePF() return rgba");
+
+	return PixelFormat(32, 32, 8, 8, 8, 0, 8, 16);
 }
 
 /*
@@ -548,42 +526,39 @@ DesktopWindow::refreshWindowPalette(int start, int count) {
 
 void
 DesktopWindow::serverCutText(const char* str, int len) {
-  CharArray t(len+1);
-  memcpy(t.buf, str, len);
-  t.buf[len] = 0;
-  clipboard.setClipText(t.buf);
+	CharArray t(len + 1);
+	memcpy(t.buf, str, len);
+	t.buf[len] = 0;
+	clipboard.setClipText(t.buf);
 }
 
 
-void DesktopWindow::fillRect(const Rect& r, Pixel pix) {
-  if (cursorBackingRect.overlaps(r)) hideLocalCursor();
-  texture->fillRect(r, pix);
-  invalidateDesktopRect(r);
+void DesktopWindow::fillRect(const Rect& r, Pixel pix)
+{
+
+	texture->fillRect(r, pix);
+
 }
 void DesktopWindow::imageRect(const Rect& r, void* pixels) {
-  if (cursorBackingRect.overlaps(r)) hideLocalCursor();
-  texture->imageRect(r, pixels);
-  invalidateDesktopRect(r);
+
+	texture->imageRect(r, pixels);
 }
-void DesktopWindow::copyRect(const Rect& r, int srcX, int srcY) {
-  if (cursorBackingRect.overlaps(r) ||
-      cursorBackingRect.overlaps(Rect(srcX, srcY, srcX+r.width(), srcY+r.height())))
-    hideLocalCursor();
-  texture->copyRect(r, r.tl.x-srcX, r.tl.y-srcY);
-  invalidateDesktopRect(r);
+
+void DesktopWindow::copyRect(const Rect& r, int srcX, int srcY)
+{
+	texture->copyRect(r, r.tl.x - srcX, r.tl.y - srcY);
 }
 
 void DesktopWindow::invertRect(const Rect& r) {
-  int stride;
-  rdr::U8* p = texture->getPixelsRW(r, &stride);
-  for (int y = 0; y < r.height(); y++) {
-    for (int x = 0; x < r.width(); x++) {
-      switch (texture->getPF().bpp) {
-      case 8:  ((rdr::U8* )p)[x+y*stride] ^= 0xff;       break;
-      case 16: ((rdr::U16*)p)[x+y*stride] ^= 0xffff;     break;
-      case 32: ((rdr::U32*)p)[x+y*stride] ^= 0xffffffff; break;
-      }
-    }
-  }
-  invalidateDesktopRect(r);
+	int stride;
+	rdr::U8* p = texture->getPixelsRW(r, &stride);
+	for (int y = 0; y < r.height(); y++) {
+		for (int x = 0; x < r.width(); x++) {
+			switch (texture->getPF().bpp) {
+			case 8:  ((rdr::U8*)p)[x + y*stride] ^= 0xff;       break;
+			case 16: ((rdr::U16*)p)[x + y*stride] ^= 0xffff;     break;
+			case 32: ((rdr::U32*)p)[x + y*stride] ^= 0xffffffff; break;
+			}
+		}
+	}
 }
