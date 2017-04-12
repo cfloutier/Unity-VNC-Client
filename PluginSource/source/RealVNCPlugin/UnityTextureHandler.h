@@ -7,12 +7,15 @@
 #include <rfb/Threading.h>
 #include <rfb/PixelFormat.h>
 #include <rfb/Rect.h>
+#include <list>
+#include "BufferUpdate.h"
+
 using namespace rdr;
 
 namespace rfb
 {
-	namespace unity {
-
+	namespace unity
+	{
 		class UnityTextureHandler : Thread
 		{
 		public:
@@ -35,11 +38,9 @@ namespace rfb
 			void fillRect(const Rect& r, Pixel pix);
 			void imageRect(const Rect& r, void* pixels);
 			void copyRect(const Rect& r, int srcX, int srcY);
-
 			void setColour(int i, int r, int g, int b);
 			void setSize(int width, int height);
 			PixelFormat getPF() { return m_pixelFormat; };
-			U8* getPixelsRW(Rect r, int * stride);
 
 			void run();
 
@@ -50,7 +51,13 @@ namespace rfb
 
 
 		protected:
-			unsigned char* tempBuffer;
+			void addUpdate(BufferUpdate * pBuf);
+			void ApplyBufferUpdate(BufferUpdate * pBuf);
+			void applyPendingUpdate();
+
+
+			void invalidateRect(const Rect& r);
+			U8* tempBuffer;
 
 			bool m_ready = false;
 
@@ -75,6 +82,9 @@ namespace rfb
 			IUnityGraphics* m_Graphics = NULL;
 
 			PixelFormat m_pixelFormat;
+
+			std::list<BufferUpdate *> pendingUpdateList;
+
 		};
 	}
 }

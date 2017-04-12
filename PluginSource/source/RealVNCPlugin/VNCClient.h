@@ -6,7 +6,8 @@
 
 namespace rfb
 {
-	namespace unity {
+	namespace unity 
+	{
 		enum ConnectionState
 		{
 			Iddle,  
@@ -44,6 +45,7 @@ namespace rfb
 			UnityTextureHandler * texture;
 
 			friend class ConnectionThread;
+			friend class CConn;
 		};
 	}
 }

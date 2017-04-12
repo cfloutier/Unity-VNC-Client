@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BufferUpdate.cxx" />
     <ClCompile Include="CConn.cxx" />
     <ClCompile Include="ConnectionThread.cxx" />
     <ClCompile Include="ConnOptions.cxx" />
@@ -40,6 +41,7 @@
     <None Include="UnityPlugin\RenderAPI_Metal.mm" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BufferUpdate.h" />
     <ClInclude Include="CConn.h" />
     <ClInclude Include="ConnectionThread.h" />
     <ClInclude Include="ConnOptions.h" />

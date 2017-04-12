@@ -33,6 +33,8 @@
 #include <rfb/LogWriter.h>
 #include <rfb_win32/AboutDialog.h>
 
+#include "VNCClient.h"
+
 
 using namespace rdr;
 using namespace rfb;
@@ -42,23 +44,25 @@ using namespace rfb::unity;
 // - Statics & consts
 static LogWriter vlog("CConn");
 
-static IntParameter debugDelay("DebugDelay", "Milliseconds to display inverted "
-	"pixel data - a debugging feature", 0);
 
 CConn::CConn()
-	: sock(0), sockEvent(CreateEvent(0, TRUE, FALSE, 0)), requestUpdate(false),
+	: m_pDesktopWindow(0), sock(0), sockEvent(CreateEvent(0, TRUE, FALSE, 0)), requestUpdate(false),
 	sameMachine(false), encodingChange(false), formatChange(false),
 	reverseConnection(false), lastUsedEncoding_(encodingRaw), isClosed_(false)
 {
-	window__ = NULL;
+	
 }
 
 CConn::~CConn()
 {
-	delete window__;
+	if (m_pDesktopWindow != NULL)
+		delete m_pDesktopWindow;
 }
 
-bool CConn::initialise(network::Socket* s, bool reverse) {
+bool CConn::initialise(network::Socket* s, VNCClient * pClient, bool reverse)
+{
+	m_pClient = pClient;
+
 	// Set the server's name for MRU purposes
 	CharArray endpoint(s->getPeerEndpoint());
 	setServerName(endpoint.buf);
@@ -110,16 +114,6 @@ void CConn::applyOptions(ConnOptions& opt) {
 
 	// - Whether to use protocol 3.3 for legacy compatibility
 	setProtocol3_3(options.protocol3_3);
-
-	// - Apply settings that affect the window, if it is visible
-	if (window__) {
-		window__->setMonitor(options.monitor.buf);
-		window__->setFullscreen(options.fullScreen);
-		/* window->setEmulate3(options.emulate3);
-		 window->setPointerEventInterval(options.pointerEventInterval);
-		 window->setMenuKey(options.menuKey);*/
-		window__->setDisableWinKeys(options.disableWinKeys);
-	}
 }
 
 
@@ -289,9 +283,7 @@ CConn::setColourMapEntries(int first, int count, U16* rgbs) {
 	vlog.debug("setColourMapEntries: first=%d, count=%d", first, count);
 	int i;
 	for (i = 0; i < count; i++)
-		window__->setColour(i + first, rgbs[i * 3], rgbs[i * 3 + 1], rgbs[i * 3 + 2]);
-	// *** change to 0, 256?
-	window__->refreshWindowPalette(first, count);
+		m_pDesktopWindow->setColour(i + first, rgbs[i * 3], rgbs[i * 3 + 1], rgbs[i * 3 + 2]);
 }
 
 void
@@ -302,12 +294,16 @@ CConn::bell() {
 
 
 void
-CConn::setDesktopSize(int w, int h) {
+CConn::setDesktopSize(int w, int h) 
+{
 	vlog.debug("setDesktopSize %dx%d", w, h);
 
 	// Resize the window's buffer
-	if (window__)
-		window__->setSize(w, h);
+	if (m_pDesktopWindow)
+		m_pDesktopWindow->setSize(w, h);
+
+	if (m_pClient)
+		m_pClient->setConnectionState(BufferSizeChanged);
 
 	// Tell the underlying CConnection
 	CConnection::setDesktopSize(w, h);
@@ -320,10 +316,6 @@ CConn::close(const char* reason) {
 	if (isClosed())
 		return;
 
-	// Hide the window, if it exists
-	if (window__)
-		window__->Hide();
-
 	// Save the reason & flag that we're closed & shutdown the socket
 	isClosed_ = true;
 	closeReason_.replaceBuf(strDup(reason));
@@ -333,17 +325,7 @@ CConn::close(const char* reason) {
 void
 CConn::framebufferUpdateEnd()
 {
-	if (debugDelay != 0)
-	{
-		vlog.debug("debug delay %d", (int)debugDelay);
-		//  UpdateWindow(window->getHandle());
-		Sleep(debugDelay);
-		std::list<rfb::Rect>::iterator i;
-		for (i = debugRects.begin(); i != debugRects.end(); i++) {
-			window__->invertRect(*i);
-		}
-		debugRects.clear();
-	}
+	
 
 
 	if (options.autoSelect)
@@ -353,10 +335,7 @@ CConn::framebufferUpdateEnd()
 	requestUpdate = true;
 
 	// Check that at least part of the window has changed
-	if (window__->isVisible())
-	{
-		requestNewUpdate();
-	}
+	requestNewUpdate();	
 }
 
 
@@ -403,37 +382,16 @@ void
 CConn::requestNewUpdate() {
 	if (!requestUpdate) return;
 
-	if (formatChange) {
-		// Select the required pixel format
-		if (options.fullColour) {
-			window__->setPF(fullColourPF);
-		}
-		else {
-			switch (options.lowColourLevel) {
-			case 0:
-				window__->setPF(PixelFormat(8, 3, 0, 1, 1, 1, 1, 2, 1, 0));
-				break;
-			case 1:
-				window__->setPF(PixelFormat(8, 6, 0, 1, 3, 3, 3, 4, 2, 0));
-				break;
-			case 2:
-				window__->setPF(PixelFormat(8, 8, 0, 0, 0, 0, 0, 0, 0, 0));
-				break;
-			}
-		}
-
+	if (formatChange)
+	{
 		// Print the current pixel format
 		char str[256];
-		window__->getPF().print(str, 256);
+		m_pDesktopWindow->getPF().print(str, 256);
 		vlog.info("Using pixel format %s", str);
 
 		// Save the connection pixel format and tell server to use it
-		cp.setPF(window__->getPF());
+		cp.setPF(m_pDesktopWindow->getPF());
 		writer()->writeSetPixelFormat(cp.pf());
-
-		// Correct the local window's palette
-		if (!window__->getNativePF().trueColour)
-			window__->refreshWindowPalette(0, 1 << cp.pf().depth);
 	}
 
 	if (encodingChange) {
@@ -458,22 +416,21 @@ CConn::calculateFullColourPF() {
 	}
 	else {
 		// If server is trueColour, use lowest depth PF
-		PixelFormat native = window__->getNativePF();
+		PixelFormat native = m_pDesktopWindow->getNativePF();
 		if ((serverDefaultPF.bpp < native.bpp) ||
 			((serverDefaultPF.bpp == native.bpp) &&
 			(serverDefaultPF.depth < native.depth)))
 			fullColourPF = serverDefaultPF;
 		else
-			fullColourPF = window__->getNativePF();
+			fullColourPF = m_pDesktopWindow->getNativePF();
 	}
 	formatChange = true;
 }
 
 
 void
-CConn::setName(const char* name) {
-	if (window__)
-		window__->setName(name);
+CConn::setName(const char* name) 
+{
 	CConnection::setName(name);
 }
 
@@ -483,9 +440,8 @@ void CConn::serverInit()
 	CConnection::serverInit();
 
 	// Show the window
-	window__ = new DesktopWindow(this);
-	window__->setName(cp.name());
-	window__->setSize(cp.width, cp.height);
+	m_pDesktopWindow = new DesktopWindow(this);
+	m_pDesktopWindow->setSize(cp.width, cp.height);
 	applyOptions(options);
 
 	// Save the server's current format
@@ -503,31 +459,30 @@ void CConn::serverInit()
 void
 CConn::serverCutText(const char* str, int len) {
 	if (!options.serverCutText) return;
-	window__->serverCutText(str, len);
+	m_pDesktopWindow->serverCutText(str, len);
 }
 
 
-void CConn::beginRect(const Rect& r, unsigned int encoding) {
+void CConn::beginRect(const Rect& r, unsigned int encoding)
+{
 	sock->inStream().startTiming();
 }
 
-void CConn::endRect(const Rect& r, unsigned int encoding) {
+void CConn::endRect(const Rect& r, unsigned int encoding)
+{
 	sock->inStream().stopTiming();
 	lastUsedEncoding_ = encoding;
-	if (debugDelay != 0) {
-		window__->invertRect(r);
-		debugRects.push_back(r);
-	}
+
 }
 
 void CConn::fillRect(const Rect& r, Pixel pix) {
-	window__->fillRect(r, pix);
+	m_pDesktopWindow->fillRect(r, pix);
 }
 void CConn::imageRect(const Rect& r, void* pixels) {
-	window__->imageRect(r, pixels);
+	m_pDesktopWindow->imageRect(r, pixels);
 }
 void CConn::copyRect(const Rect& r, int srcX, int srcY) {
-	window__->copyRect(r, srcX, srcY);
+	m_pDesktopWindow->copyRect(r, srcX, srcY);
 }
 
 void CConn::getUserPasswd(char** user, char** password)

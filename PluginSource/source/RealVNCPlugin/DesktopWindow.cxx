@@ -53,8 +53,7 @@ DesktopWindow::DesktopWindow(Callback* cb)
 
 	cursorVisible(false), cursorAvailable(false), cursorInBuffer(false),
 	systemCursorVisible(true), trackingMouseLeave(false),
-	has_focus(false), palette_changed(false),
-	fullscreenActive(false), fullscreenRestore(false),
+	palette_changed(false),
 	callback(cb) {
 
 	// Create the window
@@ -461,19 +460,9 @@ DesktopWindow::processMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
 */
 
 void
-DesktopWindow::notifyClipboardChanged(const char* text, int len) {
+DesktopWindow::notifyClipboardChanged(const char* text, int len) 
+{
 	callback->clientCutText(text, len);
-}
-
-void DesktopWindow::Hide()
-{
-	vlog.debug("Hide Dektop : TODO");
-
-}
-
-bool rfb::unity::DesktopWindow::isVisible()
-{
-	return true;
 }
 
 void
@@ -489,9 +478,9 @@ DesktopWindow::setSize(int w, int h)
 PixelFormat
 DesktopWindow::getNativePF() const
 {
-	vlog.debug("getNativePF() return rgba");
-
-	return PixelFormat(32, 32, 8, 8, 8, 0, 8, 16);
+	PixelFormat pf(32, 32, 8, 8, 8, 0, 8, 16);
+	pf.trueColour = true;
+	return pf;
 }
 
 /*
@@ -547,18 +536,4 @@ void DesktopWindow::imageRect(const Rect& r, void* pixels) {
 void DesktopWindow::copyRect(const Rect& r, int srcX, int srcY)
 {
 	texture->copyRect(r, r.tl.x - srcX, r.tl.y - srcY);
-}
-
-void DesktopWindow::invertRect(const Rect& r) {
-	int stride;
-	rdr::U8* p = texture->getPixelsRW(r, &stride);
-	for (int y = 0; y < r.height(); y++) {
-		for (int x = 0; x < r.width(); x++) {
-			switch (texture->getPF().bpp) {
-			case 8:  ((rdr::U8*)p)[x + y*stride] ^= 0xff;       break;
-			case 16: ((rdr::U16*)p)[x + y*stride] ^= 0xffff;     break;
-			case 32: ((rdr::U32*)p)[x + y*stride] ^= 0xffffffff; break;
-			}
-		}
-	}
 }

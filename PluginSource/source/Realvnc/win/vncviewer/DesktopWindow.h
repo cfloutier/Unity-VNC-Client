@@ -99,7 +99,6 @@ namespace rfb {
       void fillRect(const Rect& r, Pixel pix);
       void imageRect(const Rect& r, void* pixels);
       void copyRect(const Rect& r, int srcX, int srcY);
-
       void invertRect(const Rect& r);
 
       // - Update the window palette if the display is palette-based.

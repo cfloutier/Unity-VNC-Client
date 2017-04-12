@@ -40,6 +40,8 @@ namespace rfb {
 
 	namespace unity {
 
+		class VNCClient;
+
 		class CConn : public CConnection,
 			UserPasswdGetter,
 			DesktopWindow::Callback,
@@ -51,7 +53,7 @@ namespace rfb {
 
 			// - Start the VNC session on the supplied socket
 			//   The socket must already be connected to a host
-			bool initialise(network::Socket* s, bool reverse = false);
+			bool initialise(network::Socket* s, VNCClient * client,  bool reverse = false);
 
 			// - Set/get the session options
 			void applyOptions(ConnOptions& opt);
@@ -69,7 +71,9 @@ namespace rfb {
 			int lastUsedEncoding() const { return lastUsedEncoding_; }
 
 			// - Get at the DesktopWindow, if any
-			DesktopWindow* getWindow() { return window__; }
+			DesktopWindow* getWindow() { return m_pDesktopWindow; }
+			VNCClient* getVncClient() { return m_pClient; }
+
 
 			// - Get at the underlying Socket
 			network::Socket* getSocket() { return sock; }
@@ -122,7 +126,8 @@ namespace rfb {
 			void calculateFullColourPF();
 
 			// The desktop window
-			DesktopWindow* window__;
+			DesktopWindow* m_pDesktopWindow;
+			VNCClient * m_pClient;
 			network::Socket* sock;
 			HANDLE sockEvent;
 
@@ -144,7 +149,7 @@ namespace rfb {
 			bool requestUpdate;
 
 			// Debugging/logging
-			std::list<Rect> debugRects;
+
 			CharArray closeReason_;
 			bool isClosed_;
 		};

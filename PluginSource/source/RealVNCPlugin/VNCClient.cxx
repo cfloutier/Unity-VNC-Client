@@ -5,10 +5,17 @@
 #include <vector>
 #include <windows.h>
 
-
 #include "UnityLog.h"
+#include <rfb_win32/MsgBox.h>
+
+
 
 using namespace rfb::unity;
+using namespace rfb;
+using namespace rfb::win32;
+using namespace rdr;
+
+TStr rfb::win32::AppName("UNITY VNC Client");
 
 VNCClient::VNCClient()
 {
@@ -19,8 +26,7 @@ VNCClient::VNCClient()
 
 VNCClient::~VNCClient()
 {
-	if (texture != NULL)
-		delete texture;
+	if (texture != NULL) delete texture;
 
 	stopConnectionThread();
 }

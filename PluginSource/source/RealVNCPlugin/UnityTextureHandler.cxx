@@ -4,10 +4,13 @@
 #include <math.h>
 #include <vector>
 #include "windows.h"
+#include <rfb/LogWriter.h>
 
-#include "UnityLog.h"
 
 using namespace rfb::unity;
+using namespace rfb;
+
+static LogWriter vlog("UnityTextureHandler");
 
 UnityTextureHandler::UnityTextureHandler()
 {
@@ -31,7 +34,7 @@ UnityTextureHandler::~UnityTextureHandler()
 
 void UnityTextureHandler::run()
 {
-	UNITYLOG("Start Rendering Thread");
+	vlog.debug("Start Rendering Thread");
 	threadIsRunning = true;
 	while (!exitThread)
 	{
@@ -45,7 +48,7 @@ void UnityTextureHandler::run()
 	}
 
 
-	UNITYLOG("End Rendering Thread");
+	vlog.debug("End Rendering Thread");
 
 	threadIsRunning = false;
 }
@@ -172,7 +175,7 @@ void UnityTextureHandler::Update()
 	void * textureDataPtr = startModify();
 	if (textureDataPtr == NULL)
 		return;
-
+	applyPendingUpdate();
 	memcpy(textureDataPtr, tempBuffer, bufferSize);
 
 	endModify(textureDataPtr);
@@ -180,7 +183,7 @@ void UnityTextureHandler::Update()
 
 void UnityTextureHandler::setColour(int i, int r, int g, int b)
 {
-
+	vlog.debug("Shoudl not happens today (indexed colors ???)");
 }
 
 void UnityTextureHandler::setSize(int width, int height)
@@ -190,3 +193,55 @@ void UnityTextureHandler::setSize(int width, int height)
 
 	m_ready = false;
 }
+
+
+void UnityTextureHandler::invalidateRect(const Rect& r)
+{
+	vlog.debug("TODO : invalidateRect ");
+}
+
+
+void UnityTextureHandler::applyPendingUpdate()
+{
+	std::list<BufferUpdate *>::iterator i;
+	for (i = pendingUpdateList.begin(); i != pendingUpdateList.end(); i++)
+	{
+		ApplyBufferUpdate(*i);
+		delete *i;
+	}
+}
+
+void UnityTextureHandler::ApplyBufferUpdate(BufferUpdate  * pUpdate)
+{
+	pUpdate->apply(tempBuffer, textureRowPitch);
+}
+
+
+void UnityTextureHandler::addUpdate(BufferUpdate * pUpdate)
+{
+	if (!m_ready)
+	{
+		pendingUpdateList.push_back(pUpdate);
+	}
+	else
+	{
+		ApplyBufferUpdate(pUpdate);
+		delete pUpdate;
+	}
+}
+
+void UnityTextureHandler::fillRect(const Rect& r, Pixel pix)
+{
+	addUpdate(new BufferUpdate(r, pix));
+}
+
+void UnityTextureHandler::imageRect(const Rect& r, void* pixels)
+{
+	addUpdate(new BufferUpdate(r, pixels));
+}
+
+void UnityTextureHandler::copyRect(const Rect& r, int srcX, int srcY)
+{
+	addUpdate(new BufferUpdate(r, srcX, srcY));
+}
+

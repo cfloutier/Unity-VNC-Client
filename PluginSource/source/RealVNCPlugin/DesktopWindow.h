@@ -59,10 +59,6 @@ namespace rfb
 			//   This can (and often will) differ from the PixelBuffer format
 			PixelFormat getNativePF() const;
 
-		
-			// - Set the window title
-			void setName(const char* name);
-
 			// - Set the key that causes the system/F8 menu to be displayed
 			void setMenuKey(rdr::U8 key) { menuKey = key; }
 
@@ -71,22 +67,11 @@ namespace rfb
 			void setPointerEventInterval(int interval) { ptr.enableInterval(interval); }
 
 			// - Set the pixel format, size etc of the underlying PixelBuffer
-			void setPF(const PixelFormat& pf);
+			
 			PixelFormat getPF() const { return texture->getPF(); }
 
 			void setSize(int w, int h);
 			void setColour(int i, int r, int g, int b) { texture->setColour(i, r, g, b); }
-
-			// - Set the window fullscreen / determine whether it is fullscreen
-			void setFullscreen(bool fs);
-			bool isFullscreen() { return fullscreenActive; }
-
-			// - Set whether to disable special Windows keys & pass them straight to server
-			void setDisableWinKeys(bool dwk);
-
-			// - Set/get which monitor the window should be displayed on
-			void setMonitor(const char* monitor);
-			char* getMonitor() const;
 
 			// - Set the local clipboard
 			void serverCutText(const char* str, int len);
@@ -96,13 +81,7 @@ namespace rfb
 			void imageRect(const Rect& r, void* pixels);
 			void copyRect(const Rect& r, int srcX, int srcY);
 
-			void invertRect(const Rect& r);
-
-			// - Update the window palette if the display is palette-based.
-			//   Colours are pulled from the desktop buffer's ColourMap.
-			//   Only the specified range of indexes is dealt with.
-			//   After the update, the entire window is redrawn.
-			void refreshWindowPalette(int start, int count);
+			
 
 			// Clipboard::Notifier interface
 			void notifyClipboardChanged(const char* text, int len);
@@ -125,8 +104,6 @@ namespace rfb
 			UnityTextureHandler * texture;
 
 			
-			void Hide();
-			bool isVisible();
 
 
 		protected:
@@ -175,12 +152,6 @@ namespace rfb
 			LogicalPalette windowPalette;
 			bool palette_changed;
 
-			// - Full-screen mode
-			RECT fullscreenOldRect;
-			DWORD fullscreenOldFlags;
-			bool fullscreenActive;
-			bool fullscreenRestore;
-
 			// Cursor handling
 			Cursor cursor;
 			bool systemCursorVisible;  // Should system-cursor be drawn?
@@ -191,10 +162,7 @@ namespace rfb
 			Point cursorPos;
 			ManagedPixelBuffer cursorBacking;
 			
-
 			// Local window state
-			
-			bool has_focus;
 			Rect window_size;
 			Rect client_size;
 			Point scrolloffset;

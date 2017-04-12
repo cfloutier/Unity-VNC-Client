@@ -188,13 +188,11 @@ public class RealVncClient : MonoBehaviour, IVncClient
                 TextureSize = new Size(
                     VNCPluginInterface.getDesktopWidth(),
                     VNCPluginInterface.getDesktopHeight());
-
                 break;
             
             case VNCPluginInterface.ConnectionState.Error:
                 if (ConnectionLost != null)
                     ConnectionLost(this, new ErrorEventArg("Error From plugin"));
-
                 break;
             default:
                 Debug.LogWarning("Stange behaviour");
@@ -204,7 +202,6 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
         if (needNewtexture)
             texture = pluginInterface.CreateTextureAndPassToPlugin(BufferSize);
-
 
         return texture;
     }

@@ -70,7 +70,8 @@ void CMsgReaderV3::readMsg()
     int h = is->readU16();
     unsigned int encoding = is->readU32();
 
-    switch (encoding) {
+    switch (encoding)
+	{
     case pseudoEncodingDesktopSize:
       handler->setDesktopSize(w, h);
       break;
