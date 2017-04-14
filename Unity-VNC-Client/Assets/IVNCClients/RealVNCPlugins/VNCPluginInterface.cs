@@ -19,6 +19,9 @@ public class VNCPluginInterface
 #endif
     public static extern void Connect(string host, int display, int port, bool viewOnly);
 
+
+
+
 #if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
 	[DllImport ("__Internal")]
 #else
@@ -45,13 +48,20 @@ public class VNCPluginInterface
 #endif
     public static extern int getConnectionState();
 
-
 #if UNITY_IPHONE && !UNITY_EDITOR
 	[DllImport ("__Internal")]
 #else
     [DllImport("RealVNCPlugin")]
 #endif
     private static extern bool GetDebugLog(IntPtr log, int size);
+
+#if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
+	[DllImport ("__Internal")]
+#else
+    [DllImport("RealVNCPlugin")]
+#endif
+    public static extern void MouseEvent(int x, int y, bool button0, bool button1, bool button2);
+
     private GCHandle m_LogHandle;
 
     public static ConnectionState getEnumConnectionState()
@@ -111,7 +121,6 @@ public class VNCPluginInterface
 
     public void Release()
     {
-        
         LogFromPlugin();
         m_LogHandle.Free();
         Disconnect();

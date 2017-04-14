@@ -26,6 +26,7 @@ namespace rfb
 			int m_port;
 			VNCClient *m_client;
 
+			friend class VNCClient;
 			CConn * m_pCurrentConnection;
 		};
 	}

@@ -17,7 +17,7 @@ using namespace rfb::unity;
 using namespace rfb;
 
 // --------------------------------------------------------------------------
-VNCClient * client;
+VNCClient * pClient;
 
 static RenderAPI* s_CurrentAPI = NULL;
 static UnityGfxRenderer s_DeviceType = kUnityGfxRendererNull;
@@ -27,8 +27,8 @@ static IUnityGraphics* s_Graphics = NULL;
 // once the texture size is known unity should call the texture handler to really build the texture in the graphic card memory
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API SetTextureFromUnity(void* textureHandle)
 {
-	client->getTextureHandler()->build(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
-	client->onTextureBuilt();
+	pClient->getTextureHandler()->build(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
+	pClient->onTextureBuilt();
 }
 
 
@@ -70,8 +70,8 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 
 static void UNITY_INTERFACE_API OnRenderEvent(int eventID)
 {
-	if (client != 0)
-		client->Update();
+	if (pClient != 0)
+		pClient->Update();
 }
 
 // --------------------------------------------------------------------------
@@ -108,14 +108,20 @@ static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType ev
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Disconnect()
 {
-	if (client != NULL)
+	if (pClient != NULL)
 	{
-		client->Disconnect();
-		delete client;
-		client = NULL;
+		pClient->Disconnect();
+		delete pClient;
+		pClient = NULL;
 	}
 
 	UnityLog::Clear();
+}
+
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API MouseEvent(int x, int y, bool button0, bool button1, bool button2)
+{
+	if (pClient)
+		pClient->MouseEvent(x, y, button0, button1, button2);
 }
 
 
@@ -131,36 +137,36 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
 // VNC Connection, the client will asked for 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Connect(char * host, int port)
 {
-	if (client != NULL)
+	if (pClient != NULL)
 		Disconnect();
 
-	client = new VNCClient();
-	client->Connect(host, port);
+	pClient = new VNCClient();
+	pClient->Connect(host, port);
 }
 
 extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API getDesktopWidth()
 {
-	if (client == NULL)
+	if (pClient == NULL)
 	{
 		UNITYLOG("No VNC CLient !!");
 		return 0;
 	}
-	return client->GetWidth();
+	return pClient->GetWidth();
 }
 
 extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API getDesktopHeight()
 {
-	if (client == NULL)
+	if (pClient == NULL)
 	{
 		UNITYLOG("No VNC CLient !!");
 		return 0;
 	}
-	return client->GetHeight();
+	return pClient->GetHeight();
 }
 
 extern "C" int UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API  getConnectionState()
 {
-	return (int)client->GetConnectionState();
+	return (int)pClient->GetConnectionState();
 }
 
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API Authenticate(char * password)

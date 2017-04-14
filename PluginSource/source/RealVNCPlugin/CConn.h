@@ -81,12 +81,12 @@ namespace rfb {
 			// - Get the server's preferred format
 			const PixelFormat& getServerDefaultPF() const { return serverDefaultPF; }
 
-		protected:
+		
 			// InputHandler interface (via DesktopWindow::Callback)
 			void keyEvent(rdr::U32 key, bool down);
 			void pointerEvent(const Point& pos, int buttonMask);
 			void clientCutText(const char* str, int len);
-
+		protected:
 			// DesktopWindow::Callback interface
 			void displayChanged();
 			void paintCompleted();

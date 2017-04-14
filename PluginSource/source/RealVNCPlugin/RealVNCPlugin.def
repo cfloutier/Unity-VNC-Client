@@ -15,6 +15,4 @@ EXPORTS
    getDesktopWidth
    getDesktopHeight
    getConnectionState
-
-
-   
+   MouseEvent

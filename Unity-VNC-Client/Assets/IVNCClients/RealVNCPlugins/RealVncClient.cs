@@ -162,7 +162,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
 
     public void UpdateMouse(Point pos, bool button0, bool button1, bool button2)
     {
-
+        VNCPluginInterface.MouseEvent(pos.X, pos.Y, button0, button1, button2);
     }
 
     public void WriteKeyboardEvent(uint keysym, bool pressed)

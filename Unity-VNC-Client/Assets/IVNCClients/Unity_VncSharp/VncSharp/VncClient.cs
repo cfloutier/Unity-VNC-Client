@@ -595,7 +595,6 @@ namespace UnityVncSharp
             }
         }
 
-
         public void UpdateMouse(Point pos, bool button0, bool button1, bool button2)
         {
             byte mask = 0;

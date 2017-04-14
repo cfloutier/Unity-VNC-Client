@@ -3,6 +3,10 @@
 
 #include "UnityTextureHandler.h"
 #include "ConnectionThread.h"
+#include <rfb_win32/CPointer.h>
+
+using namespace rfb::win32;
+
 
 namespace rfb
 {
@@ -29,6 +33,8 @@ namespace rfb
 			void onTextureBuilt();
 			void Disconnect();
 
+			void MouseEvent(int x, int y, bool bt0, bool bt1, bool bt2);
+
 			inline UnityTextureHandler * getTextureHandler() { return m_pTexture; }
 
 			int GetWidth();
@@ -39,11 +45,20 @@ namespace rfb
 			void Update();
 
 		protected:
+			// for mouse positions
+			int lastMask = -1;
+			int lastX = -1;
+			int lastY = -1;
+
 			void setConnectionState(ConnectionState state);
 			void stopConnectionThread();
 			ConnectionState m_connectionState = Iddle;
 			ConnectionThread * m_ConnectionThread;
 			UnityTextureHandler * m_pTexture;
+			CConn *  m_pCurrentConnection;
+
+			rfb::win32::CPointer ptr;
+
 
 			friend class ConnectionThread;
 			friend class CConn;

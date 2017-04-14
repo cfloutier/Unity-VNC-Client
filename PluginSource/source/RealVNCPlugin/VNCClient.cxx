@@ -8,7 +8,7 @@
 
 #include <rfb_win32/MsgBox.h>
 
-
+#include "CConn.h"
 
 using namespace rfb::unity;
 using namespace rfb;
@@ -22,7 +22,7 @@ TStr rfb::win32::AppName("UNITY VNC Client");
 VNCClient::VNCClient()
 {
 	vlog.debug("VNCClient constructor");
-
+	m_pCurrentConnection = 0;
 	setConnectionState(Iddle);
 	m_ConnectionThread = NULL;
 	m_pTexture = new UnityTextureHandler();
@@ -105,9 +105,7 @@ void VNCClient::onTextureBuilt()
 {
 	if (m_connectionState == BufferSizeChanged)
 		setConnectionState(Connected);
-
 }
-
 
 void VNCClient::setConnectionState(ConnectionState state)
 {
@@ -127,6 +125,10 @@ void VNCClient::setConnectionState(ConnectionState state)
 		vlog.info("setConnectionState BufferSizeChanged");
 		break;
 	case Connected:
+		if (m_ConnectionThread != 0)
+		{
+			m_pCurrentConnection = m_ConnectionThread->m_pCurrentConnection;
+		}
 		vlog.info("setConnectionState Connected");
 		break;
 	case Error:
@@ -137,3 +139,25 @@ void VNCClient::setConnectionState(ConnectionState state)
 		break;
 	}
 } 
+
+
+
+void VNCClient::MouseEvent(int x, int y, bool bt0, bool bt1, bool bt2)
+{
+	if (m_pCurrentConnection)
+	{
+		int mask = 0;
+		if (bt0) mask |= 1;
+		if (bt1) mask |= 2;
+		if (bt2) mask |= 4;
+
+		if (mask != lastMask || x != lastX || y != lastY)
+		{
+			lastMask = mask;
+			lastX = x;
+			lastY = y;
+			m_pCurrentConnection->pointerEvent(Point(x, y), mask);
+		}
+	}
+
+}

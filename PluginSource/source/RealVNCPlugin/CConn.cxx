@@ -335,7 +335,10 @@ void CConn::serverInit()
 	m_pDesktopWindow = new DesktopWindow(this);
 	m_pDesktopWindow->init(m_pClient->m_pTexture);
 	m_pDesktopWindow->setSize(cp.width, cp.height);
+
 	options.fullColour = true;
+	options.sendPtrEvents = true;
+
 	applyOptions(options);
 
 	// Save the server's current format
