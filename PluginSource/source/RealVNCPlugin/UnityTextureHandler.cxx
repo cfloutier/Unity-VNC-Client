@@ -28,9 +28,9 @@ UnityTextureHandler::UnityTextureHandler()
 	m_pixelFormat.greenShift = 8;
 	m_pixelFormat.blueShift = 0;
 
-
-		
 	InitializeCriticalSection(&CriticalSectionTempBuffer);
+
+	pendingUpdateList.clear();
 }
 
 UnityTextureHandler::~UnityTextureHandler()

@@ -29,7 +29,7 @@ namespace rfb
 			void onTextureBuilt();
 			void Disconnect();
 
-			inline UnityTextureHandler * getTextureHandler() { return texture; }
+			inline UnityTextureHandler * getTextureHandler() { return m_pTexture; }
 
 			int GetWidth();
 			int GetHeight();	
@@ -43,7 +43,7 @@ namespace rfb
 			void stopConnectionThread();
 			ConnectionState m_connectionState = Iddle;
 			ConnectionThread * m_ConnectionThread;
-			UnityTextureHandler * texture;
+			UnityTextureHandler * m_pTexture;
 
 			friend class ConnectionThread;
 			friend class CConn;

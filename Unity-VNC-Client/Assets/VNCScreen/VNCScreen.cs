@@ -126,12 +126,7 @@ namespace VNCScreen
                     {
                         return gameObject.AddComponent<RealVncClient>();
                     }
-
-
             }
-
-
-
         }
 
         public RuntimeState state = RuntimeState.Disconnected;
@@ -284,7 +279,7 @@ namespace VNCScreen
                 }
                 else if (!string.IsNullOrEmpty(error.Reason))
                 {
-                    Debug.Log("[VNCScreen]" + error.Reason);
+                    Debug.Log("[VNCScreen]" + error.Reason); 
                 }
             }
             else

@@ -208,7 +208,8 @@ void CConn::setDesktopSize(int w, int h)
 }
 
 
-void CConn::close(const char* reason) {
+void CConn::close(const char* reason) 
+{
 	// If already closed then ignore this
 	if (isClosed())
 		return;
@@ -332,7 +333,7 @@ void CConn::serverInit()
 
 	// Show the window
 	m_pDesktopWindow = new DesktopWindow(this);
-	m_pDesktopWindow->init(m_pClient->texture);
+	m_pDesktopWindow->init(m_pClient->m_pTexture);
 	m_pDesktopWindow->setSize(cp.width, cp.height);
 	options.fullColour = true;
 	applyOptions(options);

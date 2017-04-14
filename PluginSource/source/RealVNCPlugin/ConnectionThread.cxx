@@ -23,6 +23,7 @@ void ConnectionThread::QuitAndDelete()
 	if (m_pCurrentConnection)
 		m_pCurrentConnection->close();
 	
+	
 	setDeleteAfterRun();
 }
 

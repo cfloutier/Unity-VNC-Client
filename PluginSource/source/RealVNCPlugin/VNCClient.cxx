@@ -25,15 +25,19 @@ VNCClient::VNCClient()
 
 	setConnectionState(Iddle);
 	m_ConnectionThread = NULL;
-	texture = new UnityTextureHandler();
+	m_pTexture = new UnityTextureHandler();
 }
 
 VNCClient::~VNCClient()
 {
 	vlog.debug("VNCClient destructor");
-	if (texture != NULL) delete texture;
 
 	stopConnectionThread();
+	if (m_pTexture != NULL) 
+		delete m_pTexture;
+
+	m_pTexture = 0;
+
 }
 
 
@@ -48,9 +52,9 @@ void VNCClient::Connect(const char * host, int port)
 
 void VNCClient::Update()
 {
-	if (texture != NULL)
+	if (m_pTexture != NULL)
 	{
-		texture->Update();
+		m_pTexture->Update();
 	}
 }
 
@@ -66,22 +70,22 @@ void VNCClient::Disconnect()
 
 int VNCClient::GetWidth()
 {
-	if (texture == NULL)
+	if (m_pTexture == NULL)
 	{
 		vlog.error("Error no texture");
 		return -1;
 	}
-	return texture->width();
+	return m_pTexture->width();
 }
 
 int VNCClient::GetHeight()
 {
-	if (texture == NULL)
+	if (m_pTexture == NULL)
 	{
 		vlog.error("Error no texture");
 		return -1;
 	}
-	return texture->height();
+	return m_pTexture->height();
 }
 
 void VNCClient::stopConnectionThread()
@@ -90,6 +94,10 @@ void VNCClient::stopConnectionThread()
 	{
 		m_ConnectionThread->QuitAndDelete();
 	}
+
+	if (m_pTexture)
+		m_pTexture->setSize(10, 10);
+
 	m_ConnectionThread = NULL;
 }
 
