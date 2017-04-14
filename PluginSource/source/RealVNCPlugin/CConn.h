@@ -53,7 +53,7 @@ namespace rfb {
 
 			// - Start the VNC session on the supplied socket
 			//   The socket must already be connected to a host
-			bool initialise(network::Socket* s, VNCClient * client,  bool reverse = false);
+			bool initialise(network::Socket* s, VNCClient * client, bool reverse = false);
 
 			// - Set/get the session options
 			void applyOptions(ConnOptions& opt);
@@ -103,7 +103,7 @@ namespace rfb {
 			void bell();
 			void framebufferUpdateEnd();
 			void setDesktopSize(int w, int h);
-			
+
 			void setName(const char* name);
 			void serverInit();
 			void serverCutText(const char* str, int len);
@@ -146,8 +146,8 @@ namespace rfb {
 			int lastUsedEncoding_;
 
 			// Networking and RFB protocol
-			
-			
+
+
 			bool reverseConnection;
 			bool requestUpdate;
 

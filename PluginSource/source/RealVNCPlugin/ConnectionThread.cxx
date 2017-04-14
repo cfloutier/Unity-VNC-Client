@@ -9,11 +9,9 @@
 
 using namespace rfb;
 using namespace rfb::unity;
-
 using namespace win32;
 
 static LogWriter vlog("ConnectionThread");
-
 
 ConnectionThread::ConnectionThread() : Thread("VNC Connection thread")
 {
@@ -22,7 +20,9 @@ ConnectionThread::ConnectionThread() : Thread("VNC Connection thread")
 
 void ConnectionThread::QuitAndDelete()
 {
-	exit = true;
+	if (m_pCurrentConnection)
+		m_pCurrentConnection->close();
+	
 	setDeleteAfterRun();
 }
 
@@ -32,6 +32,7 @@ void ConnectionThread::run()
 		return;
 
 	CConn conn;
+	m_pCurrentConnection = &conn;
 	m_client->setConnectionState(Connecting);
 
 	network::Socket* newSocket;
@@ -41,6 +42,7 @@ void ConnectionThread::run()
 	}
 	catch (rdr::Exception& e) 
 	{
+		m_pCurrentConnection = 0;
 		vlog.error("Connection Error : %s", e.str_);
 		m_client->setConnectionState(Error);
 		return;
@@ -53,7 +55,9 @@ void ConnectionThread::run()
 			conn.getInStream()->check(1, 1);
 			conn.processMsg();
 		}
-		catch (rdr::EndOfStream) {
+		catch (rdr::EndOfStream) 
+		{
+			
 			if (conn.state() == CConnection::RFBSTATE_NORMAL)
 				conn.close();
 			else
@@ -70,6 +74,7 @@ void ConnectionThread::run()
 			conn.close(e.str());
 		}
 	}
+	m_pCurrentConnection = 0;
 
 }
 

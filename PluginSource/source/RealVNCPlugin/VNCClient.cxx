@@ -21,6 +21,8 @@ TStr rfb::win32::AppName("UNITY VNC Client");
 
 VNCClient::VNCClient()
 {
+	vlog.debug("VNCClient constructor");
+
 	setConnectionState(Iddle);
 	m_ConnectionThread = NULL;
 	texture = new UnityTextureHandler();
@@ -28,6 +30,7 @@ VNCClient::VNCClient()
 
 VNCClient::~VNCClient()
 {
+	vlog.debug("VNCClient destructor");
 	if (texture != NULL) delete texture;
 
 	stopConnectionThread();
@@ -117,7 +120,6 @@ void VNCClient::setConnectionState(ConnectionState state)
 		break;
 	case Connected:
 		vlog.info("setConnectionState Connected");
-		stopConnectionThread();
 		break;
 	case Error:
 		vlog.info("setConnectionState Error");

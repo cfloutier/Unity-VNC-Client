@@ -8,6 +8,7 @@ namespace rfb
 	namespace unity {
 
 		class VNCClient;
+		class CConn;
 		class ConnectionThread : public Thread
 		{
 		public:
@@ -25,7 +26,7 @@ namespace rfb
 			int m_port;
 			VNCClient *m_client;
 
-			bool exit = false;
+			CConn * m_pCurrentConnection;
 		};
 	}
 }

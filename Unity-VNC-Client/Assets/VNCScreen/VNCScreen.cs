@@ -180,7 +180,7 @@ namespace VNCScreen
 
             vnc.Connect(host, display, port, false);
 
-            Debug.Log("Connection In progress " + host + ":" + port);
+            Debug.Log("[VNCScreen] Connection In progress " + host + ":" + port);
 
             while (!connectionReceived)
                 yield return new WaitForFixedUpdate();
@@ -284,7 +284,7 @@ namespace VNCScreen
                 }
                 else if (!string.IsNullOrEmpty(error.Reason))
                 {
-                    Debug.Log(error.Reason);
+                    Debug.Log("[VNCScreen]" + error.Reason);
                 }
             }
             else
@@ -358,7 +358,6 @@ namespace VNCScreen
             // Finish protocol handshake with host now that authentication is done.  
             vnc.Initialize();
             SetState(RuntimeState.WaitFirstBuffer);
-            Debug.Log("Await for first buffer");
 
             screenSize = vnc.BufferSize;
 

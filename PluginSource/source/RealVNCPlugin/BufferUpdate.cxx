@@ -25,20 +25,19 @@ BufferUpdate::BufferUpdate(const Rect& r, Pixel pix): m_src(0, 0)
 	mode = BufferUpdate::fillRect;
 	m_destRc = r;
 	m_pix = pix;
-	m_pixels = 0;
-	
+	m_pixels = 0;	
 }
 
 BufferUpdate::BufferUpdate(const Rect& r, int srcX, int srcY): m_src(srcX, srcY)
 {
 	mode = BufferUpdate::copyRect;
 	m_destRc = r;
+	m_pixels = 0;
 }
 
 BufferUpdate::~BufferUpdate()
 {
-/*	if (m_pixels)
-		delete[] m_pixels;*/
+	
 }
 
 U8* getPixels(const Rect& r, U8 * buffer, int stride, int bytesPerPixel)
@@ -86,8 +85,6 @@ void BufferUpdate::FillRect(const Rect& r, Pixel pix, U8 * buffer, int stride)
 void BufferUpdate::CopyRect(const Rect &rect, const Point &move_by_delta, U8 * buffer, int stride)
 {
 	unsigned int bytesPerPixel = 4;
-	
-	
 
 	// We assume that the specified rectangle is pre-clipped to the buffer
 	unsigned int bytesPerRow, bytesPerMemCpy;
