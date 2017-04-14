@@ -396,7 +396,6 @@ namespace VNCScreen
         // Update is called once per frame
         void Update()
         {
-
             if (IsConnected)
             {
                 GetComponent<Renderer>().sharedMaterial.mainTexture = vnc.getTexture();

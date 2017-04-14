@@ -26,6 +26,7 @@ namespace rfb
 			~VNCClient();
 
 			void Connect(const char * host, int port);
+			void onTextureBuilt();
 			void Disconnect();
 
 			inline UnityTextureHandler * getTextureHandler() { return texture; }

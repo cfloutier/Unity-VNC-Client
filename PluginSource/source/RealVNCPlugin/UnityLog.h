@@ -27,7 +27,20 @@ namespace rfb
 
 			virtual void write(int level, const char *logname, const char *message);
 		};
+
+		class SimpleLogger : public Logger
+		{
+		public:
+			SimpleLogger();
+		
+			virtual void write(int level, const char *logname, const char *message);
+		};
+
 	}
+
+
+
+
 }
 
 #endif

@@ -28,16 +28,16 @@
 using namespace rdr;
 
 
-namespace rfb 
+namespace rfb
 {
-	namespace unity 
+	namespace unity
 	{
 		// useful to temporize buffer modifications
 		class BufferUpdate
 		{
 		public:
 			// pixel buffer
-			BufferUpdate(const Rect& r, void * pixels);
+			BufferUpdate(const Rect& r, U8 * pixels);
 			// fill rect
 			BufferUpdate(const Rect& r, Pixel pix);
 			// copy rect
@@ -46,25 +46,28 @@ namespace rfb
 			~BufferUpdate();
 
 			void apply(U8 * buffer, int stride);
-		
+
+
+			static void FillRect(const Rect& r, Pixel pix, U8 * buffer, int stride);
+			static void CopyRect(const Rect &rect, const Point &move_by_delta, U8 * buffer, int stride);
+			static	void ImageRect(const Rect& r, const void* pixels, U8 * buffer, int destStride);
+
 
 		protected:
-
-
 
 			enum BufferUpdateMode
 			{
 				fillRect,
 				copyRect,
-				setRect
+				imageRect
 			};
 
 			BufferUpdateMode mode;
 			Rect m_destRc;
-			void * m_pixels;
+			U8 * m_pixels;
 			Pixel m_pix;
 			Point m_src;
-			
+
 		};
 	};
 };

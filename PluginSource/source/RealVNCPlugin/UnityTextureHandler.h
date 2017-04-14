@@ -63,10 +63,12 @@ namespace rfb
 
 			bool exitThread = false;
 			bool threadIsRunning = false;
-			CRITICAL_SECTION CriticalSection;
+			
+			CRITICAL_SECTION CriticalSectionTempBuffer;
 
 			void Sinuses();
 			void Noise();
+			void RandomSquare(int size);
 			void* startModify();
 			void endModify(void * textureHandle);
 

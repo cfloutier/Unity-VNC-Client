@@ -40,8 +40,6 @@ const int TIMER_BUMPSCROLL = 1;
 const int TIMER_POINTER_INTERVAL = 2;
 const int TIMER_POINTER_3BUTTON = 3;
 
-
-
 //
 // -=- DesktopWindow instance implementation
 //
@@ -54,18 +52,17 @@ DesktopWindow::DesktopWindow(Callback* cb)
 	cursorVisible(false), cursorAvailable(false), cursorInBuffer(false),
 	systemCursorVisible(true), trackingMouseLeave(false),
 	palette_changed(false),
-	callback(cb) {
-
+	callback(cb) 
+{
+	vlog.debug("DesktopWindow");
+	m_pTexture = 0;
 	// Create the window
 	const char* name = "DesktopWindow";
-
 }
 
-DesktopWindow::~DesktopWindow() {
+DesktopWindow::~DesktopWindow() 
+{
 	vlog.debug("~DesktopWindow");
-
-
-
 
 	vlog.debug("~DesktopWindow done");
 }
@@ -471,7 +468,7 @@ DesktopWindow::setSize(int w, int h)
 	vlog.debug("setSize %dx%d", w, h);
 
 	// Resize the backing texture
-	texture->setSize(w, h);
+	m_pTexture->setSize(w, h);
 }
 
 
@@ -525,15 +522,15 @@ DesktopWindow::serverCutText(const char* str, int len) {
 void DesktopWindow::fillRect(const Rect& r, Pixel pix)
 {
 
-	texture->fillRect(r, pix);
+	m_pTexture->fillRect(r, pix);
 
 }
 void DesktopWindow::imageRect(const Rect& r, void* pixels) {
 
-	texture->imageRect(r, pixels);
+	m_pTexture->imageRect(r, pixels);
 }
 
 void DesktopWindow::copyRect(const Rect& r, int srcX, int srcY)
 {
-	texture->copyRect(r, r.tl.x - srcX, r.tl.y - srcY);
+	m_pTexture->copyRect(r, r.tl.x - srcX, r.tl.y - srcY);
 }

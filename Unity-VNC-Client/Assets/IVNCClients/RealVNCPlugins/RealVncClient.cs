@@ -78,6 +78,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
                         break;
 
                     case VNCPluginInterface.ConnectionState.BufferSizeChanged:
+                        onConnection(null, false);
                         needNewtexture = true;
                         TextureSize = new Size(
                             VNCPluginInterface.getDesktopWidth(),
@@ -183,6 +184,10 @@ public class RealVncClient : MonoBehaviour, IVncClient
         state = VNCPluginInterface.getEnumConnectionState();
         switch (state)
         {
+            case VNCPluginInterface.ConnectionState.Connected:
+                needNewtexture = false;
+                break;
+
             case VNCPluginInterface.ConnectionState.BufferSizeChanged:
                 needNewtexture = true;
                 TextureSize = new Size(
@@ -199,9 +204,12 @@ public class RealVncClient : MonoBehaviour, IVncClient
                 break;
         }
 
-
         if (needNewtexture)
+        {
+            needNewtexture = false;
             texture = pluginInterface.CreateTextureAndPassToPlugin(BufferSize);
+        }
+
 
         return texture;
     }

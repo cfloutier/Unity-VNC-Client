@@ -4,8 +4,8 @@
 #include <math.h>
 #include <vector>
 #include <windows.h>
+#include <rfb/LogWriter.h>
 
-#include "UnityLog.h"
 #include <rfb_win32/MsgBox.h>
 
 
@@ -14,6 +14,8 @@ using namespace rfb::unity;
 using namespace rfb;
 using namespace rfb::win32;
 using namespace rdr;
+
+static LogWriter vlog("VNCClient");
 
 TStr rfb::win32::AppName("UNITY VNC Client");
 
@@ -31,9 +33,10 @@ VNCClient::~VNCClient()
 	stopConnectionThread();
 }
 
+
 void VNCClient::Connect(const char * host, int port)
 {
-	UNITYLOG("Connect %s:%d", host, port);
+	vlog.debug("Connect %s:%d", host, port);
 	stopConnectionThread();
 		
 	m_ConnectionThread = new ConnectionThread();
@@ -62,7 +65,7 @@ int VNCClient::GetWidth()
 {
 	if (texture == NULL)
 	{
-		UNITYLOG("Error no texture");
+		vlog.error("Error no texture");
 		return -1;
 	}
 	return texture->width();
@@ -72,7 +75,7 @@ int VNCClient::GetHeight()
 {
 	if (texture == NULL)
 	{
-		UNITYLOG("Error no texture");
+		vlog.error("Error no texture");
 		return -1;
 	}
 	return texture->height();
@@ -87,26 +90,40 @@ void VNCClient::stopConnectionThread()
 	m_ConnectionThread = NULL;
 }
 
+void VNCClient::onTextureBuilt()
+{
+	if (m_connectionState == BufferSizeChanged)
+		setConnectionState(Connected);
+
+}
+
+
 void VNCClient::setConnectionState(ConnectionState state)
 {
 	m_connectionState = state;
 	switch (state)
 	{
 	case Iddle:
-		UNITYLOG("setConnectionState Iddle");
+		vlog.info("setConnectionState Iddle");
 		break;
 	case Connecting:
-		UNITYLOG("setConnectionState Connecting");
+		vlog.info("setConnectionState Connecting");
+		break;
+	case PasswordNeeded:
+		vlog.info("setConnectionState PasswordNeeded");
+		break;
+	case BufferSizeChanged:
+		vlog.info("setConnectionState BufferSizeChanged");
 		break;
 	case Connected:
-		UNITYLOG("setConnectionState Connected");
+		vlog.info("setConnectionState Connected");
 		stopConnectionThread();
 		break;
 	case Error:
-		UNITYLOG("setConnectionState Error");
+		vlog.info("setConnectionState Error");
 		stopConnectionThread();
 		break;
 	default:
 		break;
 	}
-}
+} 

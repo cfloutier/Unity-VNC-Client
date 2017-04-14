@@ -68,20 +68,24 @@ namespace rfb
 
 			// - Set the pixel format, size etc of the underlying PixelBuffer
 			
-			PixelFormat getPF() const { return texture->getPF(); }
+			PixelFormat getPF() const { return m_pTexture->getPF(); }
 
 			void setSize(int w, int h);
-			void setColour(int i, int r, int g, int b) { texture->setColour(i, r, g, b); }
+			void setColour(int i, int r, int g, int b) { m_pTexture->setColour(i, r, g, b); }
 
 			// - Set the local clipboard
 			void serverCutText(const char* str, int len);
+
+
+			void init(UnityTextureHandler * pTexture)
+			{
+				m_pTexture = pTexture;
+			}
 
 			// - Draw into the desktop buffer & update the window
 			void fillRect(const Rect& r, Pixel pix);
 			void imageRect(const Rect& r, void* pixels);
 			void copyRect(const Rect& r, int srcX, int srcY);
-
-			
 
 			// Clipboard::Notifier interface
 			void notifyClipboardChanged(const char* text, int len);
@@ -101,7 +105,7 @@ namespace rfb
 			// whether Ctrl and Alt are down...
 			rfb::win32::CKeyboard kbd;
 
-			UnityTextureHandler * texture;
+			
 
 			
 
@@ -110,13 +114,13 @@ namespace rfb
 			// Routines to convert between Desktop and client (window) coordinates
 			Point desktopToClient(const Point& p) {
 				Point pos = p;
-				if (client_size.width() > texture->width())
-					pos.x += (client_size.width() - texture->width()) / 2;
-				else if (client_size.width() < texture->width())
+				if (client_size.width() > m_pTexture->width())
+					pos.x += (client_size.width() - m_pTexture->width()) / 2;
+				else if (client_size.width() < m_pTexture->width())
 					pos.x -= scrolloffset.x;
-				if (client_size.height() > texture->height())
-					pos.y += (client_size.height() - texture->height()) / 2;
-				else if (client_size.height() < texture->height())
+				if (client_size.height() > m_pTexture->height())
+					pos.y += (client_size.height() - m_pTexture->height()) / 2;
+				else if (client_size.height() < m_pTexture->height())
 					pos.y -= scrolloffset.y;
 				return pos;
 			}
@@ -125,13 +129,13 @@ namespace rfb
 			}
 			Point clientToDesktop(const Point& p) {
 				Point pos = p;
-				if (client_size.width() > texture->width())
-					pos.x -= (client_size.width() - texture->width()) / 2;
-				else if (client_size.width() < texture->width())
+				if (client_size.width() > m_pTexture->width())
+					pos.x -= (client_size.width() - m_pTexture->width()) / 2;
+				else if (client_size.width() < m_pTexture->width())
 					pos.x += scrolloffset.x;
-				if (client_size.height() > texture->height())
-					pos.y -= (client_size.height() - texture->height()) / 2;
-				else if (client_size.height() < texture->height())
+				if (client_size.height() > m_pTexture->height())
+					pos.y -= (client_size.height() - m_pTexture->height()) / 2;
+				else if (client_size.height() < m_pTexture->height())
 					pos.y += scrolloffset.y;
 				return pos;
 			}
@@ -171,6 +175,8 @@ namespace rfb
 			rdr::U8 menuKey;
 
 			Callback* callback;
+
+			UnityTextureHandler * m_pTexture;
 		};
 
 	};

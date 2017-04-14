@@ -10,9 +10,11 @@
 #include "VNCClient.h"
 
 #include "UnityLog.h"
+#include <rfb/LogWriter.h>
 #include "UnityTextureHandler.h"
 
 using namespace rfb::unity;
+using namespace rfb;
 
 // --------------------------------------------------------------------------
 VNCClient * client;
@@ -26,6 +28,7 @@ static IUnityGraphics* s_Graphics = NULL;
 extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API SetTextureFromUnity(void* textureHandle)
 {
 	client->getTextureHandler()->build(textureHandle, s_CurrentAPI, s_DeviceType, s_UnityInterfaces, s_Graphics);
+	client->onTextureBuilt();
 }
 
 
@@ -46,6 +49,23 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 	OnGraphicsDeviceEvent(kUnityGfxDeviceEventInitialize);
 
 	UnityLog::Init();
+
+	LogWriter::setLogParams("VNCClient:SimpleLogger:110");
+	LogWriter::setLogParams("UnityTextureHandler:SimpleLogger:110");
+	LogWriter::setLogParams("BufferUpdate:SimpleLogger:110");
+
+
+//	LogWriter::setLogParams("VNCClient:UnityDebugLogger:110");
+//	LogWriter::setLogParams("UnityTextureHandler:UnityDebugLogger:110");
+
+	
+//	LogWriter::setLogParams("CConn:UnityDebugLogger:110");
+//	LogWriter::setLogParams("DesktopWindow:UnityDebugLogger:110");
+//	LogWriter::setLogParams("Clipboard:UnityDebugLogger:110");
+//	LogWriter::setLogParams("MsgWindow:UnityDebugLogger:110");
+//	LogWriter::setLogParams("CConnection:UnityDebugLogger:110");
+	
+	//LogWriter::setLogParams("*:UnityDebugLogger:110");
 }
 
 static void UNITY_INTERFACE_API OnRenderEvent(int eventID)

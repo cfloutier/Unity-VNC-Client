@@ -12,9 +12,6 @@ public class VNCPluginInterface
 	private static extern void RegisterPlugin();
 #endif
 
-
-
-
 #if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
 	[DllImport ("__Internal")]
 #else

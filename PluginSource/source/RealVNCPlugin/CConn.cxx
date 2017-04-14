@@ -50,7 +50,7 @@ CConn::CConn()
 	sameMachine(false), encodingChange(false), formatChange(false),
 	reverseConnection(false), lastUsedEncoding_(encodingRaw), isClosed_(false)
 {
-	
+
 }
 
 CConn::~CConn()
@@ -129,111 +129,11 @@ CConn::paintCompleted() {
 	requestNewUpdate();
 }
 
-/*
-bool
-CConn::sysCommand(WPARAM wParam, LPARAM lParam) {
-  // - If it's one of our (F8 Menu) messages
-  switch (wParam) {
-  case IDM_FULLSCREEN:
-	options.fullScreen = !window->isFullscreen();
-	window->setFullscreen(options.fullScreen);
-	return true;
-  case IDM_CTRL_KEY:
-	window->kbd.keyEvent(this, VK_CONTROL, 0, !window->kbd.keyPressed(VK_CONTROL));
-	return true;
-  case IDM_ALT_KEY:
-	window->kbd.keyEvent(this, VK_MENU, 0, !window->kbd.keyPressed(VK_MENU));
-	return true;
-  case IDM_SEND_MENU_KEY:
-	window->kbd.keyEvent(this, options.menuKey, 0, true);
-	window->kbd.keyEvent(this, options.menuKey, 0, false);
-	return true;
-  case IDM_SEND_CAD:
-	window->kbd.keyEvent(this, VK_CONTROL, 0, true);
-	window->kbd.keyEvent(this, VK_MENU, 0, true);
-	window->kbd.keyEvent(this, VK_DELETE, 0x1000000, true);
-	window->kbd.keyEvent(this, VK_DELETE, 0x1000000, false);
-	window->kbd.keyEvent(this, VK_MENU, 0, false);
-	window->kbd.keyEvent(this, VK_CONTROL, 0, false);
-	return true;
-  case IDM_REQUEST_REFRESH:
-	try {
-	  writer()->writeFramebufferUpdateRequest(Rect(0,0,cp.width,cp.height), false);
-	  requestUpdate = false;
-	} catch (rdr::Exception& e) {
-	  close(e.str());
-	}
-	return true;
-  case IDM_NEWCONN:
-	{
-	  Thread* newThread = new CConnThread;
-	}
-	return true;
-  case IDM_OPTIONS:
-	// Update the monitor device name in the CConnOptions instance
-	options.monitor.replaceBuf(window->getMonitor());
-	showOptionsDialog();
-	return true;
-  case IDM_INFO:
-	infoDialog.showDialog(this);
-	return true;
-  case IDM_ABOUT:
-	AboutDialog::instance.showDialog();
-	return true;
-  };
-  return false;
-}
-*/
-
 void
 CConn::closeWindow() {
 	vlog.info("window closed");
 	close();
 }
-
-void
-CConn::blockCallback() {
-	// - An InStream has blocked on I/O while processing an RFB message
-	//   We re-enable socket event notifications, so we'll know when more
-	//   data is available, then we sit and dispatch window events until
-	//   the notification arrives.
-	if (!isClosed()) {
-		if (WSAEventSelect(sock->getFd(), sockEvent, FD_READ | FD_CLOSE) == SOCKET_ERROR)
-			throw rdr::SystemException("Unable to wait for sokcet data", WSAGetLastError());
-	}
-	while (true) {
-		// If we have closed then we can't block waiting for data
-		if (isClosed())
-			throw rdr::EndOfStream();
-
-		// Wait for socket data, or a message to process
-		DWORD result = MsgWaitForMultipleObjects(1, &sockEvent, FALSE, INFINITE, QS_ALLINPUT);
-		if (result == WAIT_OBJECT_0) {
-			// - Network event notification.  Return control to I/O routine.
-			break;
-		}
-		else if (result == WAIT_FAILED) {
-			// - The wait operation failed - raise an exception
-			throw rdr::SystemException("blockCallback wait error", GetLastError());
-		}
-
-		// - There should be a message in the message queue
-		MSG msg;
-		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-			// IMPORTANT: We mustn't call TranslateMessage() here, because instead we
-			// call ToAscii() in CKeyboard::keyEvent().  ToAscii() stores dead key
-			// state from one call to the next, which would be messed up by calls to
-			// TranslateMessage() (actually it looks like TranslateMessage() calls
-			// ToAscii() internally).
-			DispatchMessage(&msg);
-		}
-	}
-
-	// Before we return control to the InStream, reset the network event
-	WSAEventSelect(sock->getFd(), sockEvent, 0);
-	ResetEvent(sockEvent);
-}
-
 
 void CConn::keyEvent(rdr::U32 key, bool down) {
 	if (!options.sendKeyEvents) return;
@@ -286,15 +186,13 @@ CConn::setColourMapEntries(int first, int count, U16* rgbs) {
 		m_pDesktopWindow->setColour(i + first, rgbs[i * 3], rgbs[i * 3 + 1], rgbs[i * 3 + 2]);
 }
 
-void
-CConn::bell() {
+void CConn::bell() {
 	if (options.acceptBell)
 		MessageBeep(-1);
 }
 
 
-void
-CConn::setDesktopSize(int w, int h) 
+void CConn::setDesktopSize(int w, int h)
 {
 	vlog.debug("setDesktopSize %dx%d", w, h);
 
@@ -310,8 +208,7 @@ CConn::setDesktopSize(int w, int h)
 }
 
 
-void
-CConn::close(const char* reason) {
+void CConn::close(const char* reason) {
 	// If already closed then ignore this
 	if (isClosed())
 		return;
@@ -322,12 +219,8 @@ CConn::close(const char* reason) {
 	sock->shutdown();
 }
 
-void
-CConn::framebufferUpdateEnd()
+void CConn::framebufferUpdateEnd()
 {
-	
-
-
 	if (options.autoSelect)
 		autoSelectFormatAndEncoding();
 
@@ -335,7 +228,7 @@ CConn::framebufferUpdateEnd()
 	requestUpdate = true;
 
 	// Check that at least part of the window has changed
-	requestNewUpdate();	
+	requestNewUpdate();
 }
 
 
@@ -345,8 +238,8 @@ CConn::framebufferUpdateEnd()
 //   Above 3Mbps, switch to hextile
 //   Below 1.5Mbps, switch to ZRLE
 //   Above 1Mbps, switch to full colour mode
-void
-CConn::autoSelectFormatAndEncoding() {
+void CConn::autoSelectFormatAndEncoding()
+{
 	int kbitsPerSecond = sock->inStream().kbitsPerSecond();
 	unsigned int newEncoding = options.preferredEncoding;
 
@@ -378,8 +271,8 @@ CConn::autoSelectFormatAndEncoding() {
 	}
 }
 
-void
-CConn::requestNewUpdate() {
+void CConn::requestNewUpdate()
+{
 	if (!requestUpdate) return;
 
 	if (formatChange)
@@ -406,8 +299,7 @@ CConn::requestNewUpdate() {
 }
 
 
-void
-CConn::calculateFullColourPF() {
+void CConn::calculateFullColourPF() {
 	// If the server is palette based then use palette locally
 	// Also, don't bother doing bgr222
 	if (!serverDefaultPF.trueColour || (serverDefaultPF.depth < 6)) {
@@ -429,11 +321,10 @@ CConn::calculateFullColourPF() {
 
 
 void
-CConn::setName(const char* name) 
+CConn::setName(const char* name)
 {
 	CConnection::setName(name);
 }
-
 
 void CConn::serverInit()
 {
@@ -441,6 +332,7 @@ void CConn::serverInit()
 
 	// Show the window
 	m_pDesktopWindow = new DesktopWindow(this);
+	m_pDesktopWindow->init(m_pClient->texture);
 	m_pDesktopWindow->setSize(cp.width, cp.height);
 	applyOptions(options);
 
@@ -454,6 +346,8 @@ void CConn::serverInit()
 	vlog.info("requesting initial update");
 	formatChange = encodingChange = requestUpdate = true;
 	requestNewUpdate();
+
+	m_pClient->setConnectionState(Connected);
 }
 
 void

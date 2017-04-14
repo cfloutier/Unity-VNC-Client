@@ -6,7 +6,6 @@
 #include "windows.h"
 #include <rfb/LogWriter.h>
 
-
 using namespace rfb::unity;
 using namespace rfb;
 
@@ -17,7 +16,8 @@ UnityTextureHandler::UnityTextureHandler()
 	m_width = m_height = 512;
 	tempBuffer = NULL;
 	m_ready = false;
-	InitializeCriticalSection(&CriticalSection);
+	
+	InitializeCriticalSection(&CriticalSectionTempBuffer);
 }
 
 UnityTextureHandler::~UnityTextureHandler()
@@ -27,7 +27,7 @@ UnityTextureHandler::~UnityTextureHandler()
 	while (threadIsRunning)
 		Sleep(5);
 
-	DeleteCriticalSection(&CriticalSection);
+	DeleteCriticalSection(&CriticalSectionTempBuffer);
 
 	if (tempBuffer != NULL) delete[] tempBuffer;
 }
@@ -38,15 +38,9 @@ void UnityTextureHandler::run()
 	threadIsRunning = true;
 	while (!exitThread)
 	{
-		EnterCriticalSection(&CriticalSection);
-
-		Sinuses();
-
-		LeaveCriticalSection(&CriticalSection);
-
+		RandomSquare(256);
 		Sleep(5);
 	}
-
 
 	vlog.debug("End Rendering Thread");
 
@@ -69,19 +63,40 @@ void UnityTextureHandler::build(void * handle,
 	void * t = startModify();
 	endModify(t);
 
-	if (tempBuffer != NULL) delete[] tempBuffer;
+	EnterCriticalSection(&CriticalSectionTempBuffer);
+
+	if (tempBuffer != NULL) 
+		delete[] tempBuffer;
+
 	bufferSize = textureRowPitch*m_height;
 	tempBuffer = new unsigned char[bufferSize];
+	
+	LeaveCriticalSection(&CriticalSectionTempBuffer);
 
+	vlog.debug("Build texture, size is %dx%d", m_width, m_height);
+	vlog.debug("Build texture, buffer size is %d", bufferSize);
+	vlog.debug("Build texture, tempBuffer is 0x%X", tempBuffer);
 	// start the main Thread
 	//start();
 
 	m_ready = true;
 }
 
+void UnityTextureHandler::setSize(int width, int height)
+{
+	vlog.debug("setSize %dx%d", width, height);
+
+	m_width = width;
+	m_height = height;
+
+	m_ready = false;
+}
+
+
 float g_startTime = -1;
 void UnityTextureHandler::Sinuses()
 {
+	EnterCriticalSection(&CriticalSectionTempBuffer);
 	float g_Time = (float)GetTickCount() / 1000;
 	if (g_startTime == -1)
 		g_startTime = g_Time;
@@ -115,10 +130,12 @@ void UnityTextureHandler::Sinuses()
 		// To next image row
 		dst += textureRowPitch;
 	}
-}
 
+	LeaveCriticalSection(&CriticalSectionTempBuffer);
+}
 void UnityTextureHandler::Noise()
 {
+	EnterCriticalSection(&CriticalSectionTempBuffer);
 	unsigned char* dst = tempBuffer;
 
 	for (int y = 0; y < m_height; ++y)
@@ -139,6 +156,23 @@ void UnityTextureHandler::Noise()
 		// To next image row
 		dst += textureRowPitch;
 	}
+
+	LeaveCriticalSection(&CriticalSectionTempBuffer);
+}
+
+void UnityTextureHandler::RandomSquare(int sizeSqr)
+{
+	EnterCriticalSection(&CriticalSectionTempBuffer);
+	unsigned char* dst = tempBuffer;
+
+	int xPos = rand() % (m_width - sizeSqr);
+	int ypos = rand() % (m_height - sizeSqr);
+
+	Rect rc(xPos, ypos, xPos+sizeSqr, ypos +sizeSqr);
+
+	BufferUpdate::FillRect(rc, rand(), tempBuffer, textureRowPitch);
+
+	LeaveCriticalSection(&CriticalSectionTempBuffer);
 }
 
 void* UnityTextureHandler::startModify()
@@ -154,15 +188,14 @@ void* UnityTextureHandler::startModify()
 	if (!textureDataPtr)
 		return NULL;
 
-	EnterCriticalSection(&CriticalSection);
+	EnterCriticalSection(&CriticalSectionTempBuffer);
 	return textureDataPtr;
 }
-
 
 void UnityTextureHandler::endModify(void * textureDataPtr)
 {
 	m_CurrentAPI->EndModifyTexture(m_TextureHandle, m_width, m_height, textureRowPitch, textureDataPtr);
-	LeaveCriticalSection(&CriticalSection);
+	LeaveCriticalSection(&CriticalSectionTempBuffer);
 }
 
 // the whole buffer is copied for each update
@@ -175,7 +208,8 @@ void UnityTextureHandler::Update()
 	void * textureDataPtr = startModify();
 	if (textureDataPtr == NULL)
 		return;
-	applyPendingUpdate();
+
+	//applyPendingUpdate();
 	memcpy(textureDataPtr, tempBuffer, bufferSize);
 
 	endModify(textureDataPtr);
@@ -183,23 +217,13 @@ void UnityTextureHandler::Update()
 
 void UnityTextureHandler::setColour(int i, int r, int g, int b)
 {
-	vlog.debug("Shoudl not happens today (indexed colors ???)");
+	vlog.debug("Should not happens today (indexed colors ???)");
 }
-
-void UnityTextureHandler::setSize(int width, int height)
-{
-	m_width = width;
-	m_height = height;
-
-	m_ready = false;
-}
-
 
 void UnityTextureHandler::invalidateRect(const Rect& r)
 {
 	vlog.debug("TODO : invalidateRect ");
 }
-
 
 void UnityTextureHandler::applyPendingUpdate()
 {
@@ -213,9 +237,11 @@ void UnityTextureHandler::applyPendingUpdate()
 
 void UnityTextureHandler::ApplyBufferUpdate(BufferUpdate  * pUpdate)
 {
+	EnterCriticalSection(&CriticalSectionTempBuffer);
+	
 	pUpdate->apply(tempBuffer, textureRowPitch);
+	LeaveCriticalSection(&CriticalSectionTempBuffer);
 }
-
 
 void UnityTextureHandler::addUpdate(BufferUpdate * pUpdate)
 {
@@ -237,7 +263,7 @@ void UnityTextureHandler::fillRect(const Rect& r, Pixel pix)
 
 void UnityTextureHandler::imageRect(const Rect& r, void* pixels)
 {
-	addUpdate(new BufferUpdate(r, pixels));
+	addUpdate(new BufferUpdate(r, (U8 *) pixels));
 }
 
 void UnityTextureHandler::copyRect(const Rect& r, int srcX, int srcY)

@@ -38,7 +38,6 @@ void ConnectionThread::run()
 	try 
 	{
 		newSocket = new network::TcpSocket(m_host, m_port);
-		m_client->setConnectionState(Connected);
 	}
 	catch (rdr::Exception& e) 
 	{
@@ -48,7 +47,7 @@ void ConnectionThread::run()
 	}
 
 	// Run the RFB protocol over the connected socket
-	conn.initialise(newSocket, false);
+	conn.initialise(newSocket, m_client, false);
 	while (!conn.isClosed()) {
 		try {
 			conn.getInStream()->check(1, 1);

@@ -114,7 +114,10 @@ namespace rfb {
 			void copyRect(const Rect& r, int srcX, int srcY);
 
 			// rdr::FdInStreamBlockCallback interface
-			void blockCallback();
+			void blockCallback()
+			{
+
+			}
 
 			// UserPasswdGetter interface
 			// (overridden to allow a pre-supplied username & password)

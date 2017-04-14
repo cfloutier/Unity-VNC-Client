@@ -24,6 +24,11 @@ void UnityLog::Log(const char * format, ...)
 	va_list args;
 	va_start(args, format);
 	vsnprintf(logString, 1024, format, args);
+
+	OutputDebugString(logString);
+	OutputDebugString("\n");
+
+
 	// Request ownership of the critical section.
 	EnterCriticalSection(&CriticalSection);
 
@@ -57,11 +62,14 @@ extern "C" bool UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API GetDebugLog(void* log
 // --------------------------------------------------------------------------
 // UnitySetInterfaces
 
-static UnityDebugLogger logger;
+static UnityDebugLogger uLogger;
+static SimpleLogger debuglogger;
 
 void UnityLog::Init()
 {
-	logger.registerLogger();
+	uLogger.registerLogger();
+	debuglogger.registerLogger();
+
 	InitializeCriticalSection(&CriticalSection);
 }
 
@@ -81,8 +89,36 @@ UnityDebugLogger::UnityDebugLogger() : Logger("UnityDebugLogger")
 
 }
 
+
+
 void UnityDebugLogger::write(int level, const char *logname, const char *message)
 {
-	UnityLog::Log("%d [%s] %s", level, logname, message);
+	const char * profile;
+	if (level == 0) profile = "Error";
+	else if (level <= 10) profile = "Status";
+	else if (level <= 30) profile = "Info";
+	else profile = "Debug";
+
+	UnityLog::Log("[%s](%s): %s\n", logname, profile, message);
+}
+
+SimpleLogger::SimpleLogger() : Logger("SimpleLogger")
+{
+
+}
+
+void SimpleLogger::write(int level, const char *logname, const char *message)
+{
+	const char * profile;
+	if (level == 0) profile = "Error";
+	else if (level <= 10) profile = "Status";
+	else if (level <= 30) profile = "Info";
+	else profile = "Debug";
+
+	char line[1024];
+
+	sprintf(line, "[%s](%s): %s\n", logname, profile , message);
+
+	OutputDebugString(line);
 }
 
