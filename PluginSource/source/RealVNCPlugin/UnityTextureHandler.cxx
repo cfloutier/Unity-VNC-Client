@@ -16,7 +16,20 @@ UnityTextureHandler::UnityTextureHandler()
 	m_width = m_height = 512;
 	tempBuffer = NULL;
 	m_ready = false;
-	
+
+	m_pixelFormat.bpp = 32;
+	m_pixelFormat.depth = 32;
+	m_pixelFormat.bigEndian = false;
+	m_pixelFormat.trueColour = true;
+	m_pixelFormat.redMax = 255;
+	m_pixelFormat.greenMax = 255;
+	m_pixelFormat.blueMax = 255;
+	m_pixelFormat.redShift = 16;
+	m_pixelFormat.greenShift = 8;
+	m_pixelFormat.blueShift = 0;
+
+
+		
 	InitializeCriticalSection(&CriticalSectionTempBuffer);
 }
 
@@ -65,12 +78,12 @@ void UnityTextureHandler::build(void * handle,
 
 	EnterCriticalSection(&CriticalSectionTempBuffer);
 
-	if (tempBuffer != NULL) 
+	if (tempBuffer != NULL)
 		delete[] tempBuffer;
 
 	bufferSize = textureRowPitch*m_height;
 	tempBuffer = new unsigned char[bufferSize];
-	
+
 	LeaveCriticalSection(&CriticalSectionTempBuffer);
 
 	vlog.debug("Build texture, size is %dx%d", m_width, m_height);
@@ -168,7 +181,7 @@ void UnityTextureHandler::RandomSquare(int sizeSqr)
 	int xPos = rand() % (m_width - sizeSqr);
 	int ypos = rand() % (m_height - sizeSqr);
 
-	Rect rc(xPos, ypos, xPos+sizeSqr, ypos +sizeSqr);
+	Rect rc(xPos, ypos, xPos + sizeSqr, ypos + sizeSqr);
 
 	BufferUpdate::FillRect(rc, rand(), tempBuffer, textureRowPitch);
 
@@ -238,7 +251,7 @@ void UnityTextureHandler::applyPendingUpdate()
 void UnityTextureHandler::ApplyBufferUpdate(BufferUpdate  * pUpdate)
 {
 	EnterCriticalSection(&CriticalSectionTempBuffer);
-	
+
 	pUpdate->apply(tempBuffer, textureRowPitch);
 	LeaveCriticalSection(&CriticalSectionTempBuffer);
 }
@@ -247,6 +260,12 @@ void UnityTextureHandler::addUpdate(BufferUpdate * pUpdate)
 {
 	if (!m_ready)
 	{
+		if (pendingUpdateList.size() >= 4096)
+		{
+			delete pendingUpdateList.back();
+			pendingUpdateList.pop_back();
+		}
+
 		pendingUpdateList.push_back(pUpdate);
 	}
 	else
@@ -263,7 +282,7 @@ void UnityTextureHandler::fillRect(const Rect& r, Pixel pix)
 
 void UnityTextureHandler::imageRect(const Rect& r, void* pixels)
 {
-	addUpdate(new BufferUpdate(r, (U8 *) pixels));
+	addUpdate(new BufferUpdate(r, (U8 *)pixels));
 }
 
 void UnityTextureHandler::copyRect(const Rect& r, int srcX, int srcY)

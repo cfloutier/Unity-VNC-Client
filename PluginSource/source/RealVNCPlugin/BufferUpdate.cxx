@@ -43,12 +43,12 @@ BufferUpdate::~BufferUpdate()
 
 U8* getPixels(const Rect& r, U8 * buffer, int stride, int bytesPerPixel)
 {
-	return &buffer[(r.tl.x* bytesPerPixel + (r.tl.y *stride)) ];
+	return &buffer[r.tl.x* bytesPerPixel + r.tl.y *stride];
 }
 
 void BufferUpdate::FillRect(const Rect& r, Pixel pix, U8 * buffer, int stride)
 {
-	vlog.debug("fillRect__ %dx%d [%d,%d]", r.tl.x, r.tl.y, r.width(), r.height());
+	//vlog.debug("fillRect__ %dx%d [%d,%d]", r.tl.x, r.tl.y, r.width(), r.height());
 	int bytesPerPixel = 4;
 	U8* start = getPixels(r, buffer, stride, bytesPerPixel);
 	int bytesPerRow = stride;
@@ -87,16 +87,19 @@ void BufferUpdate::CopyRect(const Rect &rect, const Point &move_by_delta, U8 * b
 {
 	unsigned int bytesPerPixel = 4;
 	
-	U8* data = getPixels(rect, buffer, stride, bytesPerPixel);
+	
+
 	// We assume that the specified rectangle is pre-clipped to the buffer
 	unsigned int bytesPerRow, bytesPerMemCpy;
 	Rect srect = rect.translate(move_by_delta.negate());
 	
 	bytesPerRow = stride;
-	bytesPerMemCpy = rect.width() * bytesPerPixel;
+	bytesPerMemCpy = rect.width() *bytesPerPixel ;
+	getPixels(rect, buffer, stride, bytesPerPixel);
 	if (move_by_delta.y <= 0) {
-		U8* dest = data + rect.tl.x*bytesPerPixel + rect.tl.y*bytesPerRow;
-		U8* src = data + srect.tl.x*bytesPerPixel + srect.tl.y*bytesPerRow;
+		U8* dest = &buffer[rect.tl.x* bytesPerPixel + rect.tl.y *stride];   
+		U8* src = &buffer[srect.tl.x* bytesPerPixel + srect.tl.y *stride];    
+		
 		for (int i = rect.tl.y; i<rect.br.y; i++) {
 			memmove(dest, src, bytesPerMemCpy);
 			dest += bytesPerRow;
@@ -104,8 +107,8 @@ void BufferUpdate::CopyRect(const Rect &rect, const Point &move_by_delta, U8 * b
 		}
 	}
 	else {
-		U8* dest = data + rect.tl.x*bytesPerPixel + (rect.br.y - 1)*bytesPerRow;
-		U8* src = data + srect.tl.x*bytesPerPixel + (srect.br.y - 1)*bytesPerRow;
+		U8* dest = &buffer[rect.tl.x* bytesPerPixel + (rect.br.y - 1) *stride];
+		U8* src = &buffer[srect.tl.x* bytesPerPixel + (srect.br.y - 1) *stride];  
 		for (int i = rect.tl.y; i<rect.br.y; i++) {
 			memmove(dest, src, bytesPerMemCpy);
 			dest -= bytesPerRow;
@@ -121,8 +124,6 @@ void BufferUpdate::ImageRect(const Rect& r, const void* pixels, U8 * buffer, int
 
 	int bytesPerDestRow = destStride;
 
-
-	
 	int bytesPerSrcRow = bytesPerPixel *  r.width();
 
 	int bytesPerFill = bytesPerPixel * r.width();
@@ -143,7 +144,7 @@ void BufferUpdate::apply(U8 * buffer, int stride)
 		FillRect(m_destRc, m_pix, buffer, stride);
 		break;
 	case rfb::unity::BufferUpdate::copyRect:
-	//	copyRect__(m_destRc, m_src, buffer, stride);
+		CopyRect(m_destRc, m_src, buffer, stride);
 		break;
 	case rfb::unity::BufferUpdate::imageRect:
 		ImageRect(m_destRc, m_pixels, buffer, stride);

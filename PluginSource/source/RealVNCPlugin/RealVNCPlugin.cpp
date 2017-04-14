@@ -53,7 +53,7 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 	LogWriter::setLogParams("VNCClient:SimpleLogger:110");
 	LogWriter::setLogParams("UnityTextureHandler:SimpleLogger:110");
 	LogWriter::setLogParams("BufferUpdate:SimpleLogger:110");
-
+	LogWriter::setLogParams("CConn:SimpleLogger:110");
 
 //	LogWriter::setLogParams("VNCClient:UnityDebugLogger:110");
 //	LogWriter::setLogParams("UnityTextureHandler:UnityDebugLogger:110");

@@ -30,8 +30,10 @@ ConnParams::ConnParams()
     supportsLocalCursor(false), supportsDesktopResize(true),
     name_(0), nEncodings_(0), encodings_(0),
     currentEncoding_(encodingRaw), verStrPos(0)
+	
 {
-  setName("");
+	
+		setName("");
 }
 
 ConnParams::~ConnParams()

@@ -475,7 +475,7 @@ DesktopWindow::setSize(int w, int h)
 PixelFormat
 DesktopWindow::getNativePF() const
 {
-	PixelFormat pf(32, 32, 8, 8, 8, 0, 8, 16);
+	PixelFormat pf(32, 32, 255, 255, 255, 0, 8, 16);
 	pf.trueColour = true;
 	return pf;
 }
