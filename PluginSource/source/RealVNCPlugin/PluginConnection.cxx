@@ -21,8 +21,6 @@
 
 #include "PluginConnection.h"
 #include "ConnectionThread.h"
-#include "DesktopWindow.h"
-
 
 #include <rfb/encodings.h>
 #include <rfb/secTypes.h>
@@ -46,7 +44,7 @@ static LogWriter vlog("CConn");
 
 
 PluginConnection::PluginConnection()
-	: m_pDesktopWindow(0), sock(0), sockEvent(CreateEvent(0, TRUE, FALSE, 0)), requestUpdate(false),
+	: sock(0), sockEvent(CreateEvent(0, TRUE, FALSE, 0)), requestUpdate(false),
 	sameMachine(false), encodingChange(false), formatChange(false),
 	reverseConnection(false), lastUsedEncoding_(encodingRaw), isClosed_(false)
 {
@@ -55,8 +53,7 @@ PluginConnection::PluginConnection()
 
 PluginConnection::~PluginConnection()
 {
-	if (m_pDesktopWindow != NULL)
-		delete m_pDesktopWindow;
+	
 }
 
 bool PluginConnection::initialise(network::Socket* s, VNCClient * pClient, bool reverse)
@@ -181,9 +178,7 @@ CSecurity* PluginConnection::getCSecurity(int secType)
 void
 PluginConnection::setColourMapEntries(int first, int count, U16* rgbs) {
 	vlog.debug("setColourMapEntries: first=%d, count=%d", first, count);
-	int i;
-	for (i = 0; i < count; i++)
-		m_pDesktopWindow->setColour(i + first, rgbs[i * 3], rgbs[i * 3 + 1], rgbs[i * 3 + 2]);
+	
 }
 
 void PluginConnection::bell() {
@@ -197,11 +192,8 @@ void PluginConnection::setDesktopSize(int w, int h)
 	vlog.debug("setDesktopSize %dx%d", w, h);
 
 	// Resize the window's buffer
-	if (m_pDesktopWindow)
-		m_pDesktopWindow->setSize(w, h);
-
 	if (m_pClient)
-		m_pClient->setConnectionState(BufferSizeChanged);
+		m_pClient->setSize(w, h);
 
 	// Tell the underlying CConnection
 	CConnection::setDesktopSize(w, h);
@@ -280,11 +272,11 @@ void PluginConnection::requestNewUpdate()
 	{
 		// Print the current pixel format
 		char str[256];
-		m_pDesktopWindow->getPF().print(str, 256);
+		m_pClient->m_pTexture->getPF().print(str, 256);
 		vlog.info("Using pixel format %s", str);
 
 		// Save the connection pixel format and tell server to use it
-		cp.setPF(m_pDesktopWindow->getPF());
+		cp.setPF(m_pClient->m_pTexture->getPF());
 		writer()->writeSetPixelFormat(cp.pf());
 	}
 
@@ -309,13 +301,15 @@ void PluginConnection::calculateFullColourPF() {
 	}
 	else {
 		// If server is trueColour, use lowest depth PF
-		PixelFormat native = m_pDesktopWindow->getNativePF();
+		PixelFormat native = m_pClient->m_pTexture->getNativePF();
+
+
 		if ((serverDefaultPF.bpp < native.bpp) ||
 			((serverDefaultPF.bpp == native.bpp) &&
 			(serverDefaultPF.depth < native.depth)))
 			fullColourPF = serverDefaultPF;
 		else
-			fullColourPF = m_pDesktopWindow->getNativePF();
+			fullColourPF = m_pClient->m_pTexture->getNativePF();
 	}
 	formatChange = true;
 }
@@ -331,10 +325,8 @@ void PluginConnection::serverInit()
 {
 	CConnection::serverInit();
 
-	// Show the window
-	m_pDesktopWindow = new DesktopWindow(this);
-	m_pDesktopWindow->init(m_pClient->m_pTexture);
-	m_pDesktopWindow->setSize(cp.width, cp.height);
+	
+	m_pClient->setSize(cp.width, cp.height);
 
 	options.fullColour = true;
 	options.sendPtrEvents = true;
@@ -358,7 +350,7 @@ void PluginConnection::serverInit()
 void
 PluginConnection::serverCutText(const char* str, int len) {
 	if (!options.serverCutText) return;
-	m_pDesktopWindow->serverCutText(str, len);
+	m_pClient->serverCutText(str, len);
 }
 
 
@@ -375,13 +367,13 @@ void PluginConnection::endRect(const Rect& r, unsigned int encoding)
 }
 
 void PluginConnection::fillRect(const Rect& r, Pixel pix) {
-	m_pDesktopWindow->fillRect(r, pix);
+	m_pClient->m_pTexture->fillRect(r, pix);
 }
 void PluginConnection::imageRect(const Rect& r, void* pixels) {
-	m_pDesktopWindow->imageRect(r, pixels);
+	m_pClient->m_pTexture->imageRect(r, pixels);
 }
 void PluginConnection::copyRect(const Rect& r, int srcX, int srcY) {
-	m_pDesktopWindow->copyRect(r, srcX, srcY);
+	m_pClient->m_pTexture->copyRect(r, srcX, srcY);
 }
 
 void PluginConnection::getUserPasswd(char** user, char** password)

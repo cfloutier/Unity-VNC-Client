@@ -44,6 +44,9 @@ namespace rfb
 
 			void Update();
 
+			void setSize(int x, int y);
+			void serverCutText(const char* str, int len);
+
 		protected:
 			// for mouse positions
 			int lastMask = -1;

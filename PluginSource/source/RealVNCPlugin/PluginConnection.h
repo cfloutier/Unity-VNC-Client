@@ -24,7 +24,7 @@
 #define __RFB_WIN32_CCONN_H__
 
 #include <network/Socket.h>
-#include "DesktopWindow.h"
+
 #include <rfb_win32/Handle.h>
 
 #include <rfb/CConnection.h>
@@ -44,7 +44,6 @@ namespace rfb {
 
 		class PluginConnection : public CConnection,
 			UserPasswdGetter,
-			DesktopWindow::Callback,
 			rdr::FdInStreamBlockCallback
 		{
 		public:
@@ -71,17 +70,14 @@ namespace rfb {
 			int lastUsedEncoding() const { return lastUsedEncoding_; }
 
 			// - Get at the DesktopWindow, if any
-			DesktopWindow* getWindow() { return m_pDesktopWindow; }
 			VNCClient* getVncClient() { return m_pClient; }
-
 
 			// - Get at the underlying Socket
 			network::Socket* getSocket() { return sock; }
 
 			// - Get the server's preferred format
 			const PixelFormat& getServerDefaultPF() const { return serverDefaultPF; }
-
-		
+	
 			// InputHandler interface (via DesktopWindow::Callback)
 			void keyEvent(rdr::U32 key, bool down);
 			void pointerEvent(const Point& pos, int buttonMask);
@@ -129,7 +125,7 @@ namespace rfb {
 			void calculateFullColourPF();
 
 			// The desktop window
-			DesktopWindow* m_pDesktopWindow;
+			
 			VNCClient * m_pClient;
 			network::Socket* sock;
 			HANDLE sockEvent;

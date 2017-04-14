@@ -91,8 +91,8 @@ void BufferUpdate::CopyRect(const Rect &rect, const Point &move_by_delta, U8 * b
 	Rect srect = rect.translate(move_by_delta.negate());
 	
 	bytesPerRow = stride;
-	bytesPerMemCpy = rect.width() *bytesPerPixel ;
-	getPixels(rect, buffer, stride, bytesPerPixel);
+	bytesPerMemCpy = rect.width() * bytesPerPixel;
+	
 	if (move_by_delta.y <= 0) {
 		U8* dest = &buffer[rect.tl.x* bytesPerPixel + rect.tl.y *stride];   
 		U8* src = &buffer[srect.tl.x* bytesPerPixel + srect.tl.y *stride];    

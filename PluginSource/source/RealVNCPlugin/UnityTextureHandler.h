@@ -50,6 +50,10 @@ namespace rfb
 			}
 
 
+			// - Determine the native pixel format of the window
+
+			PixelFormat getNativePF() const;
+
 		protected:
 			void addUpdate(BufferUpdate * pBuf);
 			void ApplyBufferUpdate(BufferUpdate * pBuf);

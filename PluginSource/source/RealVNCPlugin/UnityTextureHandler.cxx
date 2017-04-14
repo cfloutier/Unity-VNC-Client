@@ -45,6 +45,8 @@ UnityTextureHandler::~UnityTextureHandler()
 	if (tempBuffer != NULL) delete[] tempBuffer;
 }
 
+
+
 void UnityTextureHandler::run()
 {
 	vlog.debug("Start Rendering Thread");
@@ -287,6 +289,13 @@ void UnityTextureHandler::imageRect(const Rect& r, void* pixels)
 
 void UnityTextureHandler::copyRect(const Rect& r, int srcX, int srcY)
 {
-	addUpdate(new BufferUpdate(r, srcX, srcY));
+	addUpdate(new BufferUpdate(r, r.tl.x - srcX, r.tl.y - srcY));
 }
 
+
+PixelFormat UnityTextureHandler::getNativePF() const
+{
+	PixelFormat pf(32, 32, 255, 255, 255, 0, 8, 16);
+	pf.trueColour = true;
+	return pf;
+}

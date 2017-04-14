@@ -161,3 +161,22 @@ void VNCClient::MouseEvent(int x, int y, bool bt0, bool bt1, bool bt2)
 	}
 
 }
+
+void VNCClient::setSize(int x, int y)
+{
+	if (m_pTexture)
+	{
+		m_pTexture->setSize(x, y);
+		setConnectionState(BufferSizeChanged);
+	}
+}
+
+
+void VNCClient::serverCutText(const char* str, int len)
+{
+	vlog.error("Todo :serverCutText ");
+/*	CharArray t(len + 1);
+	memcpy(t.buf, str, len);
+	t.buf[len] = 0;
+	clipboard.setClipText(t.buf);*/
+}

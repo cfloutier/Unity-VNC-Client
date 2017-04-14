@@ -27,7 +27,6 @@
       <Filter>UnityPlugin\GLEW</Filter>
     </ClCompile>
     <ClCompile Include="ConnOptions.cxx" />
-    <ClCompile Include="DesktopWindow.cxx" />
     <ClCompile Include="UnityLog.cpp" />
     <ClCompile Include="BufferUpdate.cxx" />
     <ClCompile Include="PluginConnection.cxx" />
@@ -87,7 +86,6 @@
       <Filter>UnityPlugin\GLEW</Filter>
     </ClInclude>
     <ClInclude Include="ConnOptions.h" />
-    <ClInclude Include="DesktopWindow.h" />
     <ClInclude Include="UnityLog.h" />
     <ClInclude Include="BufferUpdate.h" />
     <ClInclude Include="PluginConnection.h" />
