@@ -8,7 +8,7 @@
 
 #include <rfb_win32/MsgBox.h>
 
-#include "CConn.h"
+#include "PluginConnection.h"
 
 using namespace rfb::unity;
 using namespace rfb;

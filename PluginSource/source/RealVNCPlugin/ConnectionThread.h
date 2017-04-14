@@ -8,7 +8,7 @@ namespace rfb
 	namespace unity {
 
 		class VNCClient;
-		class CConn;
+		class PluginConnection;
 		class ConnectionThread : public Thread
 		{
 		public:
@@ -27,7 +27,7 @@ namespace rfb
 			VNCClient *m_client;
 
 			friend class VNCClient;
-			CConn * m_pCurrentConnection;
+			PluginConnection * m_pCurrentConnection;
 		};
 	}
 }

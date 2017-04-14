@@ -2,7 +2,7 @@
 
 #include "VNCClient.h"
 #include <network/TcpSocket.h>
-#include "CConn.h"
+#include "PluginConnection.h"
 #include <rfb/Hostname.h>
 #include <rfb/Exception.h>
 #include <rfb/LogWriter.h>
@@ -32,7 +32,7 @@ void ConnectionThread::run()
 	if (m_client == NULL)
 		return;
 
-	CConn conn;
+	PluginConnection conn;
 	m_pCurrentConnection = &conn;
 	m_client->setConnectionState(Connecting);
 

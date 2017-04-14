@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BufferUpdate.cxx" />
-    <ClCompile Include="CConn.cxx" />
+    <ClCompile Include="PluginConnection.cxx" />
     <ClCompile Include="ConnectionThread.cxx" />
     <ClCompile Include="ConnOptions.cxx" />
     <ClCompile Include="UnityLog.cpp" />
@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BufferUpdate.h" />
-    <ClInclude Include="CConn.h" />
+    <ClInclude Include="PluginConnection.h" />
     <ClInclude Include="ConnectionThread.h" />
     <ClInclude Include="ConnOptions.h" />
     <ClInclude Include="UnityLog.h" />

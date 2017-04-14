@@ -55,13 +55,13 @@ namespace rfb
 			ConnectionState m_connectionState = Iddle;
 			ConnectionThread * m_ConnectionThread;
 			UnityTextureHandler * m_pTexture;
-			CConn *  m_pCurrentConnection;
+			PluginConnection *  m_pCurrentConnection;
 
 			rfb::win32::CPointer ptr;
 
 
 			friend class ConnectionThread;
-			friend class CConn;
+			friend class PluginConnection;
 		};
 	}
 }

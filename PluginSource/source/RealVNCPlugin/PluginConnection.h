@@ -16,7 +16,7 @@
  * USA.
  */
 
- // -=- CConn.h
+ // -=- PluginConnection.h
 
  // Windows-specific implementation of CConnection
 
@@ -42,14 +42,14 @@ namespace rfb {
 
 		class VNCClient;
 
-		class CConn : public CConnection,
+		class PluginConnection : public CConnection,
 			UserPasswdGetter,
 			DesktopWindow::Callback,
 			rdr::FdInStreamBlockCallback
 		{
 		public:
-			CConn();
-			~CConn();
+			PluginConnection();
+			~PluginConnection();
 
 			// - Start the VNC session on the supplied socket
 			//   The socket must already be connected to a host
@@ -123,7 +123,7 @@ namespace rfb {
 			// (overridden to allow a pre-supplied username & password)
 			void getUserPasswd(char** user, char** password);
 
-			// CConn-specific internal interface
+			// PluginConnection-specific internal interface
 			void autoSelectFormatAndEncoding();
 			void requestNewUpdate();
 			void calculateFullColourPF();

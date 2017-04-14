@@ -19,7 +19,7 @@
  //#include <windows.h>
 #include <winsock2.h>
 
-#include "CConn.h"
+#include "PluginConnection.h"
 #include "ConnectionThread.h"
 #include "DesktopWindow.h"
 
@@ -45,7 +45,7 @@ using namespace rfb::unity;
 static LogWriter vlog("CConn");
 
 
-CConn::CConn()
+PluginConnection::PluginConnection()
 	: m_pDesktopWindow(0), sock(0), sockEvent(CreateEvent(0, TRUE, FALSE, 0)), requestUpdate(false),
 	sameMachine(false), encodingChange(false), formatChange(false),
 	reverseConnection(false), lastUsedEncoding_(encodingRaw), isClosed_(false)
@@ -53,13 +53,13 @@ CConn::CConn()
 
 }
 
-CConn::~CConn()
+PluginConnection::~PluginConnection()
 {
 	if (m_pDesktopWindow != NULL)
 		delete m_pDesktopWindow;
 }
 
-bool CConn::initialise(network::Socket* s, VNCClient * pClient, bool reverse)
+bool PluginConnection::initialise(network::Socket* s, VNCClient * pClient, bool reverse)
 {
 	m_pClient = pClient;
 
@@ -90,7 +90,7 @@ bool CConn::initialise(network::Socket* s, VNCClient * pClient, bool reverse)
 	return true;
 }
 
-void CConn::applyOptions(ConnOptions& opt) {
+void PluginConnection::applyOptions(ConnOptions& opt) {
 	// - If any encoding-related settings have changed then we must
 	//   notify the server of the new settings
 	encodingChange |= ((options.useLocalCursor != opt.useLocalCursor) ||
@@ -118,24 +118,24 @@ void CConn::applyOptions(ConnOptions& opt) {
 
 
 void
-CConn::displayChanged() {
+PluginConnection::displayChanged() {
 	// Display format has changed - recalculate the full-colour pixel format
 	calculateFullColourPF();
 }
 
 void
-CConn::paintCompleted() {
+PluginConnection::paintCompleted() {
 	// A repaint message has just completed - request next update if necessary
 	requestNewUpdate();
 }
 
 void
-CConn::closeWindow() {
+PluginConnection::closeWindow() {
 	vlog.info("window closed");
 	close();
 }
 
-void CConn::keyEvent(rdr::U32 key, bool down) {
+void PluginConnection::keyEvent(rdr::U32 key, bool down) {
 	if (!options.sendKeyEvents) return;
 	try {
 		writer()->keyEvent(key, down);
@@ -144,7 +144,7 @@ void CConn::keyEvent(rdr::U32 key, bool down) {
 		close(e.str());
 	}
 }
-void CConn::pointerEvent(const Point& pos, int buttonMask) {
+void PluginConnection::pointerEvent(const Point& pos, int buttonMask) {
 	if (!options.sendPtrEvents) return;
 	try {
 		writer()->pointerEvent(pos, buttonMask);
@@ -153,7 +153,7 @@ void CConn::pointerEvent(const Point& pos, int buttonMask) {
 		close(e.str());
 	}
 }
-void CConn::clientCutText(const char* str, int len) {
+void PluginConnection::clientCutText(const char* str, int len) {
 	if (!options.clientCutText) return;
 	if (state() != RFBSTATE_NORMAL) return;
 	try {
@@ -165,7 +165,7 @@ void CConn::clientCutText(const char* str, int len) {
 }
 
 
-CSecurity* CConn::getCSecurity(int secType)
+CSecurity* PluginConnection::getCSecurity(int secType)
 {
 	switch (secType) {
 	case secTypeNone:
@@ -179,20 +179,20 @@ CSecurity* CConn::getCSecurity(int secType)
 
 
 void
-CConn::setColourMapEntries(int first, int count, U16* rgbs) {
+PluginConnection::setColourMapEntries(int first, int count, U16* rgbs) {
 	vlog.debug("setColourMapEntries: first=%d, count=%d", first, count);
 	int i;
 	for (i = 0; i < count; i++)
 		m_pDesktopWindow->setColour(i + first, rgbs[i * 3], rgbs[i * 3 + 1], rgbs[i * 3 + 2]);
 }
 
-void CConn::bell() {
+void PluginConnection::bell() {
 	if (options.acceptBell)
 		MessageBeep(-1);
 }
 
 
-void CConn::setDesktopSize(int w, int h)
+void PluginConnection::setDesktopSize(int w, int h)
 {
 	vlog.debug("setDesktopSize %dx%d", w, h);
 
@@ -208,7 +208,7 @@ void CConn::setDesktopSize(int w, int h)
 }
 
 
-void CConn::close(const char* reason) 
+void PluginConnection::close(const char* reason) 
 {
 	// If already closed then ignore this
 	if (isClosed())
@@ -220,7 +220,7 @@ void CConn::close(const char* reason)
 	sock->shutdown();
 }
 
-void CConn::framebufferUpdateEnd()
+void PluginConnection::framebufferUpdateEnd()
 {
 	if (options.autoSelect)
 		autoSelectFormatAndEncoding();
@@ -239,7 +239,7 @@ void CConn::framebufferUpdateEnd()
 //   Above 3Mbps, switch to hextile
 //   Below 1.5Mbps, switch to ZRLE
 //   Above 1Mbps, switch to full colour mode
-void CConn::autoSelectFormatAndEncoding()
+void PluginConnection::autoSelectFormatAndEncoding()
 {
 	int kbitsPerSecond = sock->inStream().kbitsPerSecond();
 	unsigned int newEncoding = options.preferredEncoding;
@@ -272,7 +272,7 @@ void CConn::autoSelectFormatAndEncoding()
 	}
 }
 
-void CConn::requestNewUpdate()
+void PluginConnection::requestNewUpdate()
 {
 	if (!requestUpdate) return;
 
@@ -300,7 +300,7 @@ void CConn::requestNewUpdate()
 }
 
 
-void CConn::calculateFullColourPF() {
+void PluginConnection::calculateFullColourPF() {
 	// If the server is palette based then use palette locally
 	// Also, don't bother doing bgr222
 	if (!serverDefaultPF.trueColour || (serverDefaultPF.depth < 6)) {
@@ -322,12 +322,12 @@ void CConn::calculateFullColourPF() {
 
 
 void
-CConn::setName(const char* name)
+PluginConnection::setName(const char* name)
 {
 	CConnection::setName(name);
 }
 
-void CConn::serverInit()
+void PluginConnection::serverInit()
 {
 	CConnection::serverInit();
 
@@ -356,35 +356,35 @@ void CConn::serverInit()
 }
 
 void
-CConn::serverCutText(const char* str, int len) {
+PluginConnection::serverCutText(const char* str, int len) {
 	if (!options.serverCutText) return;
 	m_pDesktopWindow->serverCutText(str, len);
 }
 
 
-void CConn::beginRect(const Rect& r, unsigned int encoding)
+void PluginConnection::beginRect(const Rect& r, unsigned int encoding)
 {
 	sock->inStream().startTiming();
 }
 
-void CConn::endRect(const Rect& r, unsigned int encoding)
+void PluginConnection::endRect(const Rect& r, unsigned int encoding)
 {
 	sock->inStream().stopTiming();
 	lastUsedEncoding_ = encoding;
 
 }
 
-void CConn::fillRect(const Rect& r, Pixel pix) {
+void PluginConnection::fillRect(const Rect& r, Pixel pix) {
 	m_pDesktopWindow->fillRect(r, pix);
 }
-void CConn::imageRect(const Rect& r, void* pixels) {
+void PluginConnection::imageRect(const Rect& r, void* pixels) {
 	m_pDesktopWindow->imageRect(r, pixels);
 }
-void CConn::copyRect(const Rect& r, int srcX, int srcY) {
+void PluginConnection::copyRect(const Rect& r, int srcX, int srcY) {
 	m_pDesktopWindow->copyRect(r, srcX, srcY);
 }
 
-void CConn::getUserPasswd(char** user, char** password)
+void PluginConnection::getUserPasswd(char** user, char** password)
 {
 	if (user && options.userName.buf)
 		*user = strDup(options.userName.buf);
