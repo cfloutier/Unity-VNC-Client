@@ -21,11 +21,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-using System.Net.Sockets;
-=======
 
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
+
 using System.Threading;
 using UnityEngine;
 using VNCScreen.Drawing;

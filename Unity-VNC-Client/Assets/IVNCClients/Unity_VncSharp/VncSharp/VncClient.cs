@@ -44,14 +44,13 @@ namespace UnityVncSharp
         byte securityType;          // The type of Security agreed upon by client/server
         EncodedRectangleFactory factory;
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/AdaptedVncSharp/Main/VncClient.cs
-=======
+
         Bitmap theBitmap;                          // Internal representation of remote image.
 
         List<IDesktopUpdater> updates = new List<IDesktopUpdater>();
 
 
->>>>>>> master:Unity-VNC-Client/Assets/IVNCClients/Unity_VncSharp/VncSharp/VncClient.cs
+
         Thread connectingThread;            // To get the connecting state
         Thread worker;                      // To request and read in-coming updates from server
 
@@ -64,10 +63,7 @@ namespace UnityVncSharp
         public event EventHandler ConnectionLost;
 
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/AdaptedVncSharp/Main/VncClient.cs
-        public delegate  void OnConnection(Exception error, bool needPassword);
-=======
->>>>>>> master:Unity-VNC-Client/Assets/IVNCClients/Unity_VncSharp/VncSharp/VncClient.cs
+
 
         /// <summary>
         /// Raised when the connection to the remote host is set or not
@@ -211,21 +207,13 @@ namespace UnityVncSharp
         /// <param name="display">The Display number (used on Unix hosts).</param>
         /// <returns>Returns True if the VNC Host requires a Password to be sent after Connect() is called, otherwise False.</returns>
         public void Connect(string host, int display)
-<<<<<<< HEAD:Assets/Unity_VncSharp/AdaptedVncSharp/Main/VncClient.cs
+
         {
             Connect(host, display, 5900);
         }
        
         public void Connect(string host, int display, int port)
         {
-=======
-        {
-            Connect(host, display, 5900);
-        }
-       
-        public void Connect(string host, int display, int port)
-        {
->>>>>>> master:Unity-VNC-Client/Assets/IVNCClients/Unity_VncSharp/VncSharp/VncClient.cs
             Connect(host, display, port, false);
         }
 
@@ -411,29 +399,18 @@ namespace UnityVncSharp
 
             rfb.Close();
             rfb = null;
-<<<<<<< HEAD:Assets/Unity_VncSharp/AdaptedVncSharp/Main/VncClient.cs
-        }
 
-        /// <summary>
-        /// An event that occurs whenever the server sends a Framebuffer Update.
-        /// </summary>
-        public event VncUpdateHandler VncUpdate;
-=======
             updates.Clear();
 
         }
->>>>>>> master:Unity-VNC-Client/Assets/IVNCClients/Unity_VncSharp/VncSharp/VncClient.cs
+
 
         private bool CheckIfThreadDone()
         {
             return done.WaitOne(0, false);
         }
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/AdaptedVncSharp/Main/VncClient.cs
 
-
-=======
->>>>>>> master:Unity-VNC-Client/Assets/IVNCClients/Unity_VncSharp/VncSharp/VncClient.cs
         private void Connection()
         {
             // Connect and determine version of server, and set client protocol version to match			
@@ -460,11 +437,9 @@ namespace UnityVncSharp
                     else
                     {
                         securityType = GetSupportedSecurityType(types);
-<<<<<<< HEAD:Assets/Unity_VncSharp/AdaptedVncSharp/Main/VncClient.cs
-                        Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
-=======
+
                         System.Diagnostics.Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
->>>>>>> master:Unity-VNC-Client/Assets/IVNCClients/Unity_VncSharp/VncSharp/VncClient.cs
+
 
                         rfb.WriteSecurityType(securityType);
 
