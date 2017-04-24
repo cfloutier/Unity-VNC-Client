@@ -72,7 +72,8 @@ public class StraightLine : MonoBehaviour
         dot1.transform.localScale = new Vector3(sizeDot, sizeDot, sizeDot);
         newMaterial.SetColor("_Color", color);
 
-        if (from == null || to == null) return;
+        if (from == null || to == null)
+            return;
 
         Vector3 pa = from.position;
         Vector3 pb = to.position;

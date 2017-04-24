@@ -46,3 +46,5 @@ PluginSource/VS2015/.vs/
 *.db
 *.opendb
 
+Unity-VNC-Client/Unity-VNC-Client.CSharp.Editor.csproj
+Unity-VNC-Client/Unity-VNC-Client.CSharp.csproj

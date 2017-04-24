@@ -14,11 +14,16 @@ public class VNC_HandControler : MonoBehaviour
     EVRButtonId rightButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
     EVRButtonId midButton = EVRButtonId.k_EButton_Grip;
 
+    bool isMainPressed()
+    {
+        return controller.GetAxis(mainButton).x > 0.9f;
+    }
+
+
+
     public Color colorHover = Color.cyan;
     public Color colorNormal = Color.yellow;
     public Color colorDown = Color.red;
-
-
 
     // Use this for initialization
     void Start ()
@@ -32,15 +37,14 @@ public class VNC_HandControler : MonoBehaviour
 
     void Awake()
     {
-        line = GetComponentInChildren<StraightLine>();
-
-        
+        line = GetComponentInChildren<StraightLine>();      
         startLine = line.from;
         endLine = line.to;
 
-
         StartCoroutine(StartUp());
     }
+
+
     StraightLine line;
     SteamVR_Controller.Device controller;
 
@@ -51,7 +55,7 @@ public class VNC_HandControler : MonoBehaviour
     IEnumerator StartUp()
     {
         hand = GetComponentInParent<Hand>();
-        Debug.AssertFormat(hand != null, "VNCHandControler shoudl be place child of a Hand");
+        Debug.AssertFormat(hand != null, "VNCHandControler should be place child of a Hand");
 
         while (hand.controller == null || hand.controller.index < 0)
         {
@@ -85,6 +89,8 @@ public class VNC_HandControler : MonoBehaviour
     RaycastHit hit = new RaycastHit();
     public float maxDistance = 2;
     Collider touchedCollider = null;
+
+
     // Update is called once per frame
     void Update ()
     {
@@ -110,8 +116,7 @@ public class VNC_HandControler : MonoBehaviour
             {
                 touchedCollider = c;
                 vnc = c.GetComponent<VNCScreen.VNCScreen>();
-            }
-          
+            }  
         }
         else
         {
@@ -150,19 +155,12 @@ public class VNC_HandControler : MonoBehaviour
             Vector3 hit_pos = hit.point;
 
             //   transform.position = hit_pos;
-            
+
             Vector2 pos = hit.collider.transform.InverseTransformPoint(hit.point);
             pos += new Vector2(0.5f, 0.5f);
             if (debugText != null)
             {
-
-
-              //  debugText.text = "pos " + pos;
-               
-          
-           
-
-
+                debugText.text = "pos " + pos;
             }
             if (down)
                 line.color = colorDown;
@@ -172,10 +170,10 @@ public class VNC_HandControler : MonoBehaviour
             vnc.UpdateMouse(pos, down, controller.GetPress(rightButton), controller.GetPress(midButton));
         }
         else
-            line.color = colorNormal;  
-
-
-
+        {
+            debugText.text = "no VNC ";
+            line.color = colorNormal;
+        }
     }
 
     public Text debugText;
