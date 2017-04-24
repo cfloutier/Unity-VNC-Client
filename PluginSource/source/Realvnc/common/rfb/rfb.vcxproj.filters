@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{91497fda-cd73-415d-81ed-db7e40391da5}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9de3ed2c-2eab-4882-85fa-cd8f52e1b524}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Blacklist.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CConnection.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMsgHandler.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMsgReader.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMsgReaderV3.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMsgWriter.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMsgWriterV3.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComparingUpdateTracker.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnParams.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSecurityVncAuth.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="d3des.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Decoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Encoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="encodings.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HextileDecoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HextileEncoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HTTPServer.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyRemapper.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger_file.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger_stdio.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LogWriter.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Password.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelBuffer.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelFormat.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RawDecoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RawEncoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Region.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RREDecoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RREEncoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SConnection.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="secTypes.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerCore.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMsgHandler.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMsgReader.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMsgReaderV3.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMsgWriter.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SMsgWriterV3.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SSecurityFactoryStandard.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SSecurityVncAuth.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransImageGetter.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateTracker.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VNCSConnectionST.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VNCServerST.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZRLEDecoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZRLEEncoder.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Blacklist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgReaderV3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CMsgWriterV3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComparingUpdateTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSecurity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSecurityNone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSecurityVncAuth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cursor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="d3des.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Encoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="encodings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hextileConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hextileDecode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HextileDecoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hextileEncode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HextileEncoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hostname.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HTTPServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageGetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyRemapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="keysymdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger_file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger_stdio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="msgTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Password.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RawDecoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RawEncoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Region.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rreDecode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RREDecoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rreEncode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RREEncoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDesktop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="secTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMsgHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMsgReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMsgReaderV3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMsgWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SMsgWriterV3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSecurity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSecurityFactoryStandard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSecurityNone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SSecurityVncAuth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Threading.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TransImageGetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transInitTempl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transTempl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrueColourMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserPasswdGetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VNCSConnectionST.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VNCServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VNCServerST.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zrleDecode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZRLEDecoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="zrleEncode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZRLEEncoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,88 @@
+fileFormatVersion: 2
+guid: d4e6c768f4f9910458dc488cc506d95a
+timeCreated: 1489683702
+licenseType: Pro
+PluginImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+    Android:
+      enabled: 1
+      settings:
+        CPU: ARMv7
+    Any:
+      enabled: 1
+      settings:
+        Exclude Android: 0
+        Exclude Editor: 0
+        Exclude Linux: 0
+        Exclude Linux64: 0
+        Exclude LinuxUniversal: 0
+        Exclude OSXIntel: 0
+        Exclude OSXIntel64: 0
+        Exclude OSXUniversal: 0
+        Exclude WebGL: 0
+        Exclude Win: 0
+        Exclude Win64: 1
+        Exclude WindowsStoreApps: 0
+        Exclude iOS: 0
+    Editor:
+      enabled: 1
+      settings:
+        CPU: x86
+        DefaultValueInitialized: true
+        OS: AnyOS
+    Linux:
+      enabled: 1
+      settings:
+        CPU: x86
+    Linux64:
+      enabled: 1
+      settings:
+        CPU: None
+    LinuxUniversal:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+    OSXIntel:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+    OSXIntel64:
+      enabled: 1
+      settings:
+        CPU: None
+    OSXUniversal:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+    WebGL:
+      enabled: 1
+      settings: {}
+    Win:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+    Win64:
+      enabled: 0
+      settings:
+        CPU: None
+    WindowsStoreApps:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+        DontProcess: False
+        PlaceholderPath: 
+        SDK: AnySDK
+        ScriptingBackend: AnyScriptingBackend
+    iOS:
+      enabled: 1
+      settings:
+        CompileFlags: 
+        FrameworkDependencies: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
