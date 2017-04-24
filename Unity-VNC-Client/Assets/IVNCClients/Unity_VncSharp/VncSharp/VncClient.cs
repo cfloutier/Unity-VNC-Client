@@ -44,11 +44,9 @@ namespace UnityVncSharp
         byte securityType;          // The type of Security agreed upon by client/server
         EncodedRectangleFactory factory;
 
-
         Bitmap theBitmap;                          // Internal representation of remote image.
 
         List<IDesktopUpdater> updates = new List<IDesktopUpdater>();
-
 
 
         Thread connectingThread;            // To get the connecting state
@@ -61,7 +59,6 @@ namespace UnityVncSharp
         /// Raised when the connection to the remote host is lost.
         /// </summary>
         public event EventHandler ConnectionLost;
-
 
 
 
@@ -207,7 +204,6 @@ namespace UnityVncSharp
         /// <param name="display">The Display number (used on Unix hosts).</param>
         /// <returns>Returns True if the VNC Host requires a Password to be sent after Connect() is called, otherwise False.</returns>
         public void Connect(string host, int display)
-
         {
             Connect(host, display, 5900);
         }
@@ -399,17 +395,14 @@ namespace UnityVncSharp
 
             rfb.Close();
             rfb = null;
-
             updates.Clear();
 
         }
-
 
         private bool CheckIfThreadDone()
         {
             return done.WaitOne(0, false);
         }
-
 
         private void Connection()
         {
@@ -437,9 +430,7 @@ namespace UnityVncSharp
                     else
                     {
                         securityType = GetSupportedSecurityType(types);
-
                         System.Diagnostics.Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
-
 
                         rfb.WriteSecurityType(securityType);
 

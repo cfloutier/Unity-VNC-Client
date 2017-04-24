@@ -22,7 +22,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
 using System.Threading;
 using UnityEngine;
 using VNCScreen.Drawing;
@@ -87,10 +86,6 @@ namespace VNCScreen
             }
         }
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-
-=======
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
         void setDisconnectedMaterial()
         {
             if (disconnectedScreen != null)
@@ -99,12 +94,7 @@ namespace VNCScreen
             }
         }
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-        Bitmap theBitmap;                          // Internal representation of remote image.
-        VncClient vnc;                           // The Client object handling all protocol-level interaction
-=======
         IVncClient vnc;                           // The Client object handling all protocol-level interaction
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
 
         public enum RuntimeState
         {
@@ -114,16 +104,6 @@ namespace VNCScreen
             Connecting,
             WaitFirstBuffer,
             Connected,
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-            Connecting,
-
-            Error
-        }
-
-        public RuntimeState state = RuntimeState.Disconnected;
-        public delegate void OnStateChanged(RuntimeState state);
-        public event OnStateChanged onStateChanged_event;
-=======
             Error
         }
 
@@ -134,7 +114,6 @@ namespace VNCScreen
         }
 
         public VNCPlugin plugin;
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
 
         IVncClient buildVNC()
         {
@@ -150,9 +129,6 @@ namespace VNCScreen
             }
         }
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-      
-=======
         public RuntimeState state = RuntimeState.Disconnected;
         public delegate void OnStateChanged(RuntimeState state);
         public event OnStateChanged onStateChanged_event;
@@ -167,7 +143,6 @@ namespace VNCScreen
                 return state == RuntimeState.Connected || state == RuntimeState.WaitFirstBuffer;
             }
         }
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
 
         public void Connect()
         {
@@ -198,15 +173,6 @@ namespace VNCScreen
             connectionReceived = false;
             SetState(RuntimeState.Connecting);
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-            vnc.Connect(host, display, port);
-
-            Debug.Log("Connection In progress " + host + ":" + port);
-
-            while (!connectionReceived)
-                yield return new WaitForFixedUpdate();
-
-=======
             vnc.Connect(host, display, port, false);
 
             Debug.Log("[VNCScreen] Connection In progress " + host + ":" + port);
@@ -214,7 +180,6 @@ namespace VNCScreen
             while (!connectionReceived)
                 yield return new WaitForFixedUpdate();
 
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
             if (needPassword)
             {
                 // Server needs a password, so call which ever method is refered to by the GetPassword delegate.
@@ -247,15 +212,7 @@ namespace VNCScreen
             }
             this.connectionReceived = true;
             this.needPassword = needPassword;
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-
-=======
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
         }
-
-
-
-
 
         /// <summary>
         /// Authenticate with the VNC Host using a user supplied password.
@@ -265,17 +222,11 @@ namespace VNCScreen
         /// <param name="password">The user's password.</param>
         public void Authenticate(string password)
         {
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-            
-            if (!passwordPending) throw new InvalidOperationException("Authentication is only required when Connect() returns True and the VNC Host requires a password.");
-            if (password == null) throw new NullReferenceException("password");
-=======
             if (!passwordPending)
                 throw new InvalidOperationException("Authentication is only required when Connect() returns True and the VNC Host requires a password.");
 
             if (password == null)
                 throw new NullReferenceException("password");
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
 
             passwordPending = false;  // repeated calls to Authenticate should fail.
             vnc.Authenticate(password, OnPassword);
@@ -371,43 +322,6 @@ namespace VNCScreen
                 default:
                     break;
             }
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-        }
-
-        List<RuntimeState> stateChanges = new List<RuntimeState>();
-
-
-        private void SetState(RuntimeState newState)
-        {
-            var isMainThread = mainThread.Equals(Thread.CurrentThread);
-            if (!isMainThread)
-            {
-                stateChanges.Add(newState);
-                return;
-            }
-
-
-            switch (newState)
-            {
-                case RuntimeState.Disconnected:
-                    setDisconnectedMaterial();
-                    break;
-                case RuntimeState.Disconnecting:
-                    setDisconnectedMaterial();
-                    break;
-                case RuntimeState.Connected:
-                    break;
-                case RuntimeState.Connecting:
-                    setDisconnectedMaterial();
-                    break;
-                case RuntimeState.Error:
-                    setDisconnectedMaterial();
-                    break;
-                default:
-                    break;
-            }
-=======
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
             state = newState;
 
             if (onStateChanged_event != null)
@@ -426,13 +340,6 @@ namespace VNCScreen
         public void FullScreenUpdate()
         {
             if (state != RuntimeState.Connected) return;
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-
-            fullScreenRefresh = true;
-        }
-
-=======
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
 
             fullScreenRefresh = true;
         }
@@ -443,27 +350,15 @@ namespace VNCScreen
         /// <exception cref="System.InvalidOperationException">Thrown if the RemoteDesktop control is already in the Connected state.  See <see cref="VncSharp.RemoteDesktop.IsConnected" />.</exception>		
         protected bool Initialize()
         {
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-            // Finish protocol handshake with host now that authentication is done.
-          
-            vnc.Initialize();
-            SetState(RuntimeState.Connected);
-
-            
-=======
             // Finish protocol handshake with host now that authentication is done.  
             vnc.Initialize();
             SetState(RuntimeState.WaitFirstBuffer);
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
 
             screenSize = vnc.BufferSize;
 
             // Tell the user of this control the necessary info about the desktop in order to setup the display
             // Create a texture
             Texture2D tex = vnc.getTexture();
-
-            if (connectedMaterial == null)
-                connectedMaterial = GetComponent<Renderer>().sharedMaterial;
 
             if (connectedMaterial == null)
                 connectedMaterial = GetComponent<Renderer>().sharedMaterial;
@@ -479,16 +374,11 @@ namespace VNCScreen
             // Start getting updates from the remote host (vnc.StartUpdates will begin a worker thread).          
             vnc.StartUpdates();
 
-            Debug.Log("Connection done ");
             return true;
         }
 
         public void Disconnect()
         {
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-            
-=======
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
             vnc.ConnectionLost -= new EventHandler(OnConnectionLost);
 
             vnc.Disconnect();
@@ -525,14 +415,7 @@ namespace VNCScreen
                 SetState(stateChanges[i]);
             }
 
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-            foreach(var state  in stateChanges)
-            {
-                SetState(state);
-            }
-=======
             stateChanges.Clear();
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
         }
 
         void OnApplicationQuit()
@@ -576,11 +459,7 @@ namespace VNCScreen
         public void SendSpecialKeys(SpecialKeys keys, bool release)
         {
             if (state != RuntimeState.Connected) return;
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-           
-=======
 
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
             // For all of these I am sending the key presses manually instead of calling
             // the keyboard event handlers, as I don't want to propegate the calls up to the 
             // base control class and form.
@@ -633,11 +512,6 @@ namespace VNCScreen
                 if (released)
                     vnc.WriteKeyboardEvent(key, false);
             }
-<<<<<<< HEAD:Assets/Unity_VncSharp/UnityComponents/VNCScreen.cs
-
-
-=======
->>>>>>> master:Unity-VNC-Client/Assets/VNCScreen/VNCScreen.cs
         }
 
         public void OnKey(KeyCode key, bool pressed)

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 using Valve.VR;
-using UnityVncSharp.Unity;
 using UnityEngine.UI;
+
+using VNCScreen;
 
 [ExecuteInEditMode]
 public class VNC_HandControler : MonoBehaviour
@@ -80,7 +81,7 @@ public class VNC_HandControler : MonoBehaviour
         return false;
     }
 
-    VNCScreen vnc = null;
+    VNCScreen.VNCScreen vnc = null;
     RaycastHit hit = new RaycastHit();
     public float maxDistance = 2;
     Collider touchedCollider = null;
@@ -108,7 +109,7 @@ public class VNC_HandControler : MonoBehaviour
             if (touchedCollider != c)
             {
                 touchedCollider = c;
-                vnc = c.GetComponent<VNCScreen>();
+                vnc = c.GetComponent<VNCScreen.VNCScreen>();
             }
           
         }
