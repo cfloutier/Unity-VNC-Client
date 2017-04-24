@@ -128,9 +128,9 @@ public class RealVncClient : MonoBehaviour, IVncClient
         onPassword(true);
     }
 
-    public void RequestScreenUpdate(bool refreshFullScreen)
+    public void RequestScreenUpdate()
     {
-
+        VNCPluginInterface.RequestScreenUpdate();
     }
 
     public void Initialize()

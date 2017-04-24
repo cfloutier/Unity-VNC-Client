@@ -471,7 +471,7 @@ namespace UnityVncSharp
             int enc;
 
             // Get the initial destkop from the host
-            RequestScreenUpdate(true);
+            RequestScreenUpdate();
 
             while (true)
             {
@@ -629,11 +629,11 @@ namespace UnityVncSharp
         /// almost always set refreshFullScreen to FALSE.  If the client-side image becomes corrupted, call RequestScreenUpdate with
         /// refreshFullScreen set to TRUE to get the complete image sent again.
         /// </remarks>
-        public void RequestScreenUpdate(bool refreshFullScreen)
+        public void RequestScreenUpdate()
         {
             try
             {
-                rfb.WriteFramebufferUpdateRequest(0, 0, (ushort)BufferInfos.Width, (ushort)BufferInfos.Height, !refreshFullScreen);
+                rfb.WriteFramebufferUpdateRequest(0, 0, (ushort)BufferInfos.Width, (ushort)BufferInfos.Height, false);
             }
             catch (Exception e)
             {

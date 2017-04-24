@@ -68,14 +68,13 @@ namespace VNCScreen
         /// <summary>
         /// Requests that the remote host send a screen update.
         /// </summary>
-        /// <param name="refreshFullScreen">TRUE if the entire screen should be refreshed, FALSE if only a partial region needs updating.</param>
-        /// <remarks>RequestScreenUpdate needs to be called whenever the client screen needs to be updated to reflect the state of the remote 
+         /// <remarks>RequestScreenUpdate needs to be called whenever the client screen needs to be updated to reflect the state of the remote 
         ///	desktop.  Typically you only need to have a particular region of the screen updated and can still use the rest of the 
         /// pixels on the client-side (i.e., when moving the mouse pointer, only the area around the pointer changes).  Therefore, you should
         /// almost always set refreshFullScreen to FALSE.  If the client-side image becomes corrupted, call RequestScreenUpdate with
         /// refreshFullScreen set to TRUE to get the complete image sent again.
         /// </remarks>
-        void RequestScreenUpdate(bool refreshFullScreen);
+        void RequestScreenUpdate();
 
         /// <summary>
         /// Finish setting-up protocol with VNC Host.  Should be called after Connect and Authenticate (if password required).

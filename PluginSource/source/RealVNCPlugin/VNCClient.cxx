@@ -50,6 +50,15 @@ void VNCClient::Connect(const char * host, int port)
 	m_ConnectionThread->Connect(this, host, port);
 }
 
+void VNCClient::RequestScreenUpdate()
+{
+	if (m_pCurrentConnection != NULL)
+	{
+		m_pCurrentConnection->NeedFullRefresh();
+	
+	}
+}
+
 void VNCClient::Update()
 {
 	if (m_pTexture != NULL)
@@ -105,6 +114,8 @@ void VNCClient::onTextureBuilt()
 {
 	if (m_connectionState == BufferSizeChanged)
 		setConnectionState(Connected);
+	
+	m_pCurrentConnection->NeedFullRefresh();
 }
 
 void VNCClient::setConnectionState(ConnectionState state)

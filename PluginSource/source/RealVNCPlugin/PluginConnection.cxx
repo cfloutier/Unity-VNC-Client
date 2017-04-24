@@ -40,8 +40,7 @@ using namespace rfb::win32;
 using namespace rfb::unity;
 
 // - Statics & consts
-static LogWriter vlog("CConn");
-
+static LogWriter vlog("PluginConnection");
 
 PluginConnection::PluginConnection()
 	: sock(0), sockEvent(CreateEvent(0, TRUE, FALSE, 0)), requestUpdate(false),
@@ -113,22 +112,9 @@ void PluginConnection::applyOptions(ConnOptions& opt) {
 	setProtocol3_3(options.protocol3_3);
 }
 
-
 void
 PluginConnection::displayChanged() {
 	
-}
-
-void
-PluginConnection::paintCompleted() {
-	// A repaint message has just completed - request next update if necessary
-	requestNewUpdate();
-}
-
-void
-PluginConnection::closeWindow() {
-	vlog.info("window closed");
-	close();
 }
 
 void PluginConnection::keyEvent(rdr::U32 key, bool down) {
@@ -140,6 +126,7 @@ void PluginConnection::keyEvent(rdr::U32 key, bool down) {
 		close(e.str());
 	}
 }
+
 void PluginConnection::pointerEvent(const Point& pos, int buttonMask) {
 	if (!options.sendPtrEvents) return;
 	try {
@@ -149,6 +136,8 @@ void PluginConnection::pointerEvent(const Point& pos, int buttonMask) {
 		close(e.str());
 	}
 }
+
+
 void PluginConnection::clientCutText(const char* str, int len) {
 	if (!options.clientCutText) return;
 	if (state() != RFBSTATE_NORMAL) return;
@@ -173,18 +162,15 @@ CSecurity* PluginConnection::getCSecurity(int secType)
 	}
 }
 
-
-void
-PluginConnection::setColourMapEntries(int first, int count, U16* rgbs) {
+void PluginConnection::setColourMapEntries(int first, int count, U16* rgbs) 
+{
 	vlog.debug("setColourMapEntries: first=%d, count=%d", first, count);
-	
 }
 
 void PluginConnection::bell() {
 	if (options.acceptBell)
 		MessageBeep(-1);
 }
-
 
 void PluginConnection::setDesktopSize(int w, int h)
 {
@@ -196,6 +182,8 @@ void PluginConnection::setDesktopSize(int w, int h)
 
 	// Tell the underlying CConnection
 	CConnection::setDesktopSize(w, h);
+
+	requestNewUpdate();
 }
 
 
@@ -263,9 +251,17 @@ void PluginConnection::autoSelectFormatAndEncoding()
 	}
 }
 
+void PluginConnection::NeedFullRefresh()
+{
+	formatChange = true;
+	requestNewUpdate();
+}
+
 void PluginConnection::requestNewUpdate()
 {
 	if (!requestUpdate) return;
+
+	vlog.info("formatChange %d", formatChange);
 
 	if (formatChange)
 	{

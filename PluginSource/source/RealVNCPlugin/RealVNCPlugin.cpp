@@ -32,6 +32,16 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API SetTextureFromUnity(v
 }
 
 
+// once the texture size is known unity should call the texture handler to really build the texture in the graphic card memory
+extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API RequestScreenUpdate()
+{
+	if (pClient != 0)
+	{
+		pClient->RequestScreenUpdate();
+	}
+}
+
+
 // --------------------------------------------------------------------------
 // UnitySetInterfaces
 static void UNITY_INTERFACE_API OnGraphicsDeviceEvent(UnityGfxDeviceEventType eventType);
@@ -50,11 +60,11 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
 
 	UnityLog::Init();
 
-	LogWriter::setLogParams("VNCClient:SimpleLogger:110");
+	LogWriter::setLogParams("PluginConnection:SimpleLogger:110");
 //	LogWriter::setLogParams("UnityTextureHandler:SimpleLogger:110");
 //	LogWriter::setLogParams("BufferUpdate:SimpleLogger:110");
 //	LogWriter::setLogParams("CConn:SimpleLogger:110");
-
+	  
 //	LogWriter::setLogParams("VNCClient:UnityDebugLogger:110");
 //	LogWriter::setLogParams("UnityTextureHandler:UnityDebugLogger:110");
 

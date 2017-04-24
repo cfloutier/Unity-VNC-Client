@@ -20,8 +20,6 @@ public class VNCPluginInterface
     public static extern void Connect(string host, int display, int port, bool viewOnly);
 
 
-
-
 #if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
 	[DllImport ("__Internal")]
 #else
@@ -47,6 +45,13 @@ public class VNCPluginInterface
     [DllImport("RealVNCPlugin")]
 #endif
     public static extern int getConnectionState();
+
+#if (UNITY_IPHONE || UNITY_WEBGL) && !UNITY_EDITOR
+	[DllImport ("__Internal")]
+#else
+    [DllImport("RealVNCPlugin")]
+#endif
+    public static extern int RequestScreenUpdate();
 
 #if UNITY_IPHONE && !UNITY_EDITOR
 	[DllImport ("__Internal")]

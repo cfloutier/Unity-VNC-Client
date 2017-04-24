@@ -42,6 +42,8 @@ namespace rfb
 
 			ConnectionState GetConnectionState();
 
+			void RequestScreenUpdate();
+
 			void Update();
 
 			void setSize(int x, int y);

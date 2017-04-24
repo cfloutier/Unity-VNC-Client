@@ -58,8 +58,8 @@ namespace rfb {
 			void applyOptions(ConnOptions& opt);
 			const ConnOptions& getOptions() const { return options; };
 
-			// - Show the options dialog for the connection
-			void showOptionsDialog();
+			void NeedFullRefresh();
+			
 
 			// - Close the socket & set the reason for closure
 			void close(const char* reason = 0);
@@ -85,12 +85,12 @@ namespace rfb {
 		protected:
 			// DesktopWindow::Callback interface
 			void displayChanged();
-			void paintCompleted();
+			
 			bool sysCommand(WPARAM wParam, LPARAM lParam)
 			{
 
 			}
-			void closeWindow();
+		
 			void refreshMenu(bool enableSysItems) {};
 
 			// CConnection interface

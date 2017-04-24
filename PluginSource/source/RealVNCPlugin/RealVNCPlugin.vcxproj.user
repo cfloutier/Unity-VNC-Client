@@ -2,9 +2,9 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommand>C:\Program Files\Unity5.6\Editor\Unity.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommand>C:\Program Files\Unity\Editor\Unity.exe</LocalDebuggerCommand>
     <LocalDebuggerAttach>true</LocalDebuggerAttach>
-    <LocalDebuggerWorkingDirectory>C:\Program Files\Unity5.6\Editor\</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory>C:\Program Files\Unity\Editor\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerAttach>true</LocalDebuggerAttach>

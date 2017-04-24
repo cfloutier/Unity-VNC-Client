@@ -180,16 +180,20 @@ namespace VNCScreen
             while (!connectionReceived)
                 yield return new WaitForFixedUpdate();
 
+            Debug.Log("[VNCScreen] Connection received ");
+
             if (needPassword)
             {
                 // Server needs a password, so call which ever method is refered to by the GetPassword delegate.
                 if (string.IsNullOrEmpty(password))
                 {
+                    Debug.LogError("[VNCScreen] No Password !!");
                     // No password could be obtained (e.g., user clicked Cancel), so stop connecting
                     SetState(RuntimeState.Error);
                 }
                 else
                 {
+                    Debug.Log("[VNCScreen] Send Password");
                     Authenticate(password);
                 }
             }
@@ -397,17 +401,11 @@ namespace VNCScreen
                 if (vnc.updateDesktopImage())
                 {
                     if (state == RuntimeState.WaitFirstBuffer)
+                    {
+                        fullScreenRefresh = true;
                         SetState(RuntimeState.Connected);
+                    }
                 }
-
-                if (state == RuntimeState.Connected)
-                {
-                    vnc.RequestScreenUpdate(fullScreenRefresh);
-
-                    // Make sure the next screen update is incremental
-                    fullScreenRefresh = false;
-                }
-
             }
 
             for (int i = 0; i < stateChanges.Count; i++)
@@ -416,6 +414,12 @@ namespace VNCScreen
             }
 
             stateChanges.Clear();
+
+            if (fullScreenRefresh && state == RuntimeState.Connected)
+            {
+                fullScreenRefresh = false;
+                vnc.RequestScreenUpdate();
+            }
         }
 
         void OnApplicationQuit()

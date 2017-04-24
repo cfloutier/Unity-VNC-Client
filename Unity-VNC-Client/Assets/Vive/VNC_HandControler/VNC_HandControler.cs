@@ -16,6 +16,7 @@ public class VNC_HandControler : MonoBehaviour
 
     bool isMainPressed()
     {
+
         return controller.GetAxis(mainButton).x > 0.9f;
     }
 
@@ -89,7 +90,6 @@ public class VNC_HandControler : MonoBehaviour
     RaycastHit hit = new RaycastHit();
     public float maxDistance = 2;
     Collider touchedCollider = null;
-
 
     // Update is called once per frame
     void Update ()
