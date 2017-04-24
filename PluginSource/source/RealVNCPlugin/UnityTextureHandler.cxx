@@ -24,9 +24,9 @@ UnityTextureHandler::UnityTextureHandler()
 	m_pixelFormat.redMax = 255;
 	m_pixelFormat.greenMax = 255;
 	m_pixelFormat.blueMax = 255;
-	m_pixelFormat.redShift = 16;
+	m_pixelFormat.redShift = 0;
 	m_pixelFormat.greenShift = 8;
-	m_pixelFormat.blueShift = 0;
+	m_pixelFormat.blueShift = 16;
 
 	InitializeCriticalSection(&CriticalSectionTempBuffer);
 
@@ -292,10 +292,3 @@ void UnityTextureHandler::copyRect(const Rect& r, int srcX, int srcY)
 	addUpdate(new BufferUpdate(r, r.tl.x - srcX, r.tl.y - srcY));
 }
 
-
-PixelFormat UnityTextureHandler::getNativePF() const
-{
-	PixelFormat pf(32, 32, 255, 255, 255, 0, 8, 16);
-	pf.trueColour = true;
-	return pf;
-}

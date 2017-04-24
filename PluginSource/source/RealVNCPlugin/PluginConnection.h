@@ -122,8 +122,7 @@ namespace rfb {
 			// PluginConnection-specific internal interface
 			void autoSelectFormatAndEncoding();
 			void requestNewUpdate();
-			void calculateFullColourPF();
-
+			
 			// The desktop window
 			
 			VNCClient * m_pClient;

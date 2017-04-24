@@ -116,8 +116,7 @@ void PluginConnection::applyOptions(ConnOptions& opt) {
 
 void
 PluginConnection::displayChanged() {
-	// Display format has changed - recalculate the full-colour pixel format
-	calculateFullColourPF();
+	
 }
 
 void
@@ -292,27 +291,6 @@ void PluginConnection::requestNewUpdate()
 }
 
 
-void PluginConnection::calculateFullColourPF() {
-	// If the server is palette based then use palette locally
-	// Also, don't bother doing bgr222
-	if (!serverDefaultPF.trueColour || (serverDefaultPF.depth < 6)) {
-		fullColourPF = serverDefaultPF;
-		options.fullColour = true;
-	}
-	else {
-		// If server is trueColour, use lowest depth PF
-		PixelFormat native = m_pClient->m_pTexture->getNativePF();
-
-
-		if ((serverDefaultPF.bpp < native.bpp) ||
-			((serverDefaultPF.bpp == native.bpp) &&
-			(serverDefaultPF.depth < native.depth)))
-			fullColourPF = serverDefaultPF;
-		else
-			fullColourPF = m_pClient->m_pTexture->getNativePF();
-	}
-	formatChange = true;
-}
 
 
 void
@@ -335,9 +313,6 @@ void PluginConnection::serverInit()
 
 	// Save the server's current format
 	serverDefaultPF = cp.pf();
-
-	// Calculate the full-colour format to use
-	calculateFullColourPF();
 
 	// Request the initial update
 	vlog.info("requesting initial update");

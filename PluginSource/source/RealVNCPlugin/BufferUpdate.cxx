@@ -120,13 +120,14 @@ void BufferUpdate::ImageRect(const Rect& r, const void* pixels, U8 * buffer, int
 	U8* dest = getPixels(r, buffer, destStride, bytesPerPixel);
 
 	int bytesPerDestRow = destStride;
-
 	int bytesPerSrcRow = bytesPerPixel *  r.width();
 
 	int bytesPerFill = bytesPerPixel * r.width();
 	const U8* src = (const U8*)pixels;
 	U8* end = dest + (bytesPerDestRow * r.height());
-	while (dest < end) {
+
+	while (dest < end) 
+	{
 		memcpy(dest, src, bytesPerFill);
 		dest += bytesPerDestRow;
 		src += bytesPerSrcRow;

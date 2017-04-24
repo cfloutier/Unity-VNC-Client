@@ -25,8 +25,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RealVNCPlugin", "..\source\
 		{B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE} = {B8FEB3F1-D554-4AC2-9E59-F9792F31E8CE}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vncviewer", "..\source\Realvnc\win\vncviewer\vncviewer.vcxproj", "{DBB955AF-768C-4121-A2A1-30012B9FF417}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Unicode|Win32 = Debug Unicode|Win32
@@ -115,15 +113,6 @@ Global
 		{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}.Release|Win32.Build.0 = Release|Win32
 		{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}.Release|x64.ActiveCfg = Release|x64
 		{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}.Release|x64.Build.0 = Release|x64
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|Win32.ActiveCfg = Debug Unicode|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|Win32.Build.0 = Debug Unicode|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug Unicode|x64.ActiveCfg = Debug Unicode|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|Win32.ActiveCfg = Debug|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|Win32.Build.0 = Debug|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Debug|x64.ActiveCfg = Debug|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|Win32.ActiveCfg = Release|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|Win32.Build.0 = Release|Win32
-		{DBB955AF-768C-4121-A2A1-30012B9FF417}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
