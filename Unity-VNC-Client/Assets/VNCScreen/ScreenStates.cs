@@ -44,7 +44,7 @@ namespace VNCScreen
             Debug.Assert(screen != null);
 
             screen.onStateChanged_event += onStateChanged;
-            onStateChanged(screen.state);
+            onStateChanged(screen.State);
         }
 
         void ShowScreen(bool show)

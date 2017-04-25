@@ -9,6 +9,8 @@ using System.Threading;
 
 public class RealVncClient : MonoBehaviour, IVncClient
 {
+    public FilterMode textureMode;
+
     VNCPluginInterface pluginInterface = null;
 
     public RealVncClient()
@@ -207,7 +209,7 @@ public class RealVncClient : MonoBehaviour, IVncClient
         if (needNewtexture)
         {
             needNewtexture = false;
-            texture = pluginInterface.CreateTextureAndPassToPlugin(BufferSize);
+            texture = pluginInterface.CreateTextureAndPassToPlugin(BufferSize, textureMode);
         }
 
 

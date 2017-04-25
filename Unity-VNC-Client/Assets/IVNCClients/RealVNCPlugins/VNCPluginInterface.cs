@@ -139,12 +139,12 @@ public class VNCPluginInterface
         }
     }
 
-    public Texture2D CreateTextureAndPassToPlugin(Size TextureSize)
+    public Texture2D CreateTextureAndPassToPlugin(Size TextureSize, FilterMode mode)
     {
         // Create a texture
         Texture2D tex = new Texture2D(TextureSize.Width, TextureSize.Height, TextureFormat.ARGB32, false);
         // Set point filtering just so we can see the pixels clearly
-        tex.filterMode = FilterMode.Point;
+        tex.filterMode = mode;
         // Call Apply() so it's actually uploaded to the GPU
         tex.Apply();
 

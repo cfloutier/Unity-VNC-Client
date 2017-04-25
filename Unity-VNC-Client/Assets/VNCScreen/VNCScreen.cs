@@ -107,29 +107,15 @@ namespace VNCScreen
             Error
         }
 
-        public enum VNCPlugin
+      
+
+        IVncClient getVNC()
         {
-            VNCSharp,
-            RealVnc
+            return GetComponent<IVncClient>();
         }
 
-        public VNCPlugin plugin;
-
-        IVncClient buildVNC()
-        {
-            switch (plugin)
-            {
-                default:
-                case VNCPlugin.VNCSharp:
-                    return new VNCSharpClient();
-                case VNCPlugin.RealVnc:
-                    {
-                        return gameObject.AddComponent<RealVncClient>();
-                    }
-            }
-        }
-
-        public RuntimeState state = RuntimeState.Disconnected;
+        RuntimeState state = RuntimeState.Disconnected;
+        public RuntimeState State {  get { return state; } }
         public delegate void OnStateChanged(RuntimeState state);
         public event OnStateChanged onStateChanged_event;
 
@@ -167,7 +153,9 @@ namespace VNCScreen
             }
 
             // Start protocol-level handling and determine whether a password is needed
-            vnc = buildVNC();
+            vnc = getVNC();
+            if (vnc == null)
+                throw new Exception("No VNC Component, Add an IVncClient Component please");
             vnc.ConnectionLost += new EventHandler(OnConnectionLost);
             vnc.onConnection += Vnc_onConnection;
             connectionReceived = false;
