@@ -110,7 +110,7 @@ namespace VNCScreen
 
             if (theEvent.isKey)
             {
-                if (theEvent.type == EventType.keyDown)
+                if (theEvent.type == EventType.KeyDown)
                 {
                     if (theEvent.keyCode != KeyCode.None)
 
@@ -118,7 +118,7 @@ namespace VNCScreen
                     //   Debug.Log("Down : " + theEvent.keyCode);
 
                 }
-                else if (theEvent.type == EventType.keyUp)
+                else if (theEvent.type == EventType.KeyUp)
                 {
                     if (theEvent.keyCode != KeyCode.None)
                         vnc.OnKey(theEvent.keyCode, false);
