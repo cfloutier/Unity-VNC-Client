@@ -346,7 +346,7 @@ MonoBehaviour:
   port: 5910
   viewOnly: 0
   display: 0
-  password: 
+  password: password
   disconnectedScreen: {fileID: 2100000, guid: b1571023300a75241b9e8c2971e40bfb, type: 2}
   connectedMaterial: {fileID: 2100000, guid: 26485b1ce0a9d794c885a887aeb3da4f, type: 2}
   connectOnStartUp: 1
