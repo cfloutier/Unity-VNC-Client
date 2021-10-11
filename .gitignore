@@ -56,6 +56,7 @@ PluginSource/VS2015/.vs/
 *.user
 *.userosscache
 *.sln.docstates
+.vsconfig
 
 # Build results
 [Oo]bj/
@@ -76,4 +77,4 @@ ipch/
 *.sdf
 *.cachefile
 *.VC.db
-*.VC.VC.opendb
+*.VC.VC.opendb  
