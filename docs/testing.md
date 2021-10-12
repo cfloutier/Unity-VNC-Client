@@ -31,7 +31,7 @@ Using this document you will be able to successfully test the Unity project.
 - Verify default project connection information is correct.  Change information as needed.  
 - Play project.
 - Verify connection.  
-- Note: In the following image.  There are some errors with the resolution of the texture being out of bounds.  
+- Note: The password had to be removed, because the authentication was not working properly.  
 - ![img](./img/testing/testing001.png)
 - Verify operation by moving windows on guest vm in Unity.  
 - ![img](./img/testing/testing002.png)
