@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug Unicode|Win32">
+      <Configuration>Debug Unicode</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug Unicode|x64">
+      <Configuration>Debug Unicode</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Blacklist.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CConnection.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CMsgHandler.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CMsgReader.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CMsgReaderV3.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CMsgWriter.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CMsgWriterV3.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\ComparingUpdateTracker.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Configuration.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\ConnParams.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\CSecurityVncAuth.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Cursor.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\d3des.c" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Decoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Encoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\encodings.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\HextileDecoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\HextileEncoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\HTTPServer.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\KeyRemapper.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Logger.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Logger_file.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Logger_stdio.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\LogWriter.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Password.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\PixelBuffer.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\PixelFormat.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\RawDecoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\RawEncoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Region.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\RREDecoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\RREEncoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SConnection.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\secTypes.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\ServerCore.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SMsgHandler.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SMsgReader.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SMsgReaderV3.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SMsgWriter.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SMsgWriterV3.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SSecurityFactoryStandard.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\SSecurityVncAuth.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\Timer.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\TransImageGetter.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\UpdateTracker.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\util.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\VNCSConnectionST.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\VNCServerST.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\ZRLEDecoder.cxx" />
+    <ClCompile Include="..\..\..\..\source\Realvnc\common\rfb\ZRLEEncoder.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Blacklist.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CConnection.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CMsgHandler.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CMsgReader.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CMsgReaderV3.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CMsgWriter.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CMsgWriterV3.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ColourCube.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ColourMap.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ComparingUpdateTracker.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Configuration.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ConnParams.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CSecurity.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CSecurityNone.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\CSecurityVncAuth.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Cursor.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\d3des.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Decoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Encoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\encodings.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Exception.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\hextileConstants.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\hextileDecode.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\HextileDecoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\hextileEncode.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\HextileEncoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Hostname.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\HTTPServer.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ImageGetter.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\InputHandler.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\KeyRemapper.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\keysymdef.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Logger.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Logger_file.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Logger_stdio.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\LogWriter.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\msgTypes.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Password.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Pixel.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\PixelBuffer.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\PixelFormat.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\RawDecoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\RawEncoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Rect.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Region.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\rreDecode.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\RREDecoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\rreEncode.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\RREEncoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SConnection.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SDesktop.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\secTypes.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ServerCore.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SMsgHandler.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SMsgReader.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SMsgReaderV3.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SMsgWriter.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SMsgWriterV3.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SSecurity.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SSecurityFactoryStandard.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SSecurityNone.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\SSecurityVncAuth.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Threading.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\Timer.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\TransImageGetter.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\transInitTempl.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\transTempl.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\TrueColourMap.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\UpdateTracker.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\UserPasswdGetter.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\util.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\VNCSConnectionST.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\VNCServer.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\VNCServerST.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\zrleDecode.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ZRLEDecoder.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\zrleEncode.h" />
+    <ClInclude Include="..\..\..\..\source\Realvnc\common\rfb\ZRLEEncoder.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{C6CD91E8-1978-4945-B6EC-296230A35D41}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|Win32'">
+    <OutDir>.\..\Debug_Unicode\</OutDir>
+    <IntDir>.\..\Debug_Unicode\rfb\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\..\Debug\</OutDir>
+    <IntDir>.\..\Debug\rfb\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\..\Release\</OutDir>
+    <IntDir>.\..\Release\rfb\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>.\..\Release\</OutDir>
+    <IntDir>.\..\Release\rfb\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>..;../../win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>rdr/msvcwarning.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>_LIB;_DEBUG;WIN32;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Debug_Unicode\rfb\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Debug_Unicode\rfb\rfb.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\Debug_Unicode\rfb\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Debug_Unicode\rfb\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0809</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug_Unicode\rfb.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug_Unicode\rfb.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..;../../win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>rdr/msvcwarning.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>_LIB;_DEBUG;WIN32;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Debug_Unicode\rfb\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Debug_Unicode\rfb\rfb.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\Debug_Unicode\rfb\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Debug_Unicode\rfb\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0809</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug_Unicode\rfb.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug_Unicode\rfb.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>..;../../win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>rdr/msvcwarning.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>_DEBUG;_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Debug\rfb\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Debug\rfb\rfb.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\Debug\rfb\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Debug\rfb\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0809</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug\rfb.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug\rfb.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..;../../win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>rdr/msvcwarning.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>_DEBUG;_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Debug\rfb\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Debug\rfb\rfb.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\Debug\rfb\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Debug\rfb\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0809</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug\rfb.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Debug\rfb.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MinSpace</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..;$(SolutionDir)../source/Realvnc/common;$(SolutionDir)../source/Realvnc/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>rdr/msvcwarning.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Release\rfb\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Release\rfb\rfb.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\Release\rfb\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Release\rfb\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0809</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Release\rfb.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Release\rfb.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MinSpace</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>..;$(SolutionDir)../source/Realvnc/common;$(SolutionDir)../source/Realvnc/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>rdr/msvcwarning.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>NDEBUG;_LIB;WIN32;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\..\Release\rfb\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\..\Release\rfb\rfb.pch</PrecompiledHeaderOutputFile>
+      <ObjectFileName>.\..\Release\rfb\</ObjectFileName>
+      <ProgramDataBaseFileName>.\..\Release\rfb\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <Culture>0x0809</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Release\rfb.bsc</OutputFile>
+    </Bscmake>
+    <Lib>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\..\Release\rfb.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

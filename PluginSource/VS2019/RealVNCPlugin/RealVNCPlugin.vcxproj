@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\source\RealVNCPlugin\BufferUpdate.cxx" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\ConnectionThread.cxx" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\ConnOptions.cxx" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\PluginConnection.cxx" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\RealVNCPlugin.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityLog.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\GLEW\glew.c" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI_D3D11.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI_D3D12.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI_D3D9.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI_OpenGL2.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI_OpenGLCoreES.cpp" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\UnityTextureHandler.cxx" />
+    <ClCompile Include="..\..\source\RealVNCPlugin\VNCClient.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI_Metal.mm" />
+    <None Include="RealVNCPlugin.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\source\RealVNCPlugin\BufferUpdate.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\ConnectionThread.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\ConnOptions.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\PluginConnection.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityLog.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\GLEW\glew.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\GLEW\glxew.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\GLEW\wglew.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\PlatformBase.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\RenderAPI.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\Unity\IUnityGraphics.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\Unity\IUnityGraphicsD3D11.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\Unity\IUnityGraphicsD3D12.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\Unity\IUnityGraphicsD3D9.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\Unity\IUnityGraphicsMetal.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityPlugin\Unity\IUnityInterface.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\UnityTextureHandler.h" />
+    <ClInclude Include="..\..\source\RealVNCPlugin\VNCClient.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F7CFEF5A-54BD-42E8-A59E-54ABAEB4EA9C}</ProjectGuid>
+    <RootNamespace>RealVNCPlugin</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\build\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;_USRDLL;REALVNCPLUGIN_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>../Realvnc/common;%(AdditionalIncludeDirectories);../Realvnc/win</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;ws2_32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ModuleDefinitionFile>RealVNCPlugin.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\Realvnc\common\Debug;..\Realvnc\win\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL
+
+if "$(PlatformShortName)" == "x86" (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86
+) else (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86_64
+)
+echo Target Plugin Path is %TARGET_PLUGIN_PATH%
+copy /Y "$(TargetPath)" "%TARGET_PLUGIN_PATH%\$(TargetFileName)"
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;_USRDLL;REALVNCPLUGIN_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>../Realvnc/common;%(AdditionalIncludeDirectories);../Realvnc/win</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies);rfb_win32.lib;rfb.lib;rdr.lib;network.lib;ws2_32.lib;zlib.lib;version.lib;comctl32.lib;xregion.lib</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ModuleDefinitionFile>RealVNCPlugin.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\Realvnc\common\Debug;..\Realvnc\win\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL
+
+if "$(PlatformShortName)" == "x86" (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86
+) else (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86_64
+)
+echo Target Plugin Path is %TARGET_PLUGIN_PATH%
+copy /Y "$(TargetPath)" "%TARGET_PLUGIN_PATH%\$(TargetFileName)"
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;REALVNCPLUGIN_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..;$(SolutionDir)../source/Realvnc/common;$(SolutionDir)../source/Realvnc/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>network.lib;opengl32.lib;rdr.lib;rfb.lib;rfb_win32.lib;ws2_32.lib;Xregion.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ModuleDefinitionFile>RealVNCPlugin.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\Realvnc\common\Release;..\Realvnc\win\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL
+
+if "$(PlatformShortName)" == "x86" (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86
+) else (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86_64
+)
+echo Target Plugin Path is %TARGET_PLUGIN_PATH%
+copy /Y "$(TargetPath)" "%TARGET_PLUGIN_PATH%\$(TargetFileName)"
+
+ENDLOCAL</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_WINDOWS;_USRDLL;REALVNCPLUGIN_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..;$(SolutionDir)../source/Realvnc/common;$(SolutionDir)../source/Realvnc/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>network.lib;OpenGL32.lib;rdr.lib;rfb.lib;rfb_win32.lib;ws2_32.lib;Xregion.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ModuleDefinitionFile>RealVNCPlugin.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\Realvnc\common\Release;..\Realvnc\win\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>SETLOCAL
+
+if "$(PlatformShortName)" == "x86" (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86
+) else (
+  set TARGET_PLUGIN_PATH=$(SolutionDir)..\..\Unity-VNC-Client\Assets\IVNCClients\RealVNCPlugins\Plugins\x86_64
+)
+echo Target Plugin Path is %TARGET_PLUGIN_PATH%
+copy /Y "$(TargetPath)" "%TARGET_PLUGIN_PATH%\$(TargetFileName)"
+
+ENDLOCAL</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
